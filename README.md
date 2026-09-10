@@ -76,7 +76,8 @@ impressao/                         arquivos para o fatiador
 firmware/
   guerreiros_de_realengo/            código do ESP32 para a Arduino IDE
 docs/
-  montagem-robo-sumo.mp4             vídeo da montagem
+  site/                              fotos (webp) e vídeo leves usados pelo site
+  montagem-robo-sumo.mp4             vídeo da montagem em qualidade cheia
   imagens/                           renders de cada etapa e vistas
   diagramas/                         desenhos de solda e fiação
 modelo-3d/
@@ -85,7 +86,7 @@ modelo-3d/
 
 ## Manual de montagem e site
 
-O site é o [`index.html`](index.html) da raiz do repositório, publicado pelo GitHub Pages em **https://matheuscortes02.github.io/Guerreiros-de-Realengo-Robo-sumo/**. Também dá para baixar o arquivo e abrir direto no navegador (Chrome, Edge ou Firefox), sem internet: fotos e vídeo vão embutidos nele.
+O site é o [`index.html`](index.html) da raiz do repositório, publicado pelo GitHub Pages em **https://matheuscortes02.github.io/Guerreiros-de-Realengo-Robo-sumo/**. As fotos e o vídeo ficam em `docs/site/`, separados da página, para ela carregar rápido. Para usar sem internet, baixe o repositório inteiro (**Code → Download ZIP**) e abra o `index.html` no navegador.
 
 O vídeo mostra a versão com módulo TCRT e o caminho geral dos fios. Os pontos exatos de solda estão nos desenhos do manual e deste README.
 
