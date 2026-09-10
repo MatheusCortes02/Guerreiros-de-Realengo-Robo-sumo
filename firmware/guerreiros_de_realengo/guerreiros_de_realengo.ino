@@ -3,10 +3,15 @@
    -----------------------------------------------------------------------------
    Placa   : ESP32 DevKit V1, 30 pinos   (Arduino core "esp32" 3.3.x)
    Ponte H : TB6612FNG
-   Sensores: HC-SR04  +  2x TCRT5000  +  VS1838B (receptor IR do juiz)
+   Sensores: HC-SR04 (acha o adversario)  +  2x TCRT5000 (borda branca)
 
-   Biblioteca: IRremote (Armin Joachimsmeyer) 4.7 ou superior
-   Arduino IDE -> Gerenciador de Bibliotecas -> procurar "IRremote"
+   ROBO 100% AUTONOMO: nao recebe comando nenhum.
+     liga a chave -> espera 5 s (e calibra os sensores de linha)
+     -> gira procurando o adversario -> ataca em linha reta
+     -> se um sensor ver a borda branca, recua e gira de volta para o centro.
+   Para parar, desligue a chave.
+
+   Nenhuma biblioteca extra: so o pacote de placas "esp32" da Espressif.
 
    ESQUERDA e DIREITA sao sempre do ponto de vista do ROBO:
    robo na mesa, frente (o sonar) apontando para longe de voce.
@@ -19,20 +24,18 @@
    ANTES DE RODAR:
      1. Ajuste o LM2596 para 5,00 V com multimetro. So depois ligue o ESP32.
      2. Grave com MODO_TESTE = true e abra o Monitor Serial a 115200.
-     3. Aponte o controle do juiz e anote os codigos. Preencha IR_START e IR_STOP.
-     4. Ponha o robo no preto e depois na borda branca. Veja os numeros da linha.
+     3. Ponha o robo no preto e depois na borda branca. Veja os numeros da linha.
         Preto tem que dar bem mais que branco (ex.: 3000 contra 300).
+     4. Aproxime a mao da frente do robo: a distancia tem que cair.
      5. Com o robo NO AR, digite  e  (motor esquerdo) e  d  (motor direito)
         no Monitor Serial. Cada roda deve girar PARA A FRENTE.
         Se girar para tras, troque os dois fios daquele motor na TB6612.
      6. Coloque MODO_TESTE = false e regrave.
    ============================================================================= */
 
-#include <IRremote.hpp>
-
 // ---------------------------------------------------------------- MODO TESTE
-// true  = os motores so giram quando voce manda (e / d), e tudo e impresso
-// false = modo de combate
+// true  = os motores so giram quando voce manda (e / d) pelo cabo USB
+// false = modo de combate: liga, espera 5 s e luta sozinho
 const bool MODO_TESTE = true;
 
 // ------------------------------------------------------------------- PINAGEM
@@ -53,8 +56,7 @@ const int PIN_ECHO = 18;
 const int PIN_LINHA_ESQ = 34;
 const int PIN_LINHA_DIR = 35;
 
-// VS1838B e LED azul da placa
-const int PIN_IR  = 19;
+// LED azul da placa
 const int PIN_LED = 2;
 
 // -------------------------------------------------------------- AJUSTE FINO
@@ -69,7 +71,7 @@ const int VEL_TESTE  = 140;   // teste de motor no MODO_TESTE
 const int DIST_ALVO_CM  = 45; // acima disso, considera que nao ha oponente
 const int CONFIRMA_ALVO = 2;  // leituras seguidas para aceitar a deteccao
 
-const unsigned long T_PREPARO   = 5000;  // 5 s obrigatorios apos o START
+const unsigned long T_PREPARO   = 5000;  // 5 s obrigatorios depois de ligar
 const unsigned long T_RECUO     = 320;   // ms recuando ao ver a linha
 const unsigned long T_GIRO_FUGA = 380;   // ms girando depois do recuo
 const unsigned long T_VARRER    = 600;   // ms girando para cada lado na busca
@@ -77,19 +79,15 @@ const unsigned long T_PING      = 60;    // intervalo entre disparos do sonar
 
 // ---------------------------------------------------------- SENSOR DE LINHA
 // Leitura de 0 a 4095. Abaixo do limiar = BRANCO (borda).
-// Com CALIBRAR_NO_START = true o robo mede o preto durante os 5 s de preparo
+// Com CALIBRAR_NO_INICIO = true o robo mede o preto durante os 5 s de espera
 // e usa FRACAO_DO_PRETO dessa leitura como limiar de cada sensor.
-const bool  CALIBRAR_NO_START = true;
-const int   LIMIAR_PADRAO     = 2000;   // usado sem calibracao ou se ela falhar
-const float FRACAO_DO_PRETO   = 0.55;
-const int   PRETO_MINIMO      = 1200;   // preto medido abaixo disso = algo errado
+const bool  CALIBRAR_NO_INICIO = true;
+const int   LIMIAR_PADRAO      = 2000;   // usado sem calibracao ou se ela falhar
+const float FRACAO_DO_PRETO    = 0.55;
+const int   PRETO_MINIMO       = 1200;   // preto medido abaixo disso = algo errado
 
 int limiarEsq = LIMIAR_PADRAO;
 int limiarDir = LIMIAR_PADRAO;
-
-// Codigos do controle do juiz. Descubra os seus com MODO_TESTE = true.
-uint16_t IR_START = 0x0040;
-uint16_t IR_STOP  = 0x0041;
 
 // ------------------------------------------------------------ SONAR SEM TRAVA
 // Le o HC-SR04 por interrupcao. O loop nunca fica parado esperando o eco,
@@ -203,9 +201,9 @@ void fechaCalibracao() {
 }
 
 // ---------------------------------------------------------- MAQUINA DE ESTADOS
-enum Estado { PARADO, PREPARANDO, BUSCANDO, ATACANDO, RECUANDO, GIRANDO_FUGA };
+enum Estado { PREPARANDO, BUSCANDO, ATACANDO, RECUANDO, GIRANDO_FUGA };
 
-Estado        estado     = PARADO;
+Estado        estado     = PREPARANDO;
 unsigned long marcaTempo = 0;    // inicio do estado atual
 int           ladoFuga   = 1;    // 1 = gira p/ direita, -1 = p/ esquerda
 int           ladoBusca  = 1;
@@ -267,40 +265,20 @@ void setup() {
   analogReadResolution(12);                  // 0 a 4095
   analogSetAttenuation(ADC_11db);            // faixa ate ~3,1 V
 
-  IrReceiver.begin(PIN_IR, DISABLE_LED_FEEDBACK);
-
   Serial.println();
   Serial.println(F("Guerreiros de Realengo - pronto"));
-  Serial.println(MODO_TESTE ? F("MODO TESTE: digite e / d para girar um motor, c para calibrar")
-                            : F("MODO COMBATE: aguardando START do juiz"));
+  if (MODO_TESTE) {
+    Serial.println(F("MODO TESTE: digite e / d para girar um motor, c para calibrar"));
+  } else {
+    Serial.println(F("MODO COMBATE: 5 s para comecar"));
+  }
+  zeraCalibracao();
+  trocaEstado(PREPARANDO);                   // a contagem de 5 s comeca aqui
 }
 
 // ---------------------------------------------------------------------- LOOP
 void loop() {
   atualizaSonar();
-
-  // -------- comandos do juiz --------
-  if (IrReceiver.decode()) {
-    uint16_t cmd = IrReceiver.decodedIRData.command;
-
-    if (MODO_TESTE) {
-      Serial.print(F("IR recebido -> protocolo "));
-      Serial.print(getProtocolString(IrReceiver.decodedIRData.protocol));
-      Serial.print(F("  endereco 0x")); Serial.print(IrReceiver.decodedIRData.address, HEX);
-      Serial.print(F("  comando 0x"));  Serial.println(cmd, HEX);
-    }
-
-    if (cmd == IR_START && estado == PARADO) {
-      zeraCalibracao();
-      trocaEstado(PREPARANDO);
-      Serial.println(F("START: 5 s de preparo"));
-    } else if (cmd == IR_STOP) {
-      trocaEstado(PARADO);
-      parar();
-      Serial.println(F("STOP"));
-    }
-    IrReceiver.resume();
-  }
 
   // -------- modo teste: so relata --------
   if (MODO_TESTE) {
@@ -322,17 +300,12 @@ void loop() {
 
   switch (estado) {
 
-    case PARADO:
-      parar();
-      digitalWrite(PIN_LED, (millis() / 500) % 2);   // pisca devagar
-      break;
-
     case PREPARANDO:
       parar();
-      digitalWrite(PIN_LED, (millis() / 120) % 2);   // pisca rapido
-      if (CALIBRAR_NO_START && dt >= 1000 && dt < 4000) guardaAmostra();
+      digitalWrite(PIN_LED, (millis() / 120) % 2);   // pisca rapido nos 5 s
+      if (CALIBRAR_NO_INICIO && dt >= 1000 && dt < 4000) guardaAmostra();
       if (dt >= T_PREPARO) {
-        if (CALIBRAR_NO_START) fechaCalibracao();
+        if (CALIBRAR_NO_INICIO) fechaCalibracao();
         digitalWrite(PIN_LED, HIGH);
         trocaEstado(BUSCANDO);
       }
