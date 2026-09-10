@@ -6,9 +6,22 @@ A única função dele é lutar: **identificar o adversário e atacar**. Ningué
 
 Chassi impresso em 3D, tração traseira com dois micromotores N20, **ESP32** como cérebro, ponte H **TB6612FNG**, sonar **HC-SR04** para achar o oponente, dois sensores **TCRT5000** para não sair da arena e um receptor infravermelho para o sinal do juiz. Tudo fica sob um capô fechado.
 
-**Site com o manual completo:** https://matheuscortes02.github.io/Guerreiros-de-Realengo-Robo-sumo/
-
 ![Robô montado](docs/imagens/e11.png)
+
+## Site do projeto
+
+### [matheuscortes02.github.io/Guerreiros-de-Realengo-Robo-sumo](https://matheuscortes02.github.io/Guerreiros-de-Realengo-Robo-sumo/)
+
+O site é o **manual de montagem completo** do robô, feito para ser seguido na bancada, no computador ou no celular. Ele junta tudo o que o grupo precisa para sair das peças soltas até o robô lutando:
+
+- **vídeo da montagem** com capítulos, do chassi ao capô;
+- **12 etapas** com fotos e medidas conferidas no modelo 3D em tamanho real;
+- **desenho de solda placa por placa**: ESP32, ponte H, LM2596, sensores de borda, ultrassônico, receptor do juiz, chave e bateria;
+- explicação de **como um pino de 3V3 e poucos GND alimentam tudo**, com as emendas;
+- **lista de corte dos 34 fios**, ordem de solda e checagem com multímetro antes de ligar a bateria;
+- **firmware do ESP32** com botão de copiar.
+
+[![Página inicial do site do manual de montagem](docs/imagens/site.png)](https://matheuscortes02.github.io/Guerreiros-de-Realengo-Robo-sumo/)
 
 ## Equipe
 
@@ -22,6 +35,7 @@ Chassi impresso em 3D, tração traseira com dois micromotores N20, **ESP32** co
 
 ## Sumário
 
+- [Site do projeto](#site-do-projeto)
 - [Visão geral](#visão-geral)
 - [O que tem neste repositório](#o-que-tem-neste-repositório)
 - [Manual de montagem e site](#manual-de-montagem-e-site)
@@ -71,24 +85,13 @@ modelo-3d/
 
 ## Manual de montagem e site
 
-O manual é o [`index.html`](index.html) da raiz do repositório e fica publicado em **https://matheuscortes02.github.io/Guerreiros-de-Realengo-Robo-sumo/**. Também dá para baixar o arquivo e abrir direto no navegador (Chrome, Edge ou Firefox): fotos e vídeo vão embutidos nele. Ele traz:
-
-- vídeo da montagem com capítulos;
-- as 12 etapas com fotos, medidas conferidas no modelo 3D e desenhos de solda placa por placa;
-- lista de corte dos 34 fios, com cor, bitola, comprimento e por onde cada um passa;
-- ordem de solda e checagem com multímetro antes de ligar a bateria;
-- o firmware com botão de copiar.
+O site é o [`index.html`](index.html) da raiz do repositório, publicado pelo GitHub Pages em **https://matheuscortes02.github.io/Guerreiros-de-Realengo-Robo-sumo/**. Também dá para baixar o arquivo e abrir direto no navegador (Chrome, Edge ou Firefox), sem internet: fotos e vídeo vão embutidos nele.
 
 O vídeo mostra a versão com módulo TCRT e o caminho geral dos fios. Os pontos exatos de solda estão nos desenhos do manual e deste README.
 
-### Publicar o site no GitHub Pages
+### Como o site é publicado
 
-1. No repositório, abra **Settings → Pages**.
-2. Em **Build and deployment**, escolha **Deploy from a branch**.
-3. Selecione a branch **main**, a pasta **/ (root)** e clique em **Save**.
-4. Em um ou dois minutos o site abre em https://matheuscortes02.github.io/Guerreiros-de-Realengo-Robo-sumo/.
-
-O arquivo `.nojekyll` na raiz faz o GitHub servir o `index.html` do jeito que está.
+O GitHub Pages está ligado em **Settings → Pages**, com **Deploy from a branch**, branch **main** e pasta **/ (root)**. Qualquer envio para a `main` que mude o `index.html` atualiza o site em um ou dois minutos. O arquivo `.nojekyll` na raiz faz o GitHub servir o `index.html` do jeito que está.
 
 ## Impressão 3D
 
