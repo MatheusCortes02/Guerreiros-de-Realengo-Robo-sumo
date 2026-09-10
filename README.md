@@ -4,6 +4,8 @@ Robô autônomo de **mini sumô** (base de até 10 × 10 cm e até 500 g) desenv
 
 Chassi impresso em 3D, tração traseira com dois micromotores N20, **ESP32** como cérebro, ponte H **TB6612FNG**, sonar **HC-SR04**, dois sensores de linha **TCRT5000** e receptor infravermelho para o controle do juiz. Tudo fica sob um capô fechado.
 
+**Site com o manual completo:** https://matheuscortes02.github.io/Guerreiros-de-Realengo-Robo-sumo/
+
 ![Robô montado](docs/imagens/e11.png)
 
 ## Equipe
@@ -50,13 +52,13 @@ Chassi impresso em 3D, tração traseira com dois micromotores N20, **ESP32** co
 ## O que tem neste repositório
 
 ```
+index.html                         site: manual completo de montagem (GitHub Pages)
 impressao/                         arquivos para o fatiador
   IMPRESSAO-1-chassi.stl / .3mf      chassi, impresso sozinho
   IMPRESSAO-2-restante.stl / .3mf    capô, plataforma, caixa de motor e tampa
 firmware/
   guerreiros_de_realengo/            código do ESP32 para a Arduino IDE
 docs/
-  manual-montagem.html               manual completo: abre no navegador
   montagem-robo-sumo.mp4             vídeo da montagem
   imagens/                           renders de cada etapa e vistas
   diagramas/                         desenhos de solda e fiação
@@ -66,7 +68,7 @@ modelo-3d/
 
 ## Manual de montagem
 
-Baixe [`docs/manual-montagem.html`](docs/manual-montagem.html) e abra no navegador (Chrome, Edge ou Firefox). O arquivo é autocontido e funciona sem internet. Ele traz:
+O manual é o [`index.html`](index.html) da raiz do repositório e fica publicado em **https://matheuscortes02.github.io/Guerreiros-de-Realengo-Robo-sumo/**. Também dá para baixar o arquivo e abrir direto no navegador (Chrome, Edge ou Firefox): fotos e vídeo vão embutidos nele. Ele traz:
 
 - vídeo da montagem com capítulos;
 - as 12 etapas com fotos, medidas conferidas no modelo 3D e desenhos de solda placa por placa;
@@ -75,6 +77,15 @@ Baixe [`docs/manual-montagem.html`](docs/manual-montagem.html) e abra no navegad
 - o firmware com botão de copiar.
 
 O vídeo mostra a versão com módulo TCRT e o caminho geral dos fios. Os pontos exatos de solda estão nos desenhos do manual e deste README.
+
+### Publicar o site no GitHub Pages
+
+1. No repositório, abra **Settings → Pages**.
+2. Em **Build and deployment**, escolha **Deploy from a branch**.
+3. Selecione a branch **main**, a pasta **/ (root)** e clique em **Save**.
+4. Em um ou dois minutos o site abre em https://matheuscortes02.github.io/Guerreiros-de-Realengo-Robo-sumo/.
+
+O arquivo `.nojekyll` na raiz faz o GitHub servir o `index.html` do jeito que está.
 
 ## Impressão 3D
 
@@ -290,7 +301,7 @@ Código em [`firmware/guerreiros_de_realengo/guerreiros_de_realengo.ino`](firmwa
 
 ## Montagem em 12 etapas
 
-O passo a passo completo, com fotos e desenhos, está no [manual](docs/manual-montagem.html).
+O passo a passo completo, com fotos e desenhos, está no [manual](index.html).
 
 0. **Imprimir** as duas placas.
 1. **Entender a alimentação** antes de soldar: três tensões, GND único, um fio por furo no ESP32.
