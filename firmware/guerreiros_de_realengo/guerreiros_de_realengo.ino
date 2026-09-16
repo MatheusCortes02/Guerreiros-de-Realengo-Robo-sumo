@@ -19,10 +19,12 @@
    ESQUERDA e DIREITA sao sempre do ponto de vista do ROBO:
    robo na mesa, frente (o sonar) apontando para longe de voce.
 
-   SENSOR DE LINHA: o codigo serve para as duas opcoes, sem mudar nada.
-     A) TCRT5000 avulso + resistores de 100 ohm e 10 k  (opcao principal)
-     B) modulo TCRT5000 com saida D0                    (opcao alternativa)
-   Nas duas, o BRANCO da borda puxa a leitura para BAIXO.
+   SENSOR DE LINHA: TCRT5000 avulso (4 pernas) + resistores de 100 ohm e 10 k.
+   O BRANCO da borda puxa a leitura para BAIXO.
+
+   CHAVE SS12D00 (0,5 A): liga so a eletronica. A ponte H recebe a bateria
+   direto; com a chave desligada o ESP32 apaga e os motores ficam parados.
+   Com o cabo USB ligado, deixe a chave em DESLIGA.
 
    ANTES DE RODAR:
      1. Ajuste o LM2596 para 5,00 V com multimetro. So depois ligue o ESP32.
