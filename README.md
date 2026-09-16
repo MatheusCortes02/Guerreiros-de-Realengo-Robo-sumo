@@ -2,7 +2,7 @@
 
 Robô **autônomo** de mini sumô (base de até 10 × 10 cm e até 500 g) do grupo **Guerreiros de Realengo** para a **InovaWeek da UVV**. Ninguém dirige o robô: o juiz dá o **START** e o **STOP** pelo controle, e ele procura o adversário e ataca sozinho.
 
-![Robô aberto: ESP32 e ponte H em cima da plataforma, fiação embaixo](docs/manual/robo-aberto.webp)
+![Robô aberto: ESP32 e ponte H em cima da plataforma, fiação embaixo](docs/grupo/robo-aberto-mini.webp)
 
 ## Manual de montagem
 
@@ -10,13 +10,14 @@ Robô **autônomo** de mini sumô (base de até 10 × 10 cm e até 500 g) do gru
 
 O site é um **manual no estilo LEGO**, feito para ser seguido na bancada pelo celular:
 
-- **65 passos em 13 blocos**, uma ação por passo;
-- em cada passo, a **imagem do Blender** com a peça em tamanho real, o **número de cada fio** em cima dele, um **anel rosa** onde soldar e uma **lupa** com o nome impresso nos furos;
-- a caixinha **peças deste passo**, com cor, bitola e **comprimento de corte** de cada fio;
+- **66 passos em 13 blocos**, uma ação por passo;
+- **blocos em cards**: entre num bloco e passe os passos um por tela, com botões grandes, deslizar para o lado e continuar de onde parou;
+- a primeira tela de cada bloco mostra **os fios que ele usa, já com o tamanho de corte**;
+- em cada passo, a **imagem do Blender** com a peça em tamanho real, o **número de cada fio** em cima dele e uma **lupa** com o detalhe;
 - avisos do que **queima** se ligar errado e o que **conferir com o multímetro** antes de seguir;
-- **modo montagem**: um passo por tela, com botões grandes, deslizar para o lado e continuar de onde parou;
-- **achar fio**: digite o número da fita e veja cor, comprimento, de onde para onde e em que passo ele entra;
-- **lista de corte** e progresso que ficam marcados no aparelho.
+- **vídeo da montagem** com capítulos por bloco, **lista de corte**, **ligações por peça** e **achar fio** pelo número da fita;
+- duas versões: a **do grupo** ([index.html](https://matheuscortes02.github.io/Guerreiros-de-Realengo-Robo-sumo/), só fio vermelho e preto, com sonar, receptor e motores já soldados) e a **completa** ([completo.html](https://matheuscortes02.github.io/Guerreiros-de-Realengo-Robo-sumo/completo.html), fios coloridos e tudo soldado do zero);
+- **português e inglês** ([en.html](https://matheuscortes02.github.io/Guerreiros-de-Realengo-Robo-sumo/en.html)) e **tema claro e escuro**.
 
 ## Equipe
 
@@ -27,11 +28,12 @@ Eduardo Nascimento · Gabriel da Silva · Gustavo Nunes · Kaike Panetto · Math
 | Onde | O que fica |
 |---|---|
 | Frente, embaixo | 2 sensores de borda **TCRT5000 de 4 pernas**, colados nas janelas do piso |
-| Frente | sonar **HC-SR04** nos dois furos do meio · receptor do juiz no furo externo **direito** |
+| Frente | sonar **HC-SR04** nos dois furos do meio |
+| Lateral direita | receptor do juiz **dentro do furo redondo**, bolinha para fora (lado oposto da chave) |
 | Baia | bateria 2S 7,4 V com velcro · regulador **LM2596 colado em cima da bateria** |
 | Lateral esquerda | chave deslizante **SS12D00** (3 pinos) |
 | Trás | caixa com 2 motores N20 e rodas |
-| Plataforma (**+12 mm** com espaçadores) | **ponte H TB6612** à esquerda · **ESP32** à direita, com o **USB virado para a esquerda** |
+| Plataforma (**+17 mm**: espaçador de 12 mm com um de 5 mm em cima) | **ponte H TB6612** à esquerda · **ESP32** à direita, **apoiado na plataforma com os pinos atravessando dois rasgos** e o **USB virado para a esquerda** |
 
 Esquerda e direita são sempre do robô: sonar apontando para longe de você.
 
@@ -44,69 +46,71 @@ Esquerda e direita são sempre do robô: sonar apontando para longe de você.
 - **GND** não é um fio só: o − da bateria vai à ponte H (4) e ao LM2596 (5); a saída do LM2596 vai ao ESP32 (11) e ao sonar (13); o outro GND do ESP32 vai a uma **emenda preta** (15) com os sensores, o receptor e o divisor do sonar.
 - Com o cabo USB ligado, a chave fica em **DESLIGA**. Para guardar o robô, desconecte a bateria.
 
-### Os 16 furos usados no ESP32
+### Os 16 pinos usados no ESP32
 
-| Furo | Fileira | Fio | Vem de |
-|---|---|---|---|
-| D13 | sonar (EN … VIN) | 31 | ponte H · STBY |
-| D14 | sonar (EN … VIN) | 34 | ponte H · PWMB |
-| D25 | sonar (EN … VIN) | 28 | ponte H · PWMA |
-| D26 | sonar (EN … VIN) | 30 | ponte H · AIN1 |
-| D27 | sonar (EN … VIN) | 29 | ponte H · AIN2 |
-| D32 | sonar (EN … VIN) | 32 | ponte H · BIN1 |
-| D33 | sonar (EN … VIN) | 33 | ponte H · BIN2 |
-| D34 | sonar (EN … VIN) | 23 | sensor esquerdo · perna C |
-| D35 | sonar (EN … VIN) | 24 | sensor direito · perna C |
-| GND | sonar (EN … VIN) | 11 | LM2596 · OUT− |
-| VIN | sonar (EN … VIN) | 10 | LM2596 · OUT+ |
-| 3V3 | trás (D23 … 3V3) | 14 | emenda amarela |
-| D18 | trás (D23 … 3V3) | 26B | resistor 1 kΩ |
-| D19 | trás (D23 … 3V3) | 27 | receptor · OUT |
-| D5 | trás (D23 … 3V3) | 25 | sonar · TRIG |
-| GND | trás (D23 … 3V3) | 15 | emenda preta |
+Cada fio é soldado **na ponta do pino, por baixo da plataforma**, com termorretrátil. Por baixo não aparece nenhum nome: conte a partir da ponta do USB (o 1º da fileira da frente é o VIN; o 1º da de trás, o 3V3). Os 7 fios da ponte H descem pelo rasgo R2.
+
+| Pino | Fileira | Posição a partir do USB | Fio | Vem de |
+|---|---|---|---|---|
+| VIN | frente (EN … VIN) | 1º | 10 | LM2596 · OUT+ |
+| GND | frente (EN … VIN) | 2º | 11 | LM2596 · OUT− |
+| D13 | frente (EN … VIN) | 3º | 31 | ponte H · STBY |
+| D14 | frente (EN … VIN) | 5º | 34 | ponte H · PWMB |
+| D27 | frente (EN … VIN) | 6º | 29 | ponte H · AIN2 |
+| D26 | frente (EN … VIN) | 7º | 30 | ponte H · AIN1 |
+| D25 | frente (EN … VIN) | 8º | 28 | ponte H · PWMA |
+| D33 | frente (EN … VIN) | 9º | 33 | ponte H · BIN2 |
+| D32 | frente (EN … VIN) | 10º | 32 | ponte H · BIN1 |
+| D35 | frente (EN … VIN) | 11º | 24 | sensor direito · perna C |
+| D34 | frente (EN … VIN) | 12º | 23 | sensor esquerdo · perna C |
+| 3V3 | trás (D23 … 3V3) | 1º | 14 | emenda amarela |
+| GND | trás (D23 … 3V3) | 2º | 15 | emenda preta |
+| D5 | trás (D23 … 3V3) | 8º | 25 | sonar · TRIG |
+| D18 | trás (D23 … 3V3) | 9º | 26B | resistor 1 kΩ |
+| D19 | trás (D23 … 3V3) | 10º | 27 | receptor · OUT |
 
 ### Lista de corte
 
-Comprimentos medidos no modelo 3D com a disposição real e com sobra (caminho + 15% + 20 mm; +40 mm nos fios que sobem para a plataforma). Total: **1020 mm de 22 AWG** e **2920 mm de 26 AWG**.
+Comprimentos medidos no modelo 3D com a disposição real e com sobra (caminho + 15% + 20 mm; +40 mm nos fios que ligam a baia à plataforma, para dar para soldar com a plataforma virada). Total: **1050 mm de 22 AWG** e **2660 mm de 26 AWG**.
 
 | Fio | Cor | Bitola | Corte | De | Para | Passa por |
 |---|---|---|---|---|---|---|
 | 1 | vermelho | 22 AWG | 60 mm | conector da bateria · + | chave · COM | embaixo da plataforma |
 | 2 | vermelho | 22 AWG | 60 mm | chave · P1 | LM2596 · IN+ | embaixo da plataforma |
-| 3 | vermelho | 22 AWG | 110 mm | conector da bateria · + | ponte H · VM | sobe pelo rasgo R4 |
+| 3 | vermelho | 22 AWG | 120 mm | conector da bateria · + | ponte H · VM | sobe pelo rasgo R4 |
 | 4 | preto | 22 AWG | 120 mm | conector da bateria · − | ponte H · GND | sobe pelo rasgo R4 |
 | 5 | preto | 22 AWG | 50 mm | conector da bateria · − | LM2596 · IN− | embaixo da plataforma |
-| 6 | cinza | 22 AWG | 150 mm | motor esquerdo | ponte H · A01 | furo Ø6 da tampa e rasgo R4 |
+| 6 | cinza | 22 AWG | 160 mm | motor esquerdo | ponte H · A01 | furo Ø6 da tampa e rasgo R4 |
 | 7 | cinza | 22 AWG | 160 mm | motor esquerdo | ponte H · A02 | furo Ø6 da tampa e rasgo R4 |
 | 8 | branco | 22 AWG | 160 mm | motor direito | ponte H · B01 | furo Ø6 da tampa e rasgo R4 |
-| 9 | branco | 22 AWG | 150 mm | motor direito | ponte H · B02 | furo Ø6 da tampa e rasgo R4 |
-| 10 | laranja | 26 AWG | 140 mm | LM2596 · OUT+ | ESP32 · VIN | sobe pelo rasgo R1 |
-| 11 | preto | 26 AWG | 130 mm | LM2596 · OUT− | ESP32 · GND | sobe pelo rasgo R1 |
+| 9 | branco | 22 AWG | 160 mm | motor direito | ponte H · B02 | furo Ø6 da tampa e rasgo R4 |
+| 10 | laranja | 26 AWG | 130 mm | LM2596 · OUT+ | ESP32 · VIN | sobe por baixo da plataforma até a ponta do pino |
+| 11 | preto | 26 AWG | 120 mm | LM2596 · OUT− | ESP32 · GND | sobe por baixo da plataforma até a ponta do pino |
 | 12 | laranja | 26 AWG | 100 mm | LM2596 · OUT+ | sonar · VCC | embaixo da plataforma |
 | 13 | preto | 26 AWG | 100 mm | LM2596 · OUT− | sonar · GND | embaixo da plataforma |
-| 14 | amarelo | 26 AWG | 130 mm | ESP32 · 3V3 | emenda amarela | sobe pelo rasgo R3 |
-| 15 | preto | 26 AWG | 130 mm | ESP32 · GND | emenda preta | sobe pelo rasgo R3 |
+| 14 | amarelo | 26 AWG | 110 mm | ESP32 · 3V3 | emenda amarela | sobe por baixo da plataforma até a ponta do pino |
+| 15 | preto | 26 AWG | 110 mm | ESP32 · GND | emenda preta | sobe por baixo da plataforma até a ponta do pino |
 | 16 | amarelo | 26 AWG | 50 mm | emenda amarela | resistores do sensor esquerdo | embaixo da plataforma |
 | 17 | amarelo | 26 AWG | 70 mm | emenda amarela | resistores do sensor direito | embaixo da plataforma |
-| 18 | amarelo | 26 AWG | 90 mm | emenda amarela | receptor · VCC | embaixo da plataforma |
+| 18 | amarelo | 26 AWG | 100 mm | emenda amarela | receptor · VCC | embaixo da plataforma |
 | 19 | amarelo | 26 AWG | 130 mm | emenda amarela | ponte H · VCC | sobe pelo rasgo R2 |
 | 20 | preto | 26 AWG | 80 mm | emenda preta | sensor esquerdo · perna K | embaixo da plataforma |
 | 21 | preto | 26 AWG | 50 mm | emenda preta | sensor direito · perna K | embaixo da plataforma |
 | 22 | preto | 26 AWG | 70 mm | emenda preta | receptor · GND | embaixo da plataforma |
-| 23 | branco | 26 AWG | 160 mm | sensor esquerdo · perna C | ESP32 · D34 | sobe pelo rasgo R1 |
-| 24 | cinza | 26 AWG | 110 mm | sensor direito · perna C | ESP32 · D35 | sobe pelo rasgo R1 |
-| 25 | verde | 26 AWG | 170 mm | sonar · TRIG | ESP32 · D5 | sobe pelo rasgo R3 |
+| 23 | branco | 26 AWG | 150 mm | sensor esquerdo · perna C | ESP32 · D34 | sobe por baixo da plataforma até a ponta do pino |
+| 24 | cinza | 26 AWG | 110 mm | sensor direito · perna C | ESP32 · D35 | sobe por baixo da plataforma até a ponta do pino |
+| 25 | verde | 26 AWG | 150 mm | sonar · TRIG | ESP32 · D5 | sobe por baixo da plataforma até a ponta do pino |
 | 26A | azul | 26 AWG | 70 mm | sonar · ECHO | resistor 1 kΩ | embaixo da plataforma |
-| 26B | azul | 26 AWG | 130 mm | resistor 1 kΩ | ESP32 · D18 | sobe pelo rasgo R3 |
+| 26B | azul | 26 AWG | 110 mm | resistor 1 kΩ | ESP32 · D18 | sobe por baixo da plataforma até a ponta do pino |
 | 26C | preto | 26 AWG | 40 mm | resistor 2 kΩ | emenda preta | embaixo da plataforma |
-| 27 | roxo | 26 AWG | 160 mm | receptor · OUT | ESP32 · D19 | sobe pelo rasgo R3 |
-| 28 | marrom | 26 AWG | 120 mm | ponte H · PWMA | ESP32 · D25 | em cima da plataforma, por baixo do ESP32 |
-| 29 | azul | 26 AWG | 120 mm | ponte H · AIN2 | ESP32 · D27 | em cima da plataforma, por baixo do ESP32 |
-| 30 | verde | 26 AWG | 120 mm | ponte H · AIN1 | ESP32 · D26 | em cima da plataforma, por baixo do ESP32 |
-| 31 | roxo | 26 AWG | 100 mm | ponte H · STBY | ESP32 · D13 | em cima da plataforma, por baixo do ESP32 |
-| 32 | verde | 26 AWG | 120 mm | ponte H · BIN1 | ESP32 · D32 | em cima da plataforma, por baixo do ESP32 |
-| 33 | azul | 26 AWG | 120 mm | ponte H · BIN2 | ESP32 · D33 | em cima da plataforma, por baixo do ESP32 |
-| 34 | marrom | 26 AWG | 110 mm | ponte H · PWMB | ESP32 · D14 | em cima da plataforma, por baixo do ESP32 |
+| 27 | roxo | 26 AWG | 130 mm | receptor · OUT | ESP32 · D19 | sobe por baixo da plataforma até a ponta do pino |
+| 28 | marrom | 26 AWG | 110 mm | ponte H · PWMA | ESP32 · D25 | desce pelo rasgo R2 e sobe por baixo até a ponta do pino |
+| 29 | azul | 26 AWG | 100 mm | ponte H · AIN2 | ESP32 · D27 | desce pelo rasgo R2 e sobe por baixo até a ponta do pino |
+| 30 | verde | 26 AWG | 100 mm | ponte H · AIN1 | ESP32 · D26 | desce pelo rasgo R2 e sobe por baixo até a ponta do pino |
+| 31 | roxo | 26 AWG | 90 mm | ponte H · STBY | ESP32 · D13 | desce pelo rasgo R2 e sobe por baixo até a ponta do pino |
+| 32 | verde | 26 AWG | 100 mm | ponte H · BIN1 | ESP32 · D32 | desce pelo rasgo R2 e sobe por baixo até a ponta do pino |
+| 33 | azul | 26 AWG | 100 mm | ponte H · BIN2 | ESP32 · D33 | desce pelo rasgo R2 e sobe por baixo até a ponta do pino |
+| 34 | marrom | 26 AWG | 80 mm | ponte H · PWMB | ESP32 · D14 | desce pelo rasgo R2 e sobe por baixo até a ponta do pino |
 
 ## Firmware
 
