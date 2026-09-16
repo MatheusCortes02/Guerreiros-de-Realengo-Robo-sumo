@@ -1,0 +1,148 @@
+====================================================================================================
+GUERREIROS DE REALENGO · ROBÔ DE MINI SUMÔ · LEIA PRIMEIRO
+====================================================================================================
+Esta pasta tem o manual de montagem inteiro em texto puro, gerado das mesmas fontes do site
+(https://matheuscortes02.github.io/Guerreiros-de-Realengo-Robo-sumo/). Serve para baixar o ZIP do
+repositório e perguntar a um chat de IA (por exemplo o Claude) no dia da montagem. Tudo aqui sai dos
+mesmos dados das imagens, das páginas e dos testes de fiação.
+
+ARQUIVOS DESTA PASTA
+  - 00-LEIA-PRIMEIRO.txt: este arquivo: como usar, convenções, visão geral do robô, regras e pontos
+      não confirmados
+  - 01-montagem-versao-colorida.txt: passo a passo completo da versão colorida (69 passos), a padrão
+      do site (index.html)
+  - 02-montagem-versao-grupo.txt: passo a passo completo da versão do grupo (66 passos, grupo.html):
+      só fio vermelho e preto, sonar, receptor e motores já soldados
+  - 03-fios-lista-completa.txt: os 36 fios: cor em cada versão, bitola, corte, de onde, para onde,
+      por onde passa e em que passo entra
+  - 04-ligacoes-por-peca.txt: cada peça, furo por furo: que fio chega, de onde vem; os 30 pinos do
+      ESP32 contados da ponta do USB
+  - 05-conferencias-multimetro.txt: o que tem que estar ligado entre si, o que não pode apitar, as
+      tensões da primeira vez ligado
+  - 06-firmware-e-gravacao.txt: pinos do código, como gravar, modo teste e modo luta
+
+QUAL VERSÃO USAR
+  VERSÃO DO GRUPO (02-montagem-versao-grupo.txt): é o caso da equipe Guerreiros de Realengo. Só
+  existe fio vermelho (todos os fios que não são GND) e preto (só GND), então a FITA COM O NÚMERO
+  NAS DUAS PONTAS é o que diferencia um fio do outro. O sonar HC-SR04, o receptor do juiz e os dois
+  motores já vêm com fio soldado: esses fios só são identificados com o multímetro, numerados e
+  conferidos no tamanho (fios 6, 7, 8, 9, 12, 13, 18, 22, 25, 26A e 27; o 26B é o resto do fio do
+  Echo).
+  VERSÃO COLORIDA (01-montagem-versao-colorida.txt): cor por função (vermelho 7,4 V, laranja 5 V,
+  amarelo 3,3 V, preto GND, sinais em outras cores) e tudo soldado do zero. As ligações elétricas
+  são IDÊNTICAS nas duas versões; muda a cor dos fios e alguns passos de preparo do sonar, do
+  receptor e dos motores. A numeração dos passos é diferente entre as versões.
+
+COMO PERGUNTAR AO CHAT
+  1) Baixe o ZIP do repositório:
+  https://github.com/MatheusCortes02/Guerreiros-de-Realengo-Robo-sumo/archive/refs/heads/main.zip
+  (ou, no GitHub, botão Code > Download ZIP) e extraia.
+  2) Abra a pasta docs/montagem-texto e envie ao chat os arquivos .txt (no mínimo este
+  00-LEIA-PRIMEIRO.txt e o da sua versão). Se a dúvida for sobre uma imagem, envie também a imagem
+  do passo: o caminho de cada uma está escrito no passo.
+  3) Diga a versão e o número do passo. Exemplo: “Versão do grupo, passo 52. Tenho um fio 26B de 90
+  mm, dá para usar?”
+
+INSTRUÇÕES PARA O ASSISTENTE DE IA QUE LER ESTES ARQUIVOS
+  * Use somente estes arquivos como fonte. Número de fio, pino, furo, tamanho de corte, cor e ordem
+    dos passos têm que sair exatamente daqui.
+  * Se a pergunta não estiver coberta aqui, diga claramente que não está no manual antes de sugerir
+    qualquer coisa, e diga que é uma sugestão sua.
+  * Nunca troque pinos do ESP32 por conta própria: o código (firmware) usa exatamente D25, D26, D27,
+    D14, D32, D33, D13, D5, D18, D34, D35 e D19.
+  * Esquerda e direita são DO ROBÔ, com o sonar apontando para longe de quem olha. Frente = lado do
+    sonar. Trás = lado dos motores.
+  * Os pinos do ESP32 são chamados pelo nome impresso com D (D25), não GPIO. Por baixo da placa não
+    há nome: conte a partir da ponta do USB.
+  * Pergunte a versão (grupo ou colorida) e o número do passo se a pessoa não disser: a numeração
+    muda entre as versões.
+  * Em dúvida entre duas ligações, mande conferir com o multímetro no bipe antes de soldar ou ligar
+    a bateria.
+  * Na versão do grupo, fio vermelho não quer dizer 7,4 V: todo fio que não é GND é vermelho. O que
+    manda é o número na fita.
+
+CONVENÇÕES
+  * Fios numerados de 1 a 34, e o 26 tem três pedaços: 26A, 26B e 26C (divisor do sonar). Fita crepe
+    com o número nas duas pontas.
+  * Tamanho de corte já tem sobra: caminho medido no modelo 3D + 15% + 20 mm, e +40 mm nos fios que
+    ligam a baia à plataforma (para soldar com a plataforma virada). Arredondado para cima em 10 mm.
+  * Bitola: 22 AWG na bateria, chave, entrada do LM2596 e motores (fios 1 a 9); 26 AWG no resto.
+  * Termorretrátil: passe o tubo no fio ANTES de soldar. Nos pinos do ESP32, tubo fino de 1,5 mm, um
+    pedaço de 6 mm por pino.
+  * Bipe = multímetro no modo continuidade. “Tem que apitar” = ligado. “Não pode apitar” = isolado.
+  * Rasgos da plataforma: R1 grande da frente, R2 pequeno da frente, R3 grande de trás, R4 pequeno
+    de trás. Além deles, dois rasgos estreitos embaixo das fileiras de pinos do ESP32.
+
+ONDE FICA CADA PEÇA NO ROBÔ
+  - Frente, embaixo: 2 sensores de borda TCRT5000 avulsos de 4 pernas, colados nas janelas do piso,
+        lentes para baixo (o dos fios 16, 23, 20 à esquerda; o dos fios 17, 24, 21 à direita)
+  - Frente: sonar HC-SR04 com os dois transdutores nos furos do meio da frente
+  - Lateral direita: receptor do juiz dentro do furo redondo, bolinha para fora (lado oposto da
+        chave)
+  - Lateral esquerda: chave deslizante SS12D00 (3 pinos) no furo retangular, botão para fora
+  - Baia (fundo): bateria 2S 7,4 V com velcro; LM2596 colado em cima da bateria (IN para a esquerda,
+        perto da chave; OUT para a direita); conector da bateria em cima da bateria
+  - Atrás, emendas: emendas 3V3 e GND e o divisor do sonar ficam atrás do sonar, em cima da borda da
+        placa dele
+  - Trás: caixa com os 2 motores N20 (esquerdo no lado esquerdo) e as rodas
+  - Plataforma: sobe 17 mm: em cada uma das 4 colunas, um espaçador de 12 mm com um de 5 mm por
+        cima; capô preso com 4 parafusos M3 × 45
+  - Em cima da plataforma: ponte H TB6612 à esquerda (colada com fita dupla-face); ESP32 à direita,
+        apoiado direto na plataforma com a barra de pinos atravessando dois rasgos de 40 × 2 mm
+        (25,4 mm entre centros); USB do ESP32 para a esquerda do robô, virado para a ponte H;
+        fileira EN…VIN na frente (lado do sonar)
+  - Embaixo da plataforma: todos os fios do ESP32 chegam por baixo e são soldados na ponta do pino,
+        com termorretrátil; os 7 fios de controle da ponte H descem pelo rasgo R2 e também chegam
+        por baixo
+
+ALIMENTAÇÃO EM UMA OLHADA
+  * Bateria + vai por dois caminhos: fio 3 direto ao VM da ponte H (motores) e fio 1 ao pino do meio
+    (COM) da chave.
+  * A chave SS12D00 aguenta 0,5 A, por isso liga só a eletrônica: fio 2 do P1 da chave até o IN+ do
+    LM2596. Os motores nunca passam pela chave.
+  * Bateria − vai ao GND da ponte H (fio 4) e ao IN− do LM2596 (fio 5).
+  * LM2596 ajustado em 5,00 V ANTES de ligar a saída: OUT+ alimenta o VIN do ESP32 (fio 10) e o Vcc
+    do sonar (fio 12); OUT− vai ao GND do ESP32 (fio 11) e ao Gnd do sonar (fio 13).
+  * O pino 3V3 do ESP32 vai à emenda 3V3 (fio 14), que alimenta os dois sensores de borda (16, 17),
+    o receptor (18) e o VCC da ponte H (19).
+  * O outro GND do ESP32 vai à emenda GND (fio 15), com os sensores (20, 21), o receptor (22) e o 2
+    kΩ do divisor (26C).
+  * O Echo do sonar tem 5 V: passa pelo divisor 1 kΩ (em série) + 2 kΩ (ao GND) e chega com 3,3 V no
+    D18.
+  * Com o cabo USB ligado no ESP32, a chave fica SEMPRE em DESLIGA.
+
+CINCO REGRAS QUE EVITAM QUEIMAR PLACA
+  1. Nunca 5 V nem 7,4 V num pino do ESP32. Os pinos aguentam 3,3 V. Por isso o sonar passa pelo
+     divisor e os sensores ficam na emenda 3V3.
+  2. VM ao lado de VCC, VIN perto de 3V3. Na ponte H os furos perigosos são vizinhos; no ESP32, VIN
+     e 3V3 são o 1º pino de cada fileira. Leia o nome impresso antes de cada solda.
+  3. Ajuste o LM2596 antes da saída. Ele vem numa tensão qualquer. Primeiro 5,00 V no multímetro,
+     depois os fios da saída.
+  4. Solde com a bateria desconectada. Um toque do + no − da bateria esquenta e derrete os fios em
+     segundos.
+  5. USB ligado, chave em DESLIGA. E na primeira vez ligado, robô no ar e multímetro na mão.
+
+FERRAMENTAS E MATERIAIS
+  Ferro de solda, estanho com fluxo, alicate de corte, desencapador, multímetro, isqueiro ou
+  soprador. Fio flexível 22 AWG e 26 AWG, termorretrátil (incluindo o fino de 1,5 mm para os pinos
+  do ESP32), fita crepe, fita dupla-face, cola quente, velcro, cartão de visita (calço de 0,3 mm dos
+  sensores), 4 espaçadores de 12 mm e 4 de 5 mm, 4 parafusos M3 × 25 com porca (caixa dos motores) e
+  4 M3 × 45 (capô). Resistores: 2 × 100 Ω, 2 × 10 kΩ, 1 × 1 kΩ, 1 × 2 kΩ.
+
+PONTOS NÃO CONFIRMADOS (conferir na peça)
+  * Ordem dos furos da ponte H: o manual segue a placa da SparkFun (VM, VCC, GND, A01, A02, B02,
+    B01, GND / PWMA, AIN2, AIN1, STBY, BIN1, BIN2, PWMB, GND). Clone pode mudar: siga SEMPRE o nome
+    impresso na placa.
+  * Posição do + e do − nos pads do LM2596: leia a serigrafia (IN+, IN−, OUT+, OUT−).
+  * Folga entre a ponta dos pinos do ESP32 e o LM2596 com 17 mm de espaçador: o grupo testou e
+    coube. Se algum fio apertar o LM2596, troque o espaçador de 5 mm por um de 12 mm (e use parafuso
+    mais longo).
+  * Rasgos do ESP32 com uns 2 mm de largura: a barra preta dos pinos tem que apoiar na plataforma.
+  * O plugue USB do ESP32 fica encostado na ponte H e nos 7 fios de controle: grave o código antes
+    de montar; para regravar, tire o capô.
+  * Motor N20 travado pode puxar mais de 1,2 A por canal (a ponte H desliga por temperatura).
+
+VÍDEO
+  docs/grupo/montagem.mp4 (também em
+  https://matheuscortes02.github.io/Guerreiros-de-Realengo-Robo-sumo/#/video), com um capítulo por
+  bloco. No vídeo os fios aparecem em vermelho e preto.

@@ -1,0 +1,374 @@
+====================================================================================================
+OS 36 FIOS · LISTA COMPLETA
+====================================================================================================
+Total para cortar do zero (versão colorida): 1050 mm de 22 AWG e 2660 mm de 26 AWG. Na versão do
+grupo não se cortam os fios que já vêm soldados (6, 7, 8, 9, 12, 13, 18, 22, 25, 26A, 27) nem o 26B
+(resto do fio do Echo).
+
+FIO 1
+  cor na versão colorida: vermelho · cor na versão do grupo: vermelho
+  bitola: 22 AWG · corte: 60 mm (caminho medido 26.6 mm)
+  de:   conector da bateria, fio + vermelho
+  para: chave SS12D00, pino COM (o do meio)
+  caminho: embaixo da plataforma
+  observação: vermelho do conector da bateria, junto com o fio 3; na chave, pino do meio
+  passos em que aparece na versão colorida: 33
+  passos em que aparece na versão do grupo: 30
+
+FIO 2
+  cor na versão colorida: vermelho · cor na versão do grupo: vermelho
+  bitola: 22 AWG · corte: 60 mm (caminho medido 32.2 mm)
+  de:   chave SS12D00, pino P1 (o do lado que LIGA, achado com o multímetro)
+  para: LM2596, furo IN+
+  caminho: embaixo da plataforma
+  observação: na chave, o pino do lado que liga (confira com o multímetro)
+  passos em que aparece na versão colorida: 34, 39
+  passos em que aparece na versão do grupo: 31, 36
+
+FIO 3
+  cor na versão colorida: vermelho · cor na versão do grupo: vermelho
+  bitola: 22 AWG · corte: 120 mm (caminho medido 44.1 mm)
+  de:   conector da bateria, fio + vermelho
+  para: ponte H TB6612, furo VM (fileira de energia, a do VM; 1º furo)
+  caminho: sobe pelo rasgo R4
+  observação: vermelho do conector da bateria, junto com o fio 1: os motores não passam pela chave
+  passos em que aparece na versão colorida: 35, 57
+  passos em que aparece na versão do grupo: 32, 54
+
+FIO 4
+  cor na versão colorida: preto · cor na versão do grupo: preto
+  bitola: 22 AWG · corte: 120 mm (caminho medido 49.4 mm)
+  de:   conector da bateria, fio − preto
+  para: ponte H TB6612, furo GND (fileira de energia, a do VM; 3º furo)
+  caminho: sobe pelo rasgo R4
+  observação: preto do conector da bateria, junto com o fio 5
+  passos em que aparece na versão colorida: 36, 59
+  passos em que aparece na versão do grupo: 33, 56
+
+FIO 5
+  cor na versão colorida: preto · cor na versão do grupo: preto
+  bitola: 22 AWG · corte: 50 mm (caminho medido 24.4 mm)
+  de:   conector da bateria, fio − preto
+  para: LM2596, furo IN−
+  caminho: embaixo da plataforma
+  observação: preto do conector da bateria, junto com o fio 4
+  passos em que aparece na versão colorida: 36, 39
+  passos em que aparece na versão do grupo: 33, 36
+
+FIO 6
+  cor na versão colorida: cinza · cor na versão do grupo: vermelho
+  bitola: 22 AWG · corte: 160 mm (caminho medido 81.0 mm)
+  versão do grupo: JÁ VEM SOLDADO na peça; só numerar e conferir que tem pelo menos esse tamanho (se faltar, emende)
+  de:   motor esquerdo, um dos dois terminais
+  para: ponte H TB6612, furo A01 (fileira de energia, a do VM; 4º furo)
+  caminho: furo Ø6 da tampa e rasgo R4
+  passos em que aparece na versão colorida: 26, 60
+  passos em que aparece na versão do grupo: 23, 57
+
+FIO 7
+  cor na versão colorida: cinza · cor na versão do grupo: vermelho
+  bitola: 22 AWG · corte: 160 mm (caminho medido 84.2 mm)
+  versão do grupo: JÁ VEM SOLDADO na peça; só numerar e conferir que tem pelo menos esse tamanho (se faltar, emende)
+  de:   motor esquerdo, um dos dois terminais
+  para: ponte H TB6612, furo A02 (fileira de energia, a do VM; 5º furo)
+  caminho: furo Ø6 da tampa e rasgo R4
+  passos em que aparece na versão colorida: 26, 60
+  passos em que aparece na versão do grupo: 23, 57
+
+FIO 8
+  cor na versão colorida: branco · cor na versão do grupo: vermelho
+  bitola: 22 AWG · corte: 160 mm (caminho medido 85.4 mm)
+  versão do grupo: JÁ VEM SOLDADO na peça; só numerar e conferir que tem pelo menos esse tamanho (se faltar, emende)
+  de:   motor direito, um dos dois terminais
+  para: ponte H TB6612, furo B01 (fileira de energia, a do VM; 7º furo)
+  caminho: furo Ø6 da tampa e rasgo R4
+  passos em que aparece na versão colorida: 26, 61
+  passos em que aparece na versão do grupo: 23, 58
+
+FIO 9
+  cor na versão colorida: branco · cor na versão do grupo: vermelho
+  bitola: 22 AWG · corte: 160 mm (caminho medido 82.9 mm)
+  versão do grupo: JÁ VEM SOLDADO na peça; só numerar e conferir que tem pelo menos esse tamanho (se faltar, emende)
+  de:   motor direito, um dos dois terminais
+  para: ponte H TB6612, furo B02 (fileira de energia, a do VM; 6º furo)
+  caminho: furo Ø6 da tampa e rasgo R4
+  passos em que aparece na versão colorida: 26, 61
+  passos em que aparece na versão do grupo: 23, 58
+
+FIO 10
+  cor na versão colorida: laranja · cor na versão do grupo: vermelho
+  bitola: 26 AWG · corte: 130 mm (caminho medido 53.5 mm)
+  de:   LM2596, furo OUT+
+  para: ESP32, pino VIN (fileira da FRENTE, a do EN…VIN, lado do sonar; 1º pino contando a partir da
+        ponta do USB)
+  caminho: sobe por baixo da plataforma até a ponta do pino
+  observação: divide o furo OUT+ com o fio 12
+  passos em que aparece na versão colorida: 41, 54
+  passos em que aparece na versão do grupo: 38, 51
+
+FIO 11
+  cor na versão colorida: preto · cor na versão do grupo: preto
+  bitola: 26 AWG · corte: 120 mm (caminho medido 47.2 mm)
+  de:   LM2596, furo OUT−
+  para: ESP32, pino GND (fileira da FRENTE, a do EN…VIN, lado do sonar; 2º pino contando a partir da
+        ponta do USB)
+  caminho: sobe por baixo da plataforma até a ponta do pino
+  observação: divide o furo OUT− com o fio 13
+  passos em que aparece na versão colorida: 41, 54
+  passos em que aparece na versão do grupo: 38, 51
+
+FIO 12
+  cor na versão colorida: laranja · cor na versão do grupo: vermelho
+  bitola: 26 AWG · corte: 100 mm (caminho medido 67.2 mm)
+  versão do grupo: JÁ VEM SOLDADO na peça; só numerar e conferir que tem pelo menos esse tamanho (se faltar, emende)
+  de:   LM2596, furo OUT+
+  para: sonar HC-SR04, pino VCC
+  caminho: embaixo da plataforma
+  observação: divide o furo OUT+ com o fio 10
+  passos em que aparece na versão colorida: 16, 41
+  passos em que aparece na versão do grupo: 15, 38
+
+FIO 13
+  cor na versão colorida: preto · cor na versão do grupo: preto
+  bitola: 26 AWG · corte: 100 mm (caminho medido 63.9 mm)
+  versão do grupo: JÁ VEM SOLDADO na peça; só numerar e conferir que tem pelo menos esse tamanho (se faltar, emende)
+  de:   LM2596, furo OUT−
+  para: sonar HC-SR04, pino GND
+  caminho: embaixo da plataforma
+  observação: divide o furo OUT− com o fio 11
+  passos em que aparece na versão colorida: 16, 41
+  passos em que aparece na versão do grupo: 15, 38
+
+FIO 14
+  cor na versão colorida: amarelo · cor na versão do grupo: vermelho
+  bitola: 26 AWG · corte: 110 mm (caminho medido 39.0 mm)
+  de:   ESP32, pino 3V3 (fileira de TRÁS, a do D23…3V3; 1º pino contando a partir da ponta do USB)
+  para: emenda 3V3 (5 fios torcidos e soldados juntos)
+  caminho: sobe por baixo da plataforma até a ponta do pino
+  passos em que aparece na versão colorida: 42, 55
+  passos em que aparece na versão do grupo: 39, 52
+
+FIO 15
+  cor na versão colorida: preto · cor na versão do grupo: preto
+  bitola: 26 AWG · corte: 110 mm (caminho medido 42.1 mm)
+  de:   ESP32, pino GND (fileira de TRÁS, a do D23…3V3; 2º pino contando a partir da ponta do USB)
+  para: emenda GND (5 fios torcidos e soldados juntos)
+  caminho: sobe por baixo da plataforma até a ponta do pino
+  passos em que aparece na versão colorida: 43, 55
+  passos em que aparece na versão do grupo: 40, 52
+
+FIO 16
+  cor na versão colorida: amarelo · cor na versão do grupo: vermelho
+  bitola: 26 AWG · corte: 50 mm (caminho medido 17.9 mm)
+  de:   emenda 3V3 (5 fios torcidos e soldados juntos)
+  para: ponta de cima dos dois resistores (100 Ω e 10 kΩ) do sensor esquerdo, torcidas juntas
+  caminho: embaixo da plataforma
+  observação: chega na junção dos dois resistores do TCRT esquerdo
+  passos em que aparece na versão colorida: 9, 42
+  passos em que aparece na versão do grupo: 9, 39
+
+FIO 17
+  cor na versão colorida: amarelo · cor na versão do grupo: vermelho
+  bitola: 26 AWG · corte: 70 mm (caminho medido 36.7 mm)
+  de:   emenda 3V3 (5 fios torcidos e soldados juntos)
+  para: ponta de cima dos dois resistores (100 Ω e 10 kΩ) do sensor direito, torcidas juntas
+  caminho: embaixo da plataforma
+  observação: chega na junção dos dois resistores do TCRT direito
+  passos em que aparece na versão colorida: 13, 42
+  passos em que aparece na versão do grupo: 13, 39
+
+FIO 18
+  cor na versão colorida: amarelo · cor na versão do grupo: vermelho
+  bitola: 26 AWG · corte: 100 mm (caminho medido 61.1 mm)
+  versão do grupo: JÁ VEM SOLDADO na peça; só numerar e conferir que tem pelo menos esse tamanho (se faltar, emende)
+  de:   emenda 3V3 (5 fios torcidos e soldados juntos)
+  para: receptor do juiz, perna VCC
+  caminho: embaixo da plataforma
+  passos em que aparece na versão colorida: 24, 42
+  passos em que aparece na versão do grupo: 20, 39
+
+FIO 19
+  cor na versão colorida: amarelo · cor na versão do grupo: vermelho
+  bitola: 26 AWG · corte: 130 mm (caminho medido 57.7 mm)
+  de:   emenda 3V3 (5 fios torcidos e soldados juntos)
+  para: ponte H TB6612, furo VCC (fileira de energia, a do VM; 2º furo)
+  caminho: sobe pelo rasgo R2
+  passos em que aparece na versão colorida: 42, 58
+  passos em que aparece na versão do grupo: 39, 55
+
+FIO 20
+  cor na versão colorida: preto · cor na versão do grupo: preto
+  bitola: 26 AWG · corte: 80 mm (caminho medido 43.7 mm)
+  de:   emenda GND (5 fios torcidos e soldados juntos)
+  para: sensor esquerdo (TCRT5000), perna K
+  caminho: embaixo da plataforma
+  observação: chega na ponte entre as pernas K e E
+  passos em que aparece na versão colorida: 11, 43
+  passos em que aparece na versão do grupo: 11, 40
+
+FIO 21
+  cor na versão colorida: preto · cor na versão do grupo: preto
+  bitola: 26 AWG · corte: 50 mm (caminho medido 24.3 mm)
+  de:   emenda GND (5 fios torcidos e soldados juntos)
+  para: sensor direito (TCRT5000), perna K
+  caminho: embaixo da plataforma
+  observação: chega na ponte entre as pernas K e E
+  passos em que aparece na versão colorida: 13, 43
+  passos em que aparece na versão do grupo: 13, 40
+
+FIO 22
+  cor na versão colorida: preto · cor na versão do grupo: preto
+  bitola: 26 AWG · corte: 70 mm (caminho medido 41.3 mm)
+  versão do grupo: JÁ VEM SOLDADO na peça; só numerar e conferir que tem pelo menos esse tamanho (se faltar, emende)
+  de:   emenda GND (5 fios torcidos e soldados juntos)
+  para: receptor do juiz, perna GND
+  caminho: embaixo da plataforma
+  passos em que aparece na versão colorida: 24, 43
+  passos em que aparece na versão do grupo: 20, 40
+
+FIO 23
+  cor na versão colorida: branco · cor na versão do grupo: vermelho
+  bitola: 26 AWG · corte: 150 mm (caminho medido 75.8 mm)
+  de:   sensor esquerdo (TCRT5000), perna C
+  para: ESP32, pino D34 (fileira da FRENTE, a do EN…VIN, lado do sonar; 12º pino contando a partir
+        da ponta do USB)
+  caminho: sobe por baixo da plataforma até a ponta do pino
+  observação: junto com o 10 kΩ na perna C
+  passos em que aparece na versão colorida: 10, 54
+  passos em que aparece na versão do grupo: 10, 51
+
+FIO 24
+  cor na versão colorida: cinza · cor na versão do grupo: vermelho
+  bitola: 26 AWG · corte: 110 mm (caminho medido 35.8 mm)
+  de:   sensor direito (TCRT5000), perna C
+  para: ESP32, pino D35 (fileira da FRENTE, a do EN…VIN, lado do sonar; 11º pino contando a partir
+        da ponta do USB)
+  caminho: sobe por baixo da plataforma até a ponta do pino
+  observação: junto com o 10 kΩ na perna C
+  passos em que aparece na versão colorida: 13, 54
+  passos em que aparece na versão do grupo: 13, 51
+
+FIO 25
+  cor na versão colorida: verde · cor na versão do grupo: vermelho
+  bitola: 26 AWG · corte: 150 mm (caminho medido 74.2 mm)
+  versão do grupo: JÁ VEM SOLDADO na peça; só numerar e conferir que tem pelo menos esse tamanho (se faltar, emende)
+  de:   sonar HC-SR04, pino TRIG
+  para: ESP32, pino D5 (fileira de TRÁS, a do D23…3V3; 8º pino contando a partir da ponta do USB)
+  caminho: sobe por baixo da plataforma até a ponta do pino
+  passos em que aparece na versão colorida: 17, 55
+  passos em que aparece na versão do grupo: 15, 52
+
+FIO 26A
+  cor na versão colorida: azul · cor na versão do grupo: vermelho
+  bitola: 26 AWG · corte: 70 mm (caminho medido 36.1 mm)
+  versão do grupo: JÁ VEM SOLDADO na peça; só numerar e conferir que tem pelo menos esse tamanho (se faltar, emende)
+  de:   sonar HC-SR04, pino ECHO
+  para: resistor 1 kΩ do divisor do sonar (perna emendada no fio 26A)
+  caminho: embaixo da plataforma
+  observação: ECHO até o 1 kΩ (ainda 5 V)
+  passos em que aparece na versão colorida: 17
+  passos em que aparece na versão do grupo: 15
+
+FIO 26B
+  cor na versão colorida: azul · cor na versão do grupo: vermelho
+  bitola: 26 AWG · corte: 110 mm (caminho medido 38.5 mm)
+  versão do grupo: é o resto do fio do Echo depois de cortar o 26A; precisa ter pelo menos esse tamanho
+  de:   nó do divisor do sonar (perna do 1 kΩ onde também estão o 2 kΩ e o fio 26B)
+  para: ESP32, pino D18 (fileira de TRÁS, a do D23…3V3; 9º pino contando a partir da ponta do USB)
+  caminho: sobe por baixo da plataforma até a ponta do pino
+  observação: sai do nó do divisor (já 3,3 V)
+  passos em que aparece na versão colorida: 19, 55
+  passos em que aparece na versão do grupo: 17, 52
+
+FIO 26C
+  cor na versão colorida: preto · cor na versão do grupo: preto
+  bitola: 26 AWG · corte: 40 mm (caminho medido 9.2 mm)
+  de:   resistor 2 kΩ do divisor do sonar (perna livre, onde vai o fio 26C)
+  para: emenda GND (5 fios torcidos e soldados juntos)
+  caminho: embaixo da plataforma
+  observação: do 2 kΩ até a emenda GND
+  passos em que aparece na versão colorida: 20, 43
+  passos em que aparece na versão do grupo: 18, 40
+
+FIO 27
+  cor na versão colorida: roxo · cor na versão do grupo: vermelho
+  bitola: 26 AWG · corte: 130 mm (caminho medido 57.8 mm)
+  versão do grupo: JÁ VEM SOLDADO na peça; só numerar e conferir que tem pelo menos esse tamanho (se faltar, emende)
+  de:   receptor do juiz, perna OUT
+  para: ESP32, pino D19 (fileira de TRÁS, a do D23…3V3; 10º pino contando a partir da ponta do USB)
+  caminho: sobe por baixo da plataforma até a ponta do pino
+  passos em que aparece na versão colorida: 24, 55
+  passos em que aparece na versão do grupo: 20, 52
+
+FIO 28
+  cor na versão colorida: marrom · cor na versão do grupo: vermelho
+  bitola: 26 AWG · corte: 110 mm (caminho medido 77.2 mm)
+  de:   ponte H TB6612, furo PWMA (fileira de controle, a do PWMA; 1º furo)
+  para: ESP32, pino D25 (fileira da FRENTE, a do EN…VIN, lado do sonar; 8º pino contando a partir da
+        ponta do USB)
+  caminho: desce pelo rasgo R2 e sobe por baixo até a ponta do pino
+  passos em que aparece na versão colorida: 48, 52
+  passos em que aparece na versão do grupo: 45, 49
+
+FIO 29
+  cor na versão colorida: azul · cor na versão do grupo: vermelho
+  bitola: 26 AWG · corte: 100 mm (caminho medido 69.0 mm)
+  de:   ponte H TB6612, furo AIN2 (fileira de controle, a do PWMA; 2º furo)
+  para: ESP32, pino D27 (fileira da FRENTE, a do EN…VIN, lado do sonar; 6º pino contando a partir da
+        ponta do USB)
+  caminho: desce pelo rasgo R2 e sobe por baixo até a ponta do pino
+  passos em que aparece na versão colorida: 48, 52
+  passos em que aparece na versão do grupo: 45, 49
+
+FIO 30
+  cor na versão colorida: verde · cor na versão do grupo: vermelho
+  bitola: 26 AWG · corte: 100 mm (caminho medido 68.3 mm)
+  de:   ponte H TB6612, furo AIN1 (fileira de controle, a do PWMA; 3º furo)
+  para: ESP32, pino D26 (fileira da FRENTE, a do EN…VIN, lado do sonar; 7º pino contando a partir da
+        ponta do USB)
+  caminho: desce pelo rasgo R2 e sobe por baixo até a ponta do pino
+  passos em que aparece na versão colorida: 48, 52
+  passos em que aparece na versão do grupo: 45, 49
+
+FIO 31
+  cor na versão colorida: roxo · cor na versão do grupo: vermelho
+  bitola: 26 AWG · corte: 90 mm (caminho medido 55.2 mm)
+  de:   ponte H TB6612, furo STBY (fileira de controle, a do PWMA; 4º furo)
+  para: ESP32, pino D13 (fileira da FRENTE, a do EN…VIN, lado do sonar; 3º pino contando a partir da
+        ponta do USB)
+  caminho: desce pelo rasgo R2 e sobe por baixo até a ponta do pino
+  passos em que aparece na versão colorida: 48, 52
+  passos em que aparece na versão do grupo: 45, 49
+
+FIO 32
+  cor na versão colorida: verde · cor na versão do grupo: vermelho
+  bitola: 26 AWG · corte: 100 mm (caminho medido 69.5 mm)
+  de:   ponte H TB6612, furo BIN1 (fileira de controle, a do PWMA; 5º furo)
+  para: ESP32, pino D32 (fileira da FRENTE, a do EN…VIN, lado do sonar; 10º pino contando a partir
+        da ponta do USB)
+  caminho: desce pelo rasgo R2 e sobe por baixo até a ponta do pino
+  observação: fita “B”
+  passos em que aparece na versão colorida: 49, 52
+  passos em que aparece na versão do grupo: 46, 49
+
+FIO 33
+  cor na versão colorida: azul · cor na versão do grupo: vermelho
+  bitola: 26 AWG · corte: 100 mm (caminho medido 63.9 mm)
+  de:   ponte H TB6612, furo BIN2 (fileira de controle, a do PWMA; 6º furo)
+  para: ESP32, pino D33 (fileira da FRENTE, a do EN…VIN, lado do sonar; 9º pino contando a partir da
+        ponta do USB)
+  caminho: desce pelo rasgo R2 e sobe por baixo até a ponta do pino
+  observação: fita “B”
+  passos em que aparece na versão colorida: 49, 52
+  passos em que aparece na versão do grupo: 46, 49
+
+FIO 34
+  cor na versão colorida: marrom · cor na versão do grupo: vermelho
+  bitola: 26 AWG · corte: 80 mm (caminho medido 50.9 mm)
+  de:   ponte H TB6612, furo PWMB (fileira de controle, a do PWMA; 7º furo)
+  para: ESP32, pino D14 (fileira da FRENTE, a do EN…VIN, lado do sonar; 5º pino contando a partir da
+        ponta do USB)
+  caminho: desce pelo rasgo R2 e sobe por baixo até a ponta do pino
+  observação: fita “B”
+  passos em que aparece na versão colorida: 49, 52
+  passos em que aparece na versão do grupo: 46, 49

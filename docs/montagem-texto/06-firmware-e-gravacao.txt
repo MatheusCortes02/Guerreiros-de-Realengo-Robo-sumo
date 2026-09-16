@@ -1,0 +1,56 @@
+====================================================================================================
+FIRMWARE E GRAVAÇÃO
+====================================================================================================
+Código: firmware/guerreiros_de_realengo/guerreiros_de_realengo.ino (na raiz do ZIP)
+No código aparece só o número do pino; na placa ele está impresso com D: 26 no código é o pino D26
+do ESP32.
+
+PINOS DO CÓDIGO
+  - PIN_AIN1 = 26 → pino D26 do ESP32 (fileira da frente, 7º a partir do USB) → ligado em ponte H
+      TB6612, furo AIN1 (fileira de controle, a do PWMA; 3º furo)
+  - PIN_AIN2 = 27 → pino D27 do ESP32 (fileira da frente, 6º a partir do USB) → ligado em ponte H
+      TB6612, furo AIN2 (fileira de controle, a do PWMA; 2º furo)
+  - PIN_PWMA = 25 → pino D25 do ESP32 (fileira da frente, 8º a partir do USB) → ligado em ponte H
+      TB6612, furo PWMA (fileira de controle, a do PWMA; 1º furo)
+  - PIN_BIN1 = 32 → pino D32 do ESP32 (fileira da frente, 10º a partir do USB) → ligado em ponte H
+      TB6612, furo BIN1 (fileira de controle, a do PWMA; 5º furo)
+  - PIN_BIN2 = 33 → pino D33 do ESP32 (fileira da frente, 9º a partir do USB) → ligado em ponte H
+      TB6612, furo BIN2 (fileira de controle, a do PWMA; 6º furo)
+  - PIN_PWMB = 14 → pino D14 do ESP32 (fileira da frente, 5º a partir do USB) → ligado em ponte H
+      TB6612, furo PWMB (fileira de controle, a do PWMA; 7º furo)
+  - PIN_STBY = 13 → pino D13 do ESP32 (fileira da frente, 3º a partir do USB) → ligado em ponte H
+      TB6612, furo STBY (fileira de controle, a do PWMA; 4º furo)
+  - PIN_TRIG = 5 → pino D5 do ESP32 (fileira de trás, 8º a partir do USB) → ligado em sonar HC-SR04,
+      pino TRIG
+  - PIN_ECHO = 18 → pino D18 do ESP32 (fileira de trás, 9º a partir do USB) → ligado em nó do
+      divisor do sonar (perna do 1 kΩ onde também estão o 2 kΩ e o fio 26B)
+  - PIN_LINHA_ESQ = 34 → pino D34 do ESP32 (fileira da frente, 12º a partir do USB) → ligado em
+      sensor esquerdo (TCRT5000), perna C
+  - PIN_LINHA_DIR = 35 → pino D35 do ESP32 (fileira da frente, 11º a partir do USB) → ligado em
+      sensor direito (TCRT5000), perna C
+  - PIN_IR = 19 → pino D19 do ESP32 (fileira de trás, 10º a partir do USB) → ligado em receptor do
+      juiz, perna OUT
+
+COMO GRAVAR (bloco 13 do manual)
+
+  Prepare a Arduino IDE (passo 67 da versão colorida · passo 64 da versão do grupo)
+    * Placas: esp32 da Espressif. Bibliotecas: IRremote. Placa: DOIT ESP32 DEVKIT V1.
+    * No código, o número é o nome D impresso ao lado do pino: 26 é o D26.
+    ATENÇÃO: Com o cabo USB ligado, a chave fica sempre em DESLIGA.
+
+  Modo teste (passo 68 da versão colorida · passo 65 da versão do grupo)
+    * Grave com MODO_TESTE = true e abra o Monitor Serial em 115200.
+    * Controle do juiz: aperte START e STOP e anote os códigos em IR_START e IR_STOP.
+    * Robô no preto e no branco: a leitura cai no branco. Mão na frente: a distância cai.
+    * Robô no ar, bateria conectada: digite e e d. Cada roda gira para a frente; se girar para trás,
+      troque os dois fios daquele motor na ponte H.
+
+  Modo luta (passo 69 da versão colorida · passo 66 da versão do grupo)
+    * Grave com MODO_TESTE = false, feche o capô e tire o USB.
+    * Na arena: chave em LIGA, robô no preto. LED piscando devagar = esperando o juiz. No START ele
+      sai procurando; no STOP para.
+
+  Grave o código antes de soldar (primeiro passo do bloco 9: passo 45 da versão colorida · passo 42 da versão do grupo)
+    * Com o ESP32 solto, ligue no computador e grave o código com MODO_TESTE = true (passo a passo
+      no bloco 13).
+    * Depois de montado, o USB fica encostado na ponte H e o cabo pode não entrar.

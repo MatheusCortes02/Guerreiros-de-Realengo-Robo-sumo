@@ -19,6 +19,20 @@ O site é um **manual no estilo LEGO**, feito para ser seguido na bancada pelo c
 - duas versões: a **padrão**, com fios coloridos e tudo soldado do zero ([index.html](https://matheuscortes02.github.io/Guerreiros-de-Realengo-Robo-sumo/)), e a **do grupo**, só com fio vermelho e preto e com sonar, receptor e motores já soldados ([grupo.html](https://matheuscortes02.github.io/Guerreiros-de-Realengo-Robo-sumo/grupo.html));
 - **português e inglês** pelas bandeiras no topo ([en.html](https://matheuscortes02.github.io/Guerreiros-de-Realengo-Robo-sumo/en.html) · [grupo-en.html](https://matheuscortes02.github.io/Guerreiros-de-Realengo-Robo-sumo/grupo-en.html)) e **tema claro e escuro** pelo ícone de sol e lua.
 
+### Manual em texto para perguntar a um chat
+
+A pasta [`docs/montagem-texto/`](docs/montagem-texto/) tem o mesmo manual em texto puro, gerado das mesmas fontes do site, para baixar o ZIP do repositório e enviar a um chat de IA no dia da montagem:
+
+| Arquivo | Conteúdo |
+|---|---|
+| `00-LEIA-PRIMEIRO.txt` | como usar, instruções para o assistente, convenções, onde fica cada peça, alimentação, regras e pontos não confirmados |
+| `01-montagem-versao-colorida.txt` | passo a passo completo da versão colorida, com imagem, peças, fio a fio (de onde, para onde, corte, caminho), avisos e conferências |
+| `02-montagem-versao-grupo.txt` | o mesmo para a versão do grupo (fio vermelho e preto; sonar, receptor e motores já soldados) |
+| `03-fios-lista-completa.txt` | os 36 fios com cor em cada versão, bitola, corte e passos em que aparecem |
+| `04-ligacoes-por-peca.txt` | cada peça furo por furo e os 30 pinos do ESP32 contados da ponta do USB |
+| `05-conferencias-multimetro.txt` | o que tem que apitar, o que não pode apitar e as tensões da primeira vez ligado |
+| `06-firmware-e-gravacao.txt` | pinos do código, gravação, modo teste e modo luta |
+
 ## Equipe
 
 Eduardo Nascimento · Gabriel da Silva · Gustavo Nunes · Kaike Panetto · Matheus Cortes

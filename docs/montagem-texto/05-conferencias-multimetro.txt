@@ -1,0 +1,178 @@
+====================================================================================================
+CONFERÊNCIAS COM O MULTÍMETRO
+====================================================================================================
+Tudo com a BATERIA DESCONECTADA, a não ser a medição de tensão. Bipe = modo continuidade.
+
+O QUE TEM QUE ESTAR LIGADO ENTRE SI (cada grupo apita entre qualquer dois pontos dele)
+  - bateria + antes da chave (7,4 V):
+      · chave SS12D00, pino COM (o do meio)
+      · conector da bateria, fio + vermelho
+      · ponte H TB6612, furo VM (fileira de energia, a do VM; 1º furo)
+  - saída da chave até o LM2596 (fio 2; a tensão de 7,4 V só aparece com a chave em LIGA):
+      · LM2596, furo IN+
+      · chave SS12D00, pino P1 (o do lado que LIGA, achado com o multímetro)
+  - 5 V do LM2596:
+      · ESP32, pino VIN (fileira da FRENTE, a do EN…VIN, lado do sonar; 1º pino contando a partir da
+        ponta do USB)
+      · LM2596, furo OUT+
+      · sonar HC-SR04, pino VCC
+  - 3,3 V do ESP32:
+      · ESP32, pino 3V3 (fileira de TRÁS, a do D23…3V3; 1º pino contando a partir da ponta do USB)
+      · emenda 3V3 (5 fios torcidos e soldados juntos)
+      · ponta de cima dos dois resistores (100 Ω e 10 kΩ) do sensor direito, torcidas juntas
+      · ponta de cima dos dois resistores (100 Ω e 10 kΩ) do sensor esquerdo, torcidas juntas
+      · ponte H TB6612, furo VCC (fileira de energia, a do VM; 2º furo)
+      · receptor do juiz, perna VCC
+  - GND (terra):
+      · ESP32, pino GND (fileira da FRENTE, a do EN…VIN, lado do sonar; 2º pino contando a partir da
+        ponta do USB)
+      · ESP32, pino GND (fileira de TRÁS, a do D23…3V3; 2º pino contando a partir da ponta do USB)
+      · LM2596, furo IN−
+      · LM2596, furo OUT−
+      · conector da bateria, fio − preto
+      · emenda GND (5 fios torcidos e soldados juntos)
+      · ponte H TB6612, furo GND (fileira de controle, a do PWMA; 8º furo)
+      · ponte H TB6612, furo GND (fileira de energia, a do VM; 3º furo)
+      · ponte H TB6612, furo GND (fileira de energia, a do VM; 8º furo)
+      · receptor do juiz, perna GND
+      · resistor 2 kΩ do divisor do sonar (perna livre, onde vai o fio 26C)
+      · sensor direito (TCRT5000), perna E
+      · sensor direito (TCRT5000), perna K
+      · sensor esquerdo (TCRT5000), perna E
+      · sensor esquerdo (TCRT5000), perna K
+      · sonar HC-SR04, pino GND
+  - LED do sensor esquerdo:
+      · resistor 100 Ω do sensor esquerdo, perna soldada na perna A do TCRT5000
+      · sensor esquerdo (TCRT5000), perna A
+  - LED do sensor direito:
+      · resistor 100 Ω do sensor direito, perna soldada na perna A do TCRT5000
+      · sensor direito (TCRT5000), perna A
+  - sinal do sensor esquerdo:
+      · ESP32, pino D34 (fileira da FRENTE, a do EN…VIN, lado do sonar; 12º pino contando a partir
+        da ponta do USB)
+      · resistor 10 kΩ do sensor esquerdo, perna soldada na perna C do TCRT5000
+      · sensor esquerdo (TCRT5000), perna C
+  - sinal do sensor direito:
+      · ESP32, pino D35 (fileira da FRENTE, a do EN…VIN, lado do sonar; 11º pino contando a partir
+        da ponta do USB)
+      · resistor 10 kΩ do sensor direito, perna soldada na perna C do TCRT5000
+      · sensor direito (TCRT5000), perna C
+  - Trig do sonar:
+      · ESP32, pino D5 (fileira de TRÁS, a do D23…3V3; 8º pino contando a partir da ponta do USB)
+      · sonar HC-SR04, pino TRIG
+  - Echo do sonar antes do divisor (5 V):
+      · resistor 1 kΩ do divisor do sonar (perna emendada no fio 26A)
+      · sonar HC-SR04, pino ECHO
+  - Echo depois do divisor (3,3 V):
+      · ESP32, pino D18 (fileira de TRÁS, a do D23…3V3; 9º pino contando a partir da ponta do USB)
+      · nó do divisor do sonar (perna do 1 kΩ onde também estão o 2 kΩ e o fio 26B)
+      · nó do divisor do sonar (perna do 2 kΩ)
+  - sinal do receptor:
+      · ESP32, pino D19 (fileira de TRÁS, a do D23…3V3; 10º pino contando a partir da ponta do USB)
+      · receptor do juiz, perna OUT
+  - PWMA:
+      · ESP32, pino D25 (fileira da FRENTE, a do EN…VIN, lado do sonar; 8º pino contando a partir da
+        ponta do USB)
+      · ponte H TB6612, furo PWMA (fileira de controle, a do PWMA; 1º furo)
+  - AIN1:
+      · ESP32, pino D26 (fileira da FRENTE, a do EN…VIN, lado do sonar; 7º pino contando a partir da
+        ponta do USB)
+      · ponte H TB6612, furo AIN1 (fileira de controle, a do PWMA; 3º furo)
+  - AIN2:
+      · ESP32, pino D27 (fileira da FRENTE, a do EN…VIN, lado do sonar; 6º pino contando a partir da
+        ponta do USB)
+      · ponte H TB6612, furo AIN2 (fileira de controle, a do PWMA; 2º furo)
+  - PWMB:
+      · ESP32, pino D14 (fileira da FRENTE, a do EN…VIN, lado do sonar; 5º pino contando a partir da
+        ponta do USB)
+      · ponte H TB6612, furo PWMB (fileira de controle, a do PWMA; 7º furo)
+  - BIN1:
+      · ESP32, pino D32 (fileira da FRENTE, a do EN…VIN, lado do sonar; 10º pino contando a partir
+        da ponta do USB)
+      · ponte H TB6612, furo BIN1 (fileira de controle, a do PWMA; 5º furo)
+  - BIN2:
+      · ESP32, pino D33 (fileira da FRENTE, a do EN…VIN, lado do sonar; 9º pino contando a partir da
+        ponta do USB)
+      · ponte H TB6612, furo BIN2 (fileira de controle, a do PWMA; 6º furo)
+  - STBY:
+      · ESP32, pino D13 (fileira da FRENTE, a do EN…VIN, lado do sonar; 3º pino contando a partir da
+        ponta do USB)
+      · ponte H TB6612, furo STBY (fileira de controle, a do PWMA; 4º furo)
+  - motor esquerdo, terminal 1:
+      · motor esquerdo, um dos dois terminais
+      · ponte H TB6612, furo A01 (fileira de energia, a do VM; 4º furo)
+  - motor esquerdo, terminal 2:
+      · motor esquerdo, um dos dois terminais
+      · ponte H TB6612, furo A02 (fileira de energia, a do VM; 5º furo)
+  - motor direito, terminal 1:
+      · motor direito, um dos dois terminais
+      · ponte H TB6612, furo B01 (fileira de energia, a do VM; 7º furo)
+  - motor direito, terminal 2:
+      · motor direito, um dos dois terminais
+      · ponte H TB6612, furo B02 (fileira de energia, a do VM; 6º furo)
+
+REDES QUE NUNCA PODEM ENCOSTAR EM PINO DE SINAL DO ESP32: 7,4 V (antes e depois da chave), 5 V e o Echo antes do divisor.
+
+O QUE NÃO PODE APITAR
+  Bateria desconectada.
+  Ponta vermelha             | Ponta preta    | Resultado
+  ---------------------------+----------------+----------------
+  + do conector              | − do conector  | não pode apitar
+  VM da ponte H              | VCC da ponte H | não pode apitar
+  VIN do ESP32               | 3V3 do ESP32   | não pode apitar
+  3V3 do ESP32               | GND do ESP32   | não pode apitar
+  cada pino soldado do ESP32 | o pino do lado | não pode apitar
+  IN+ do LM2596, chave LIGA  | IN− do LM2596  | não pode apitar
+  ATENÇÃO: Se algum apitar, há curto. Não ligue a bateria.
+
+O QUE TEM QUE APITAR
+  Ainda sem bateria.
+  Ponta vermelha | Ponta preta    | Resultado
+  ---------------+----------------+---------------
+  − do conector  | GND do ESP32   | tem que apitar
+  − do conector  | GND da ponte H | tem que apitar
+  OUT+ do LM2596 | VIN do ESP32   | tem que apitar
+  + do conector  | VM da ponte H  | tem que apitar
+
+PRIMEIRA VEZ LIGADO
+  Robô no ar, sem USB. Conecte a bateria, chave em LIGA e meça.
+  Onde medir         | Tem que dar
+  -------------------+----------------------
+  OUT+ / OUT− LM2596 | 4,9 – 5,1 V
+  3V3 / GND ESP32    | 3,2 – 3,4 V
+  VM / GND ponte H   | 7,0 – 8,4 V (bateria)
+  VCC / GND ponte H  | 3,2 – 3,4 V
+  Vcc / Gnd sonar    | 4,9 – 5,1 V
+  ATENÇÃO: Cheiro de queimado ou algo esquentando: desligue e desconecte a bateria na hora.
+
+CONFERÊNCIAS ESPALHADAS PELOS PASSOS (versão colorida; na do grupo são as mesmas)
+  - passo 1 (Separe as peças): Ferramentas: ferro de solda, estanho com fluxo, alicate de corte,
+      desencapador, multímetro, isqueiro ou soprador.
+  - passo 4 (Como emendar dois fios): Puxe de leve: a emenda não pode soltar. Solda boa é lisa e
+      brilhante.
+  - passo 5 (Ache as pernas A, K, C e E): Multímetro no modo diodo, vermelha numa perna do lado azul
+      e preta na outra: por volta de 1,1 V quer dizer vermelha no A. Marque o A.
+  - passo 8 (Una as pernas K e E): A ponte não pode encostar em A nem em C.
+  - passo 12 (Termorretrátil em tudo): Multímetro no bipe: entre o fio 16 e o fio 20 não pode
+      apitar.
+  - passo 14 (Cole nas janelas do piso): Esquerda e direita são do robô: sonar apontando para longe
+      de você.
+  - passo 25 (Encaixe no furo redondo da lateral direita): Por fora do robô, você tem que ver a
+      bolinha preta no meio do furo.
+  - passo 26 (Fios nos motores): Teste antes de fechar: encoste por 1 segundo os dois fios de um
+      motor no + e no − da bateria. Ele tem que girar.
+  - passo 35 (Fio 3 no + do conector): O + do conector fica com dois fios: 1 e 3.
+  - passo 36 (Fios 4 e 5 no − do conector): Bipe entre o + e o − do conector: não pode apitar.
+  - passo 41 (Fios 12, 10, 13 e 11 na saída): Cada furo da saída fica com dois fios.
+  - passo 43 (Emenda GND): O GND do sonar e o da ponte H não entram aqui.
+  - passo 44 (Encolha e acomode): Bipe entre um fio da emenda 3V3 e um da GND: não pode apitar.
+  - passo 45 (Grave o código antes de soldar): O LED azul da placa pisca depois de gravar.
+  - passo 46 (Os dois rasgos do ESP32): A plataforma continua com as 4 janelas grandes e pequenas:
+      R1 e R2 na frente, R3 e R4 atrás.
+  - passo 52 (Fios 28 a 34 nos pinos, por baixo): Bipe entre cada furo da ponte H e o pino dele no
+      ESP32: tem que apitar. Bipe entre cada pino soldado e o pino do lado: não pode apitar.
+  - passo 53 (Espaçadores: 12 mm + 5 mm): Se, com a plataforma no lugar, algum fio encostar com
+      força no LM2596, troque o de 5 mm por um de 12 mm.
+  - passo 55 (Fileira de trás: 14, 15, 25, 26B e 27): Bipe entre VIN e 3V3: não pode apitar. Bipe
+      entre cada pino soldado e o pino do lado: não pode apitar.
+  - passo 61 (Motor direito: 9 e 8): Bipe entre VM e VCC e entre VM e GND: não pode apitar.

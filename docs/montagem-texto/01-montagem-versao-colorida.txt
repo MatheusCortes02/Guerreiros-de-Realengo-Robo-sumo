@@ -1,0 +1,1557 @@
+====================================================================================================
+GUERREIROS DE REALENGO · MANUAL DE MONTAGEM EM TEXTO · VERSÃO COLORIDA (padrão do site, fios coloridos, tudo soldado do zero)
+====================================================================================================
+Mesmo conteúdo da página
+https://matheuscortes02.github.io/Guerreiros-de-Realengo-Robo-sumo/index.html (69 passos em 13
+blocos). A numeração dos passos é a mesma do site. As imagens citadas estão no ZIP, nas pastas
+indicadas. Esquerda e direita são sempre DO ROBÔ: sonar apontando para longe de você. Leia antes o
+00-LEIA-PRIMEIRO.txt.
+
+ÍNDICE
+  Bloco  1 · Antes de começar · passos 1 a 4
+  Bloco  2 · Sensores de borda · passos 5 a 14
+  Bloco  3 · Sonar HC-SR04 · passos 15 a 21
+  Bloco  4 · Receptor do juiz · passos 22 a 25
+  Bloco  5 · Motores e rodas · passos 26 a 30
+  Bloco  6 · Bateria, conector e chave · passos 31 a 37
+  Bloco  7 · Regulador LM2596 · passos 38 a 41
+  Bloco  8 · Emendas 3V3 e GND · passos 42 a 44
+  Bloco  9 · Plataforma: ESP32 e ponte H · passos 45 a 52
+  Bloco 10 · Plataforma no robô · passos 53 a 56
+  Bloco 11 · Ponte H: energia e motores · passos 57 a 62
+  Bloco 12 · Conferir e fechar · passos 63 a 66
+  Bloco 13 · Programar e lutar · passos 67 a 69
+
+
+####################################################################################################
+BLOCO 1 · ANTES DE COMEÇAR · passos 1 a 4
+####################################################################################################
+Separe tudo, confira os resistores e aprenda a emendar. Cada bloco mostra, na primeira tela, os fios
+que ele usa.
+Imagem de capa: docs/manual/preparo-pecas.webp
+
+----------------------------------------------------------------------------------------------------
+PASSO 1 de 69 · Bloco 1 · Separe as peças
+----------------------------------------------------------------------------------------------------
+Imagem: docs/manual/preparo-pecas.webp
+Na imagem: etiquetas “ESP32”, “ponte H”, “LM2596”, “HC-SR04”, “bateria”, “2 × TCRT5000”, “receptor”,
+“2 × motor”, “chave SS12D00”, “conector”, “6 resistores”.
+O que fazer:
+  * Além disso: fio flexível 22 AWG e 26 AWG, termorretrátil, fita crepe, fita dupla-face, cola
+    quente, velcro, termorretrátil fino de 1,5 mm (pinos do ESP32), 4 espaçadores de 12 mm e 4 de 5
+    mm (plataforma), 4 parafusos M3 × 25 com porca e 4 M3 × 45.
+CONFIRA: Ferramentas: ferro de solda, estanho com fluxo, alicate de corte, desencapador, multímetro,
+    isqueiro ou soprador.
+Quando terminar: passo 1 feito. Próximo: passo 2.
+
+----------------------------------------------------------------------------------------------------
+PASSO 2 de 69 · Bloco 1 · Confira os resistores
+----------------------------------------------------------------------------------------------------
+Imagem: docs/manual/preparo-resistores.webp
+Na imagem: etiquetas “100 Ω · 2 peças”, “10 kΩ · 2 peças”, “1 kΩ · 1 peça”, “2 kΩ · 1 peça”.
+Peças deste passo:
+  - 2× 100 Ω — marrom · preto · marrom
+  - 2× 10 kΩ — marrom · preto · laranja
+  - 1× 1 kΩ — marrom · preto · vermelho
+  - 1× 2 kΩ — vermelho · preto · vermelho
+O que fazer:
+  * 100 Ω e 10 kΩ são quase iguais: só muda a terceira faixa. Meça cada um com o multímetro e separe
+    em grupos.
+ATENÇÃO: Trocar o 100 Ω pelo 10 kΩ não queima, mas o sensor de borda para de funcionar.
+Quando terminar: passo 2 feito. Próximo: passo 3.
+
+----------------------------------------------------------------------------------------------------
+PASSO 3 de 69 · Bloco 1 · Numere cada fio
+----------------------------------------------------------------------------------------------------
+Imagem: docs/manual/preparo-fios.webp
+O que fazer:
+  * Cor obrigatória só na alimentação: vermelho 7,4 V, laranja 5 V, amarelo 3,3 V, preto GND. Sinal
+    pode ser de qualquer cor, mas cole a fita com o número nas duas pontas.
+  * Corte cada fio no tamanho que aparece na primeira tela do bloco onde ele entra (e na lista de
+    corte). As medidas já têm sobra.
+Quando terminar: passo 3 feito. Próximo: passo 4.
+
+----------------------------------------------------------------------------------------------------
+PASSO 4 de 69 · Bloco 1 · Como emendar dois fios
+----------------------------------------------------------------------------------------------------
+Imagem: docs/manual/preparo-solda.webp
+Na imagem: etiquetas “1”, “2”, “3”, “4”.
+O que fazer:
+  * 1 Desencape 4 mm. 2 Passe o termorretrátil antes, torça as pontas e estanhe.
+  * 3 Solde com 2 a 3 segundos de ferro, sem mexer até esfriar. 4 Puxe o tubo por cima e aqueça.
+CONFIRA: Puxe de leve: a emenda não pode soltar. Solda boa é lisa e brilhante.
+Quando terminar: passo 4 feito. Próximo: passo 5.
+
+####################################################################################################
+BLOCO 2 · SENSORES DE BORDA · passos 5 a 14
+####################################################################################################
+Dois TCRT5000 de 4 perninhas. Monte o esquerdo; o direito é igual, só muda o número dos fios.
+Imagem de capa: docs/manual/tcrt-t8.webp
+
+FIOS QUE ENTRAM NESTE BLOCO (corte e numere com fita nas duas pontas antes de começar)
+  - Fio 16 — amarelo — 26 AWG — corte com 50 mm
+      de: emenda 3V3 (5 fios torcidos e soldados juntos)
+      para: ponta de cima dos dois resistores (100 Ω e 10 kΩ) do sensor esquerdo, torcidas juntas
+  - Fio 17 — amarelo — 26 AWG — corte com 70 mm
+      de: emenda 3V3 (5 fios torcidos e soldados juntos)
+      para: ponta de cima dos dois resistores (100 Ω e 10 kΩ) do sensor direito, torcidas juntas
+  - Fio 20 — preto — 26 AWG — corte com 80 mm
+      de: emenda GND (5 fios torcidos e soldados juntos)
+      para: sensor esquerdo (TCRT5000), perna K
+  - Fio 21 — preto — 26 AWG — corte com 50 mm
+      de: emenda GND (5 fios torcidos e soldados juntos)
+      para: sensor direito (TCRT5000), perna K
+  - Fio 23 — branco — 26 AWG — corte com 150 mm
+      de: sensor esquerdo (TCRT5000), perna C
+      para: ESP32, pino D34 (fileira da FRENTE, a do EN…VIN, lado do sonar; 12º pino contando a partir da ponta do USB)
+  - Fio 24 — cinza — 26 AWG — corte com 110 mm
+      de: sensor direito (TCRT5000), perna C
+      para: ESP32, pino D35 (fileira da FRENTE, a do EN…VIN, lado do sonar; 11º pino contando a partir da ponta do USB)
+
+----------------------------------------------------------------------------------------------------
+PASSO 5 de 69 · Bloco 2 · Ache as pernas A, K, C e E
+----------------------------------------------------------------------------------------------------
+Imagem: docs/manual/tcrt-t0.webp
+Lupa (detalhe ampliado, no canto da imagem): docs/manual/tcrt-t0-lupa.webp
+Na imagem: etiquetas “A”, “K”, “C”, “E”, “lente azul”, “lente preta”.
+Peças deste passo:
+  - 1× TCRT5000 — 4 perninhas
+O que fazer:
+  * Debaixo da lente azul ficam A e K. Debaixo da lente preta, C e E. Na mesma fileira ficam A e C.
+CONFIRA: Multímetro no modo diodo, vermelha numa perna do lado azul e preta na outra: por volta de
+    1,1 V quer dizer vermelha no A. Marque o A.
+Quando terminar: passo 5 feito. Próximo: passo 6.
+
+----------------------------------------------------------------------------------------------------
+PASSO 6 de 69 · Bloco 2 · 100 Ω na perna A
+----------------------------------------------------------------------------------------------------
+Imagem: docs/manual/tcrt-t1.webp
+Na imagem: etiquetas “100 Ω”.
+Peças deste passo:
+  - 1× Resistor 100 Ω — marrom · preto · marrom
+  - Termorretrátil — pedaços de 1 a 2 cm
+O que fazer:
+  * Termorretrátil na perna A, encoste uma perna do 100 Ω ao lado e solde.
+ATENÇÃO: Sem esse resistor, o LED do sensor queima na primeira vez que ligar.
+Quando terminar: passo 6 feito. Próximo: passo 7.
+
+----------------------------------------------------------------------------------------------------
+PASSO 7 de 69 · Bloco 2 · 10 kΩ na perna C
+----------------------------------------------------------------------------------------------------
+Imagem: docs/manual/tcrt-t2.webp
+Na imagem: etiquetas “10 kΩ”.
+Peças deste passo:
+  - 1× Resistor 10 kΩ — marrom · preto · laranja
+  - Termorretrátil — pedaços de 1 a 2 cm
+O que fazer:
+  * Mesma coisa na perna C com o 10 kΩ. Incline os dois resistores até as pontas de cima se tocarem.
+Quando terminar: passo 7 feito. Próximo: passo 8.
+
+----------------------------------------------------------------------------------------------------
+PASSO 8 de 69 · Bloco 2 · Una as pernas K e E
+----------------------------------------------------------------------------------------------------
+Imagem: docs/manual/tcrt-t3.webp
+Na imagem: etiquetas “ponte”.
+O que fazer:
+  * Com uma sobra de perna de resistor, faça uma ponte entre K e E e solde nas duas.
+CONFIRA: A ponte não pode encostar em A nem em C.
+Quando terminar: passo 8 feito. Próximo: passo 9.
+
+----------------------------------------------------------------------------------------------------
+PASSO 9 de 69 · Bloco 2 · Fio 16 na ponta dos resistores
+----------------------------------------------------------------------------------------------------
+Imagem: docs/manual/tcrt-t4.webp
+Na imagem: círculo com o número do fio 16.
+Peças deste passo:
+  - Fio 16 — amarelo — 26 AWG — corte com 50 mm
+  - Termorretrátil — pedaços de 1 a 2 cm
+O que fazer:
+  * Torça as pontas de cima dos dois resistores com a ponta do fio 16 (amarelo, 3,3 V) e solde.
+Ligações deste passo, fio a fio:
+  - Fio 16: (também aparece no passo 42: uma ponta é soldada aqui e a outra lá)
+      uma ponta: emenda 3V3 (5 fios torcidos e soldados juntos)
+      outra ponta: ponta de cima dos dois resistores (100 Ω e 10 kΩ) do sensor esquerdo, torcidas
+        juntas
+      caminho: embaixo da plataforma
+      observação: chega na junção dos dois resistores do TCRT esquerdo
+Quando terminar: passo 9 feito. Próximo: passo 10.
+
+----------------------------------------------------------------------------------------------------
+PASSO 10 de 69 · Bloco 2 · Fio 23 na perna C
+----------------------------------------------------------------------------------------------------
+Imagem: docs/manual/tcrt-t5.webp
+Na imagem: círculo com o número do fio 23.
+Peças deste passo:
+  - Fio 23 — branco — 26 AWG — corte com 150 mm
+O que fazer:
+  * Solde o fio 23 (branco, sinal) na perna C, no ponto onde já está o 10 kΩ.
+Ligações deste passo, fio a fio:
+  - Fio 23: (também aparece no passo 54: uma ponta é soldada aqui e a outra lá)
+      uma ponta: sensor esquerdo (TCRT5000), perna C
+      outra ponta: ESP32, pino D34 (fileira da FRENTE, a do EN…VIN, lado do sonar; 12º pino contando
+        a partir da ponta do USB)
+      caminho: sobe por baixo da plataforma até a ponta do pino
+      observação: junto com o 10 kΩ na perna C
+Quando terminar: passo 10 feito. Próximo: passo 11.
+
+----------------------------------------------------------------------------------------------------
+PASSO 11 de 69 · Bloco 2 · Fio 20 na ponte K–E
+----------------------------------------------------------------------------------------------------
+Imagem: docs/manual/tcrt-t6.webp
+Na imagem: círculo com o número do fio 20.
+Peças deste passo:
+  - Fio 20 — preto — 26 AWG — corte com 80 mm
+O que fazer:
+  * Solde o fio 20 (preto, GND) no meio da ponte entre K e E.
+Ligações deste passo, fio a fio:
+  - Fio 20: (também aparece no passo 43: uma ponta é soldada aqui e a outra lá)
+      uma ponta: emenda GND (5 fios torcidos e soldados juntos)
+      outra ponta: sensor esquerdo (TCRT5000), perna K
+      caminho: embaixo da plataforma
+      observação: chega na ponte entre as pernas K e E
+Quando terminar: passo 11 feito. Próximo: passo 12.
+
+----------------------------------------------------------------------------------------------------
+PASSO 12 de 69 · Bloco 2 · Termorretrátil em tudo
+----------------------------------------------------------------------------------------------------
+Imagem: docs/manual/tcrt-t7.webp
+O que fazer:
+  * Puxe os tubos por cima de cada solda e aqueça. Nenhum metal à mostra.
+CONFIRA: Multímetro no bipe: entre o fio 16 e o fio 20 não pode apitar.
+Quando terminar: passo 12 feito. Próximo: passo 13.
+
+----------------------------------------------------------------------------------------------------
+PASSO 13 de 69 · Bloco 2 · Monte o sensor direito igual · ×2
+----------------------------------------------------------------------------------------------------
+Imagem: docs/manual/tcrt-t8.webp
+Na imagem: círculos com os números dos fios 16, 23, 20, 17, 24, 21; etiquetas “esquerdo”, “direito”.
+Peças deste passo:
+  - 1× TCRT5000
+  - 1× Resistor 100 Ω — marrom · preto · marrom
+  - 1× Resistor 10 kΩ — marrom · preto · laranja
+  - Fio 17 — amarelo — 26 AWG — corte com 70 mm
+  - Fio 24 — cinza — 26 AWG — corte com 110 mm
+  - Fio 21 — preto — 26 AWG — corte com 50 mm
+O que fazer:
+  * Só mudam os fios: 17 no lugar do 16, 24 no lugar do 23 e 21 no lugar do 20.
+Ligações deste passo, fio a fio:
+  - Fio 17: (também aparece no passo 42: uma ponta é soldada aqui e a outra lá)
+      uma ponta: emenda 3V3 (5 fios torcidos e soldados juntos)
+      outra ponta: ponta de cima dos dois resistores (100 Ω e 10 kΩ) do sensor direito, torcidas
+        juntas
+      caminho: embaixo da plataforma
+      observação: chega na junção dos dois resistores do TCRT direito
+  - Fio 24: (também aparece no passo 54: uma ponta é soldada aqui e a outra lá)
+      uma ponta: sensor direito (TCRT5000), perna C
+      outra ponta: ESP32, pino D35 (fileira da FRENTE, a do EN…VIN, lado do sonar; 11º pino contando
+        a partir da ponta do USB)
+      caminho: sobe por baixo da plataforma até a ponta do pino
+      observação: junto com o 10 kΩ na perna C
+  - Fio 21: (também aparece no passo 43: uma ponta é soldada aqui e a outra lá)
+      uma ponta: emenda GND (5 fios torcidos e soldados juntos)
+      outra ponta: sensor direito (TCRT5000), perna K
+      caminho: embaixo da plataforma
+      observação: chega na ponte entre as pernas K e E
+Quando terminar: passo 13 feito. Próximo: passo 14.
+
+----------------------------------------------------------------------------------------------------
+PASSO 14 de 69 · Bloco 2 · Cole nas janelas do piso
+----------------------------------------------------------------------------------------------------
+Imagem: docs/manual/robo-tcrt.webp
+Lupa (detalhe ampliado, no canto da imagem): docs/manual/robo-tcrt-baixo.webp
+Peças deste passo:
+  - Cola quente
+  - Cartão de visita — calço de 0,3 mm
+O que fazer:
+  * Chassi em pé numa mesa lisa, cartão dentro da janela, sensor com as lentes para baixo até
+    encostar no cartão. Cole só por cima.
+  * O sensor dos fios 16, 23 e 20 vai na janela do lado esquerdo do robô.
+CONFIRA: Esquerda e direita são do robô: sonar apontando para longe de você.
+Quando terminar: passo 14 feito. Próximo: passo 15.
+
+####################################################################################################
+BLOCO 3 · SONAR HC-SR04 · passos 15 a 21
+####################################################################################################
+Quatro fios e um divisor com dois resistores, que protege o ESP32 dos 5 V do sonar.
+Imagem de capa: docs/manual/sonar-h6.webp
+
+FIOS QUE ENTRAM NESTE BLOCO (corte e numere com fita nas duas pontas antes de começar)
+  - Fio 12 — laranja — 26 AWG — corte com 100 mm
+      de: LM2596, furo OUT+
+      para: sonar HC-SR04, pino VCC
+  - Fio 13 — preto — 26 AWG — corte com 100 mm
+      de: LM2596, furo OUT−
+      para: sonar HC-SR04, pino GND
+  - Fio 25 — verde — 26 AWG — corte com 150 mm
+      de: sonar HC-SR04, pino TRIG
+      para: ESP32, pino D5 (fileira de TRÁS, a do D23…3V3; 8º pino contando a partir da ponta do USB)
+  - Fio 26A — azul — 26 AWG — corte com 70 mm
+      de: sonar HC-SR04, pino ECHO
+      para: resistor 1 kΩ do divisor do sonar (perna emendada no fio 26A)
+  - Fio 26B — azul — 26 AWG — corte com 110 mm
+      de: nó do divisor do sonar (perna do 1 kΩ onde também estão o 2 kΩ e o fio 26B)
+      para: ESP32, pino D18 (fileira de TRÁS, a do D23…3V3; 9º pino contando a partir da ponta do USB)
+  - Fio 26C — preto — 26 AWG — corte com 40 mm
+      de: resistor 2 kΩ do divisor do sonar (perna livre, onde vai o fio 26C)
+      para: emenda GND (5 fios torcidos e soldados juntos)
+
+----------------------------------------------------------------------------------------------------
+PASSO 15 de 69 · Bloco 3 · Ache os 4 pinos
+----------------------------------------------------------------------------------------------------
+Imagem: docs/manual/sonar-h1.webp
+Lupa (detalhe ampliado, no canto da imagem): docs/manual/sonar-h1-lupa.webp
+Na imagem: etiquetas “Vcc”, “Trig”, “Echo”, “Gnd”.
+Peças deste passo:
+  - 1× HC-SR04
+O que fazer:
+  * Transdutores para cima, pinos para você: Vcc, Trig, Echo, Gnd. Se forem compridos, corte
+    deixando 3 mm.
+Quando terminar: passo 15 feito. Próximo: passo 16.
+
+----------------------------------------------------------------------------------------------------
+PASSO 16 de 69 · Bloco 3 · Fios 12 e 13: alimentação
+----------------------------------------------------------------------------------------------------
+Imagem: docs/manual/sonar-h2.webp
+Na imagem: círculos com os números dos fios 12, 13.
+Peças deste passo:
+  - Fio 12 — laranja — 26 AWG — corte com 100 mm
+  - Fio 13 — preto — 26 AWG — corte com 100 mm
+  - Termorretrátil — pedaços de 1 a 2 cm
+O que fazer:
+  * Fio 12 (laranja, 5 V) no Vcc. Fio 13 (preto) no Gnd.
+Ligações deste passo, fio a fio:
+  - Fio 12: (também aparece no passo 41: uma ponta é soldada aqui e a outra lá)
+      uma ponta: LM2596, furo OUT+
+      outra ponta: sonar HC-SR04, pino VCC
+      caminho: embaixo da plataforma
+      observação: divide o furo OUT+ com o fio 10
+  - Fio 13: (também aparece no passo 41: uma ponta é soldada aqui e a outra lá)
+      uma ponta: LM2596, furo OUT−
+      outra ponta: sonar HC-SR04, pino GND
+      caminho: embaixo da plataforma
+      observação: divide o furo OUT− com o fio 11
+ATENÇÃO: Invertendo Vcc e Gnd o sonar queima.
+Quando terminar: passo 16 feito. Próximo: passo 17.
+
+----------------------------------------------------------------------------------------------------
+PASSO 17 de 69 · Bloco 3 · Fios 25 e 26A: sinais
+----------------------------------------------------------------------------------------------------
+Imagem: docs/manual/sonar-h3.webp
+Na imagem: círculos com os números dos fios 25, 26A.
+Peças deste passo:
+  - Fio 25 — verde — 26 AWG — corte com 150 mm
+  - Fio 26A — azul — 26 AWG — corte com 70 mm
+  - Termorretrátil — pedaços de 1 a 2 cm
+O que fazer:
+  * Fio 25 no Trig. Fio 26A no Echo.
+Ligações deste passo, fio a fio:
+  - Fio 25: (também aparece no passo 55: uma ponta é soldada aqui e a outra lá)
+      uma ponta: sonar HC-SR04, pino TRIG
+      outra ponta: ESP32, pino D5 (fileira de TRÁS, a do D23…3V3; 8º pino contando a partir da ponta
+        do USB)
+      caminho: sobe por baixo da plataforma até a ponta do pino
+  - Fio 26A:
+      uma ponta: sonar HC-SR04, pino ECHO
+      outra ponta: resistor 1 kΩ do divisor do sonar (perna emendada no fio 26A)
+      caminho: embaixo da plataforma
+      observação: ECHO até o 1 kΩ (ainda 5 V)
+Quando terminar: passo 17 feito. Próximo: passo 18.
+
+----------------------------------------------------------------------------------------------------
+PASSO 18 de 69 · Bloco 3 · 1 kΩ na ponta do fio 26A
+----------------------------------------------------------------------------------------------------
+Imagem: docs/manual/sonar-h4.webp
+Na imagem: etiquetas “1 kΩ”.
+Peças deste passo:
+  - 1× Resistor 1 kΩ — marrom · preto · vermelho
+  - Termorretrátil — pedaços de 1 a 2 cm
+O que fazer:
+  * Emende o 1 kΩ na ponta solta do fio 26A, como uma emenda de dois fios.
+Quando terminar: passo 18 feito. Próximo: passo 19.
+
+----------------------------------------------------------------------------------------------------
+PASSO 19 de 69 · Bloco 3 · O nó: 2 kΩ e fio 26B
+----------------------------------------------------------------------------------------------------
+Imagem: docs/manual/sonar-h5.webp
+Na imagem: círculo com o número do fio 26B; etiquetas “2 kΩ”.
+Peças deste passo:
+  - 1× Resistor 2 kΩ — vermelho · preto · vermelho
+  - Fio 26B — azul — 26 AWG — corte com 110 mm
+  - Termorretrátil — pedaços de 1 a 2 cm
+O que fazer:
+  * Na outra perna do 1 kΩ, solde juntos uma perna do 2 kΩ e o fio 26B. O 26B leva o sinal ao ESP32.
+Ligações deste passo, fio a fio:
+  - Fio 26B: (também aparece no passo 55: uma ponta é soldada aqui e a outra lá)
+      uma ponta: nó do divisor do sonar (perna do 1 kΩ onde também estão o 2 kΩ e o fio 26B)
+      outra ponta: ESP32, pino D18 (fileira de TRÁS, a do D23…3V3; 9º pino contando a partir da
+        ponta do USB)
+      caminho: sobe por baixo da plataforma até a ponta do pino
+      observação: sai do nó do divisor (já 3,3 V)
+Quando terminar: passo 19 feito. Próximo: passo 20.
+
+----------------------------------------------------------------------------------------------------
+PASSO 20 de 69 · Bloco 3 · Fio 26C no 2 kΩ
+----------------------------------------------------------------------------------------------------
+Imagem: docs/manual/sonar-h6.webp
+Na imagem: círculo com o número do fio 26C.
+Peças deste passo:
+  - Fio 26C — preto — 26 AWG — corte com 40 mm
+  - Termorretrátil — pedaços de 1 a 2 cm
+O que fazer:
+  * Na perna livre do 2 kΩ, solde o fio 26C (preto). Ele vai na emenda GND do bloco 8.
+    Termorretrátil em tudo.
+Ligações deste passo, fio a fio:
+  - Fio 26C: (também aparece no passo 43: uma ponta é soldada aqui e a outra lá)
+      uma ponta: resistor 2 kΩ do divisor do sonar (perna livre, onde vai o fio 26C)
+      outra ponta: emenda GND (5 fios torcidos e soldados juntos)
+      caminho: embaixo da plataforma
+      observação: do 2 kΩ até a emenda GND
+ATENÇÃO: O fio 26B nunca vai direto no Echo: sem o divisor, o sinal chega com 5 V e estraga o pino
+    do ESP32.
+Quando terminar: passo 20 feito. Próximo: passo 21.
+
+----------------------------------------------------------------------------------------------------
+PASSO 21 de 69 · Bloco 3 · Encaixe na frente do chassi
+----------------------------------------------------------------------------------------------------
+Imagem: docs/manual/robo-hc.webp
+Peças deste passo:
+  - Cola quente
+O que fazer:
+  * Por dentro, encaixe os dois transdutores nos furos do meio da frente. Trave com cola quente na
+    lateral da placa.
+Quando terminar: passo 21 feito. Próximo: passo 22.
+
+####################################################################################################
+BLOCO 4 · RECEPTOR DO JUIZ · passos 22 a 25
+####################################################################################################
+Recebe START e STOP do juiz. Fica dentro do furo redondo da lateral DIREITA, oposta à chave.
+Imagem de capa: docs/manual/receptor-i3.webp
+
+FIOS QUE ENTRAM NESTE BLOCO (corte e numere com fita nas duas pontas antes de começar)
+  - Fio 18 — amarelo — 26 AWG — corte com 100 mm
+      de: emenda 3V3 (5 fios torcidos e soldados juntos)
+      para: receptor do juiz, perna VCC
+  - Fio 22 — preto — 26 AWG — corte com 70 mm
+      de: emenda GND (5 fios torcidos e soldados juntos)
+      para: receptor do juiz, perna GND
+  - Fio 27 — roxo — 26 AWG — corte com 130 mm
+      de: receptor do juiz, perna OUT
+      para: ESP32, pino D19 (fileira de TRÁS, a do D23…3V3; 10º pino contando a partir da ponta do USB)
+
+----------------------------------------------------------------------------------------------------
+PASSO 22 de 69 · Bloco 4 · Ache as 3 pernas
+----------------------------------------------------------------------------------------------------
+Imagem: docs/manual/receptor-i1.webp
+Na imagem: etiquetas “OUT”, “GND”, “VCC”, “S”, “+”, “−”.
+Peças deste passo:
+  - 1× VS1838B ou KY-022
+O que fazer:
+  * VS1838B, bolinha de frente: OUT, GND, VCC. KY-022: S, +, −. Siga o impresso na sua.
+ATENÇÃO: O pino do meio muda: no VS1838B é GND, na KY-022 é +. Trocado, queima o receptor.
+Quando terminar: passo 22 feito. Próximo: passo 23.
+
+----------------------------------------------------------------------------------------------------
+PASSO 23 de 69 · Bloco 4 · Dobre as pernas
+----------------------------------------------------------------------------------------------------
+Imagem: docs/manual/receptor-i2.webp
+O que fazer:
+  * Dobre as três pernas para trás logo abaixo do corpo e corte deixando 6 mm.
+Quando terminar: passo 23 feito. Próximo: passo 24.
+
+----------------------------------------------------------------------------------------------------
+PASSO 24 de 69 · Bloco 4 · Fios 27, 22 e 18
+----------------------------------------------------------------------------------------------------
+Imagem: docs/manual/receptor-i3.webp
+Na imagem: círculos com os números dos fios 27, 22, 18.
+Peças deste passo:
+  - Fio 27 — roxo — 26 AWG — corte com 130 mm
+  - Fio 22 — preto — 26 AWG — corte com 70 mm
+  - Fio 18 — amarelo — 26 AWG — corte com 100 mm
+  - Termorretrátil — pedaços de 1 a 2 cm
+O que fazer:
+  * 27 no OUT · 22 no GND · 18 no VCC. Na KY-022: 27 no S, 18 no +, 22 no −.
+Ligações deste passo, fio a fio:
+  - Fio 27: (também aparece no passo 55: uma ponta é soldada aqui e a outra lá)
+      uma ponta: receptor do juiz, perna OUT
+      outra ponta: ESP32, pino D19 (fileira de TRÁS, a do D23…3V3; 10º pino contando a partir da
+        ponta do USB)
+      caminho: sobe por baixo da plataforma até a ponta do pino
+  - Fio 22: (também aparece no passo 43: uma ponta é soldada aqui e a outra lá)
+      uma ponta: emenda GND (5 fios torcidos e soldados juntos)
+      outra ponta: receptor do juiz, perna GND
+      caminho: embaixo da plataforma
+  - Fio 18: (também aparece no passo 42: uma ponta é soldada aqui e a outra lá)
+      uma ponta: emenda 3V3 (5 fios torcidos e soldados juntos)
+      outra ponta: receptor do juiz, perna VCC
+      caminho: embaixo da plataforma
+ATENÇÃO: Receptor só no 3,3 V. Em 5 V, o sinal dele chega com 5 V no ESP32.
+Quando terminar: passo 24 feito. Próximo: passo 25.
+
+----------------------------------------------------------------------------------------------------
+PASSO 25 de 69 · Bloco 4 · Encaixe no furo redondo da lateral direita
+----------------------------------------------------------------------------------------------------
+Imagem: docs/manual/robo-ir.webp
+Lupa (detalhe ampliado, no canto da imagem): docs/manual/robo-ir-lupa.webp
+Peças deste passo:
+  - Cola quente
+O que fazer:
+  * Por dentro do chassi, empurre o receptor para dentro do furo redondo da lateral direita (lado
+    oposto da chave), bolinha para fora. Trave com cola quente no corpo.
+CONFIRA: Por fora do robô, você tem que ver a bolinha preta no meio do furo.
+Quando terminar: passo 25 feito. Próximo: passo 26.
+
+####################################################################################################
+BLOCO 5 · MOTORES E RODAS · passos 26 a 30
+####################################################################################################
+Dois fios em cada motor antes de entrar na caixa.
+Imagem de capa: docs/manual/robo-rodas.webp
+
+FIOS QUE ENTRAM NESTE BLOCO (corte e numere com fita nas duas pontas antes de começar)
+  - Fio 6 — cinza — 22 AWG — corte com 160 mm
+      de: motor esquerdo, um dos dois terminais
+      para: ponte H TB6612, furo A01 (fileira de energia, a do VM; 4º furo)
+  - Fio 7 — cinza — 22 AWG — corte com 160 mm
+      de: motor esquerdo, um dos dois terminais
+      para: ponte H TB6612, furo A02 (fileira de energia, a do VM; 5º furo)
+  - Fio 8 — branco — 22 AWG — corte com 160 mm
+      de: motor direito, um dos dois terminais
+      para: ponte H TB6612, furo B01 (fileira de energia, a do VM; 7º furo)
+  - Fio 9 — branco — 22 AWG — corte com 160 mm
+      de: motor direito, um dos dois terminais
+      para: ponte H TB6612, furo B02 (fileira de energia, a do VM; 6º furo)
+
+----------------------------------------------------------------------------------------------------
+PASSO 26 de 69 · Bloco 5 · Fios nos motores
+----------------------------------------------------------------------------------------------------
+Imagem: docs/manual/motores-m1.webp
+Na imagem: círculos com os números dos fios 6, 7, 8, 9; etiquetas “esquerdo”, “direito”.
+Peças deste passo:
+  - 2× Motor N20
+  - Fio 6 — cinza — 22 AWG — corte com 160 mm
+  - Fio 7 — cinza — 22 AWG — corte com 160 mm
+  - Fio 8 — branco — 22 AWG — corte com 160 mm
+  - Fio 9 — branco — 22 AWG — corte com 160 mm
+O que fazer:
+  * Motor esquerdo: fios 6 e 7. Motor direito: 8 e 9. Um fio em cada terminal. Motor não tem lado
+    certo.
+Ligações deste passo, fio a fio:
+  - Fio 6: (também aparece no passo 60: uma ponta é soldada aqui e a outra lá)
+      uma ponta: motor esquerdo, um dos dois terminais
+      outra ponta: ponte H TB6612, furo A01 (fileira de energia, a do VM; 4º furo)
+      caminho: furo Ø6 da tampa e rasgo R4
+  - Fio 7: (também aparece no passo 60: uma ponta é soldada aqui e a outra lá)
+      uma ponta: motor esquerdo, um dos dois terminais
+      outra ponta: ponte H TB6612, furo A02 (fileira de energia, a do VM; 5º furo)
+      caminho: furo Ø6 da tampa e rasgo R4
+  - Fio 8: (também aparece no passo 61: uma ponta é soldada aqui e a outra lá)
+      uma ponta: motor direito, um dos dois terminais
+      outra ponta: ponte H TB6612, furo B01 (fileira de energia, a do VM; 7º furo)
+      caminho: furo Ø6 da tampa e rasgo R4
+  - Fio 9: (também aparece no passo 61: uma ponta é soldada aqui e a outra lá)
+      uma ponta: motor direito, um dos dois terminais
+      outra ponta: ponte H TB6612, furo B02 (fileira de energia, a do VM; 6º furo)
+      caminho: furo Ø6 da tampa e rasgo R4
+CONFIRA: Teste antes de fechar: encoste por 1 segundo os dois fios de um motor no + e no − da
+    bateria. Ele tem que girar.
+Quando terminar: passo 26 feito. Próximo: passo 27.
+
+----------------------------------------------------------------------------------------------------
+PASSO 27 de 69 · Bloco 5 · Isole a traseira
+----------------------------------------------------------------------------------------------------
+Imagem: docs/manual/motores-m2.webp
+Na imagem: etiquetas “fita isolante”.
+Peças deste passo:
+  - Fita isolante
+O que fazer:
+  * Fita isolante na traseira de cada motor: os dois se encostam dentro da caixa.
+ATENÇÃO: Terminal de um motor encostando no do outro dá curto na ponte H.
+Quando terminar: passo 27 feito. Próximo: passo 28.
+
+----------------------------------------------------------------------------------------------------
+PASSO 28 de 69 · Bloco 5 · Motores na caixa
+----------------------------------------------------------------------------------------------------
+Imagem: docs/manual/robo-motores.webp
+O que fazer:
+  * Cada motor entra pela sua lateral, eixo para fora. O esquerdo pelo lado esquerdo do robô.
+Quando terminar: passo 28 feito. Próximo: passo 29.
+
+----------------------------------------------------------------------------------------------------
+PASSO 29 de 69 · Bloco 5 · Tampa e parafusos
+----------------------------------------------------------------------------------------------------
+Imagem: docs/manual/robo-tampa.webp
+Peças deste passo:
+  - 4× Parafuso M3 × 25 — com porca
+O que fazer:
+  * Passe os 4 fios pelo furo do meio da tampa, encaixe a tampa e parafuse a caixa no chassi.
+Quando terminar: passo 29 feito. Próximo: passo 30.
+
+----------------------------------------------------------------------------------------------------
+PASSO 30 de 69 · Bloco 5 · Rodas
+----------------------------------------------------------------------------------------------------
+Imagem: docs/manual/robo-rodas.webp
+Peças deste passo:
+  - 2× Roda 32 mm
+O que fazer:
+  * Aperte o parafuso da roda na parte plana do eixo. Gire com a mão: não pode raspar.
+Quando terminar: passo 30 feito. Próximo: passo 31.
+
+####################################################################################################
+BLOCO 6 · BATERIA, CONECTOR E CHAVE · passos 31 a 37
+####################################################################################################
+A chave SS12D00 aguenta 0,5 A: liga só a eletrônica. Os motores recebem a bateria direto pelo fio 3.
+Imagem de capa: docs/manual/chave-c5.webp
+
+FIOS QUE ENTRAM NESTE BLOCO (corte e numere com fita nas duas pontas antes de começar)
+  - Fio 1 — vermelho — 22 AWG — corte com 60 mm
+      de: conector da bateria, fio + vermelho
+      para: chave SS12D00, pino COM (o do meio)
+  - Fio 2 — vermelho — 22 AWG — corte com 60 mm
+      de: chave SS12D00, pino P1 (o do lado que LIGA, achado com o multímetro)
+      para: LM2596, furo IN+
+  - Fio 3 — vermelho — 22 AWG — corte com 120 mm
+      de: conector da bateria, fio + vermelho
+      para: ponte H TB6612, furo VM (fileira de energia, a do VM; 1º furo)
+  - Fio 4 — preto — 22 AWG — corte com 120 mm
+      de: conector da bateria, fio − preto
+      para: ponte H TB6612, furo GND (fileira de energia, a do VM; 3º furo)
+  - Fio 5 — preto — 22 AWG — corte com 50 mm
+      de: conector da bateria, fio − preto
+      para: LM2596, furo IN−
+
+----------------------------------------------------------------------------------------------------
+PASSO 31 de 69 · Bloco 6 · Bateria com velcro
+----------------------------------------------------------------------------------------------------
+Imagem: docs/manual/robo-bateria.webp
+Peças deste passo:
+  - 1× Bateria 7,4 V
+  - 2 Tiras de velcro
+O que fazer:
+  * Velcro no piso e na bateria, deitada no fundo. Velcro e não cola: ela sai para carregar.
+Quando terminar: passo 31 feito. Próximo: passo 32.
+
+----------------------------------------------------------------------------------------------------
+PASSO 32 de 69 · Bloco 6 · Descubra o lado que liga
+----------------------------------------------------------------------------------------------------
+Imagem: docs/manual/chave-c1.webp
+Lupa (detalhe ampliado, no canto da imagem): docs/manual/chave-c1-lupa.webp
+Na imagem: etiquetas “P1”, “COM”, “P2”, “+”, “−”.
+Peças deste passo:
+  - 1× Chave SS12D00 — 3 perninhas
+  - 1× Conector — lado do robô
+O que fazer:
+  * O pino do meio é o COM. Bipe entre o COM e um pino do lado; empurre o botão: para um lado apita.
+    Esse pino é o P1 e essa posição é LIGA.
+Quando terminar: passo 32 feito. Próximo: passo 33.
+
+----------------------------------------------------------------------------------------------------
+PASSO 33 de 69 · Bloco 6 · Fio 1: conector + até o COM
+----------------------------------------------------------------------------------------------------
+Imagem: docs/manual/chave-c2.webp
+Na imagem: círculo com o número do fio 1.
+Peças deste passo:
+  - Fio 1 — vermelho — 22 AWG — corte com 60 mm
+  - Termorretrátil — pedaços de 1 a 2 cm
+O que fazer:
+  * Fio 1 no fio vermelho (+) do conector e a outra ponta no pino do meio da chave.
+Ligações deste passo, fio a fio:
+  - Fio 1:
+      uma ponta: conector da bateria, fio + vermelho
+      outra ponta: chave SS12D00, pino COM (o do meio)
+      caminho: embaixo da plataforma
+      observação: vermelho do conector da bateria, junto com o fio 3; na chave, pino do meio
+ATENÇÃO: Solde com a bateria desconectada. Um toque do + no − derrete os fios.
+Quando terminar: passo 33 feito. Próximo: passo 34.
+
+----------------------------------------------------------------------------------------------------
+PASSO 34 de 69 · Bloco 6 · Fio 2 no P1
+----------------------------------------------------------------------------------------------------
+Imagem: docs/manual/chave-c3.webp
+Na imagem: círculo com o número do fio 2.
+Peças deste passo:
+  - Fio 2 — vermelho — 22 AWG — corte com 60 mm
+  - Termorretrátil — pedaços de 1 a 2 cm
+O que fazer:
+  * Fio 2 no P1. Ele vai ao IN+ do LM2596. O terceiro pino fica vazio.
+Ligações deste passo, fio a fio:
+  - Fio 2: (também aparece no passo 39: uma ponta é soldada aqui e a outra lá)
+      uma ponta: chave SS12D00, pino P1 (o do lado que LIGA, achado com o multímetro)
+      outra ponta: LM2596, furo IN+
+      caminho: embaixo da plataforma
+      observação: na chave, o pino do lado que liga (confira com o multímetro)
+Quando terminar: passo 34 feito. Próximo: passo 35.
+
+----------------------------------------------------------------------------------------------------
+PASSO 35 de 69 · Bloco 6 · Fio 3 no + do conector
+----------------------------------------------------------------------------------------------------
+Imagem: docs/manual/chave-c4.webp
+Na imagem: círculo com o número do fio 3.
+Peças deste passo:
+  - Fio 3 — vermelho — 22 AWG — corte com 120 mm
+O que fazer:
+  * No mesmo ponto do fio 1, solde o fio 3. Ele vai direto ao VM da ponte H.
+Ligações deste passo, fio a fio:
+  - Fio 3: (também aparece no passo 57: uma ponta é soldada aqui e a outra lá)
+      uma ponta: conector da bateria, fio + vermelho
+      outra ponta: ponte H TB6612, furo VM (fileira de energia, a do VM; 1º furo)
+      caminho: sobe pelo rasgo R4
+      observação: vermelho do conector da bateria, junto com o fio 1: os motores não passam pela
+        chave
+CONFIRA: O + do conector fica com dois fios: 1 e 3.
+Quando terminar: passo 35 feito. Próximo: passo 36.
+
+----------------------------------------------------------------------------------------------------
+PASSO 36 de 69 · Bloco 6 · Fios 4 e 5 no − do conector
+----------------------------------------------------------------------------------------------------
+Imagem: docs/manual/chave-c5.webp
+Na imagem: círculos com os números dos fios 4, 5.
+Peças deste passo:
+  - Fio 4 — preto — 22 AWG — corte com 120 mm
+  - Fio 5 — preto — 22 AWG — corte com 50 mm
+  - Termorretrátil — pedaços de 1 a 2 cm
+O que fazer:
+  * No fio preto (−) do conector, solde juntos os fios 4 e 5. Termorretrátil nas duas emendas.
+Ligações deste passo, fio a fio:
+  - Fio 4: (também aparece no passo 59: uma ponta é soldada aqui e a outra lá)
+      uma ponta: conector da bateria, fio − preto
+      outra ponta: ponte H TB6612, furo GND (fileira de energia, a do VM; 3º furo)
+      caminho: sobe pelo rasgo R4
+      observação: preto do conector da bateria, junto com o fio 5
+  - Fio 5: (também aparece no passo 39: uma ponta é soldada aqui e a outra lá)
+      uma ponta: conector da bateria, fio − preto
+      outra ponta: LM2596, furo IN−
+      caminho: embaixo da plataforma
+      observação: preto do conector da bateria, junto com o fio 4
+CONFIRA: Bipe entre o + e o − do conector: não pode apitar.
+Quando terminar: passo 36 feito. Próximo: passo 37.
+
+----------------------------------------------------------------------------------------------------
+PASSO 37 de 69 · Bloco 6 · Chave na lateral esquerda
+----------------------------------------------------------------------------------------------------
+Imagem: docs/manual/robo-chave.webp
+Lupa (detalhe ampliado, no canto da imagem): docs/manual/robo-chave-lupa.webp
+Peças deste passo:
+  - Cola quente
+O que fazer:
+  * Cole a chave no furo retangular da lateral esquerda, botão para fora. O conector fica em cima da
+    bateria.
+Quando terminar: passo 37 feito. Próximo: passo 38.
+
+####################################################################################################
+BLOCO 7 · REGULADOR LM2596 · passos 38 a 41
+####################################################################################################
+Colado em cima da bateria. Transforma 7,4 V em 5 V e precisa ser ajustado antes de ligar a saída.
+Imagem de capa: docs/manual/robo-lm-hc.webp
+
+FIOS QUE ENTRAM NESTE BLOCO (corte e numere com fita nas duas pontas antes de começar)
+  - Fio 10 — laranja — 26 AWG — corte com 130 mm
+      de: LM2596, furo OUT+
+      para: ESP32, pino VIN (fileira da FRENTE, a do EN…VIN, lado do sonar; 1º pino contando a partir da ponta do USB)
+  - Fio 11 — preto — 26 AWG — corte com 120 mm
+      de: LM2596, furo OUT−
+      para: ESP32, pino GND (fileira da FRENTE, a do EN…VIN, lado do sonar; 2º pino contando a partir da ponta do USB)
+
+----------------------------------------------------------------------------------------------------
+PASSO 38 de 69 · Bloco 7 · Cole em cima da bateria
+----------------------------------------------------------------------------------------------------
+Imagem: docs/manual/robo-lm.webp
+Peças deste passo:
+  - 1× LM2596
+  - Fita dupla-face
+O que fazer:
+  * Entrada (IN) para o lado esquerdo, perto da chave; saída (OUT) para o direito.
+Quando terminar: passo 38 feito. Próximo: passo 39.
+
+----------------------------------------------------------------------------------------------------
+PASSO 39 de 69 · Bloco 7 · Fios 2 e 5 na entrada
+----------------------------------------------------------------------------------------------------
+Imagem: docs/manual/robo-lm-entrada.webp
+Lupa (detalhe ampliado, no canto da imagem): docs/manual/robo-lm-entrada-lupa.webp
+Peças deste passo:
+  - Fio 2 — vermelho — 22 AWG — corte com 60 mm
+  - Fio 5 — preto — 22 AWG — corte com 50 mm
+O que fazer:
+  * Fio 2 (da chave) no IN+. Fio 5 (do conector) no IN−. Leia o + e o − impressos.
+Ligações deste passo, fio a fio:
+  - Fio 2: (também aparece no passo 34: uma ponta é soldada aqui e a outra lá)
+      uma ponta: chave SS12D00, pino P1 (o do lado que LIGA, achado com o multímetro)
+      outra ponta: LM2596, furo IN+
+      caminho: embaixo da plataforma
+      observação: na chave, o pino do lado que liga (confira com o multímetro)
+  - Fio 5: (também aparece no passo 36: uma ponta é soldada aqui e a outra lá)
+      uma ponta: conector da bateria, fio − preto
+      outra ponta: LM2596, furo IN−
+      caminho: embaixo da plataforma
+      observação: preto do conector da bateria, junto com o fio 4
+ATENÇÃO: Entrada invertida queima o LM2596 na hora.
+Quando terminar: passo 39 feito. Próximo: passo 40.
+
+----------------------------------------------------------------------------------------------------
+PASSO 40 de 69 · Bloco 7 · Ajuste para 5,00 V
+----------------------------------------------------------------------------------------------------
+Imagem: docs/manual/robo-lm-ajuste.webp
+Peças deste passo:
+  - Multímetro — tensão DC
+  - Chave de fenda pequena
+O que fazer:
+  * Nada na saída. Bateria conectada, chave em LIGA. Vermelha no OUT+, preta no OUT−.
+  * Gire o parafuso dourado: horário sobe. Pare em 5,00 V (pode levar 10 a 20 voltas). Depois
+    desligue e desconecte a bateria.
+ATENÇÃO: Ele vem de fábrica numa tensão qualquer, às vezes mais de 30 V. Ligar a saída antes de
+    ajustar queima o sonar e o ESP32.
+Quando terminar: passo 40 feito. Próximo: passo 41.
+
+----------------------------------------------------------------------------------------------------
+PASSO 41 de 69 · Bloco 7 · Fios 12, 10, 13 e 11 na saída
+----------------------------------------------------------------------------------------------------
+Imagem: docs/manual/robo-lm-hc.webp
+Peças deste passo:
+  - Fio 12 — laranja — 26 AWG — corte com 100 mm
+  - Fio 10 — laranja — 26 AWG — corte com 130 mm
+  - Fio 13 — preto — 26 AWG — corte com 100 mm
+  - Fio 11 — preto — 26 AWG — corte com 120 mm
+O que fazer:
+  * No OUT+, juntos: 12 (sonar) e 10 (vai ao VIN do ESP32). No OUT−, juntos: 13 (sonar) e 11 (vai ao
+    GND do ESP32).
+Ligações deste passo, fio a fio:
+  - Fio 12: (também aparece no passo 16: uma ponta é soldada aqui e a outra lá)
+      uma ponta: LM2596, furo OUT+
+      outra ponta: sonar HC-SR04, pino VCC
+      caminho: embaixo da plataforma
+      observação: divide o furo OUT+ com o fio 10
+  - Fio 10: (também aparece no passo 54: uma ponta é soldada aqui e a outra lá)
+      uma ponta: LM2596, furo OUT+
+      outra ponta: ESP32, pino VIN (fileira da FRENTE, a do EN…VIN, lado do sonar; 1º pino contando
+        a partir da ponta do USB)
+      caminho: sobe por baixo da plataforma até a ponta do pino
+      observação: divide o furo OUT+ com o fio 12
+  - Fio 13: (também aparece no passo 16: uma ponta é soldada aqui e a outra lá)
+      uma ponta: LM2596, furo OUT−
+      outra ponta: sonar HC-SR04, pino GND
+      caminho: embaixo da plataforma
+      observação: divide o furo OUT− com o fio 11
+  - Fio 11: (também aparece no passo 54: uma ponta é soldada aqui e a outra lá)
+      uma ponta: LM2596, furo OUT−
+      outra ponta: ESP32, pino GND (fileira da FRENTE, a do EN…VIN, lado do sonar; 2º pino contando
+        a partir da ponta do USB)
+      caminho: sobe por baixo da plataforma até a ponta do pino
+      observação: divide o furo OUT− com o fio 13
+CONFIRA: Cada furo da saída fica com dois fios.
+Quando terminar: passo 41 feito. Próximo: passo 42.
+
+####################################################################################################
+BLOCO 8 · EMENDAS 3V3 E GND · passos 42 a 44
+####################################################################################################
+Um pino do ESP32 alimenta vários sensores porque o fio se divide numa emenda. São duas: 3V3 e GND.
+Imagem de capa: docs/manual/robo-emendas.webp
+
+FIOS QUE ENTRAM NESTE BLOCO (corte e numere com fita nas duas pontas antes de começar)
+  - Fio 14 — amarelo — 26 AWG — corte com 110 mm
+      de: ESP32, pino 3V3 (fileira de TRÁS, a do D23…3V3; 1º pino contando a partir da ponta do USB)
+      para: emenda 3V3 (5 fios torcidos e soldados juntos)
+  - Fio 15 — preto — 26 AWG — corte com 110 mm
+      de: ESP32, pino GND (fileira de TRÁS, a do D23…3V3; 2º pino contando a partir da ponta do USB)
+      para: emenda GND (5 fios torcidos e soldados juntos)
+  - Fio 19 — amarelo — 26 AWG — corte com 130 mm
+      de: emenda 3V3 (5 fios torcidos e soldados juntos)
+      para: ponte H TB6612, furo VCC (fileira de energia, a do VM; 2º furo)
+
+----------------------------------------------------------------------------------------------------
+PASSO 42 de 69 · Bloco 8 · Emenda 3V3
+----------------------------------------------------------------------------------------------------
+Imagem: docs/manual/emendas-e1.webp
+Na imagem: círculos com os números dos fios 14, 16, 17, 18, 19.
+Peças deste passo:
+  - Fio 14 — amarelo — 26 AWG — corte com 110 mm
+  - Fio 16 — amarelo — 26 AWG — corte com 50 mm
+  - Fio 17 — amarelo — 26 AWG — corte com 70 mm
+  - Fio 18 — amarelo — 26 AWG — corte com 100 mm
+  - Fio 19 — amarelo — 26 AWG — corte com 130 mm
+  - Termorretrátil — pedaços de 1 a 2 cm
+O que fazer:
+  * Termorretrátil grosso num fio, desencape 5 mm de cada ponta, torça as cinco juntas e solde.
+  * 16 e 17 (sensores), 18 (receptor), 19 (ponte H), 14 (3V3 do ESP32).
+Ligações deste passo, fio a fio:
+  - Fio 14: (também aparece no passo 55: uma ponta é soldada aqui e a outra lá)
+      uma ponta: ESP32, pino 3V3 (fileira de TRÁS, a do D23…3V3; 1º pino contando a partir da ponta
+        do USB)
+      outra ponta: emenda 3V3 (5 fios torcidos e soldados juntos)
+      caminho: sobe por baixo da plataforma até a ponta do pino
+  - Fio 16: (também aparece no passo 9: uma ponta é soldada aqui e a outra lá)
+      uma ponta: emenda 3V3 (5 fios torcidos e soldados juntos)
+      outra ponta: ponta de cima dos dois resistores (100 Ω e 10 kΩ) do sensor esquerdo, torcidas
+        juntas
+      caminho: embaixo da plataforma
+      observação: chega na junção dos dois resistores do TCRT esquerdo
+  - Fio 17: (também aparece no passo 13: uma ponta é soldada aqui e a outra lá)
+      uma ponta: emenda 3V3 (5 fios torcidos e soldados juntos)
+      outra ponta: ponta de cima dos dois resistores (100 Ω e 10 kΩ) do sensor direito, torcidas
+        juntas
+      caminho: embaixo da plataforma
+      observação: chega na junção dos dois resistores do TCRT direito
+  - Fio 18: (também aparece no passo 24: uma ponta é soldada aqui e a outra lá)
+      uma ponta: emenda 3V3 (5 fios torcidos e soldados juntos)
+      outra ponta: receptor do juiz, perna VCC
+      caminho: embaixo da plataforma
+  - Fio 19: (também aparece no passo 58: uma ponta é soldada aqui e a outra lá)
+      uma ponta: emenda 3V3 (5 fios torcidos e soldados juntos)
+      outra ponta: ponte H TB6612, furo VCC (fileira de energia, a do VM; 2º furo)
+      caminho: sobe pelo rasgo R2
+ATENÇÃO: Só fios amarelos nesta emenda. Um preto aqui é curto direto no ESP32.
+Quando terminar: passo 42 feito. Próximo: passo 43.
+
+----------------------------------------------------------------------------------------------------
+PASSO 43 de 69 · Bloco 8 · Emenda GND
+----------------------------------------------------------------------------------------------------
+Imagem: docs/manual/emendas-e2.webp
+Na imagem: círculos com os números dos fios 15, 20, 21, 22, 26C.
+Peças deste passo:
+  - Fio 15 — preto — 26 AWG — corte com 110 mm
+  - Fio 20 — preto — 26 AWG — corte com 80 mm
+  - Fio 21 — preto — 26 AWG — corte com 50 mm
+  - Fio 22 — preto — 26 AWG — corte com 70 mm
+  - Fio 26C — preto — 26 AWG — corte com 40 mm
+  - Termorretrátil — pedaços de 1 a 2 cm
+O que fazer:
+  * Cinco pretos: 20 e 21 (sensores), 22 (receptor), 26C (divisor do sonar), 15 (GND do ESP32).
+Ligações deste passo, fio a fio:
+  - Fio 15: (também aparece no passo 55: uma ponta é soldada aqui e a outra lá)
+      uma ponta: ESP32, pino GND (fileira de TRÁS, a do D23…3V3; 2º pino contando a partir da ponta
+        do USB)
+      outra ponta: emenda GND (5 fios torcidos e soldados juntos)
+      caminho: sobe por baixo da plataforma até a ponta do pino
+  - Fio 20: (também aparece no passo 11: uma ponta é soldada aqui e a outra lá)
+      uma ponta: emenda GND (5 fios torcidos e soldados juntos)
+      outra ponta: sensor esquerdo (TCRT5000), perna K
+      caminho: embaixo da plataforma
+      observação: chega na ponte entre as pernas K e E
+  - Fio 21: (também aparece no passo 13: uma ponta é soldada aqui e a outra lá)
+      uma ponta: emenda GND (5 fios torcidos e soldados juntos)
+      outra ponta: sensor direito (TCRT5000), perna K
+      caminho: embaixo da plataforma
+      observação: chega na ponte entre as pernas K e E
+  - Fio 22: (também aparece no passo 24: uma ponta é soldada aqui e a outra lá)
+      uma ponta: emenda GND (5 fios torcidos e soldados juntos)
+      outra ponta: receptor do juiz, perna GND
+      caminho: embaixo da plataforma
+  - Fio 26C: (também aparece no passo 20: uma ponta é soldada aqui e a outra lá)
+      uma ponta: resistor 2 kΩ do divisor do sonar (perna livre, onde vai o fio 26C)
+      outra ponta: emenda GND (5 fios torcidos e soldados juntos)
+      caminho: embaixo da plataforma
+      observação: do 2 kΩ até a emenda GND
+CONFIRA: O GND do sonar e o da ponte H não entram aqui.
+Quando terminar: passo 43 feito. Próximo: passo 44.
+
+----------------------------------------------------------------------------------------------------
+PASSO 44 de 69 · Bloco 8 · Encolha e acomode
+----------------------------------------------------------------------------------------------------
+Imagem: docs/manual/robo-emendas.webp
+O que fazer:
+  * Aqueça os tubos e acomode as emendas atrás do sonar, em cima da borda da placa dele.
+CONFIRA: Bipe entre um fio da emenda 3V3 e um da GND: não pode apitar.
+Quando terminar: passo 44 feito. Próximo: passo 45.
+
+####################################################################################################
+BLOCO 9 · PLATAFORMA: ESP32 E PONTE H · passos 45 a 52
+####################################################################################################
+Na bancada, fora do robô. O ESP32 fica apoiado na plataforma com os pinos atravessando os rasgos, e
+todo fio do ESP32 é soldado na ponta do pino, por baixo.
+Imagem de capa: docs/manual/robo-plat-tb.webp
+
+FIOS QUE ENTRAM NESTE BLOCO (corte e numere com fita nas duas pontas antes de começar)
+  - Fio 28 — marrom — 26 AWG — corte com 110 mm
+      de: ponte H TB6612, furo PWMA (fileira de controle, a do PWMA; 1º furo)
+      para: ESP32, pino D25 (fileira da FRENTE, a do EN…VIN, lado do sonar; 8º pino contando a partir da ponta do USB)
+  - Fio 29 — azul — 26 AWG — corte com 100 mm
+      de: ponte H TB6612, furo AIN2 (fileira de controle, a do PWMA; 2º furo)
+      para: ESP32, pino D27 (fileira da FRENTE, a do EN…VIN, lado do sonar; 6º pino contando a partir da ponta do USB)
+  - Fio 30 — verde — 26 AWG — corte com 100 mm
+      de: ponte H TB6612, furo AIN1 (fileira de controle, a do PWMA; 3º furo)
+      para: ESP32, pino D26 (fileira da FRENTE, a do EN…VIN, lado do sonar; 7º pino contando a partir da ponta do USB)
+  - Fio 31 — roxo — 26 AWG — corte com 90 mm
+      de: ponte H TB6612, furo STBY (fileira de controle, a do PWMA; 4º furo)
+      para: ESP32, pino D13 (fileira da FRENTE, a do EN…VIN, lado do sonar; 3º pino contando a partir da ponta do USB)
+  - Fio 32 — verde — 26 AWG — corte com 100 mm
+      de: ponte H TB6612, furo BIN1 (fileira de controle, a do PWMA; 5º furo)
+      para: ESP32, pino D32 (fileira da FRENTE, a do EN…VIN, lado do sonar; 10º pino contando a partir da ponta do USB)
+  - Fio 33 — azul — 26 AWG — corte com 100 mm
+      de: ponte H TB6612, furo BIN2 (fileira de controle, a do PWMA; 6º furo)
+      para: ESP32, pino D33 (fileira da FRENTE, a do EN…VIN, lado do sonar; 9º pino contando a partir da ponta do USB)
+  - Fio 34 — marrom — 26 AWG — corte com 80 mm
+      de: ponte H TB6612, furo PWMB (fileira de controle, a do PWMA; 7º furo)
+      para: ESP32, pino D14 (fileira da FRENTE, a do EN…VIN, lado do sonar; 5º pino contando a partir da ponta do USB)
+
+----------------------------------------------------------------------------------------------------
+PASSO 45 de 69 · Bloco 9 · Grave o código antes de soldar
+----------------------------------------------------------------------------------------------------
+Imagem: nenhuma (passo só de texto)
+Peças deste passo:
+  - 1× Cabo USB de dados
+O que fazer:
+  * Com o ESP32 solto, ligue no computador e grave o código com MODO_TESTE = true (passo a passo no
+    bloco 13).
+  * Depois de montado, o USB fica encostado na ponte H e o cabo pode não entrar.
+CONFIRA: O LED azul da placa pisca depois de gravar.
+Quando terminar: passo 45 feito. Próximo: passo 46.
+
+----------------------------------------------------------------------------------------------------
+PASSO 46 de 69 · Bloco 9 · Os dois rasgos do ESP32
+----------------------------------------------------------------------------------------------------
+Imagem: docs/manual/robo-plat-rasgos.webp
+Lupa (detalhe ampliado, no canto da imagem): docs/manual/robo-plat-rasgos-lupa.webp
+O que fazer:
+  * Corte dois rasgos de 40 × 2 mm, um embaixo de cada fileira de pinos, com 25,4 mm entre os
+    centros. Apoie o ESP32 no lugar e risque com caneta onde os pinos encostam.
+CONFIRA: A plataforma continua com as 4 janelas grandes e pequenas: R1 e R2 na frente, R3 e R4
+    atrás.
+Quando terminar: passo 46 feito. Próximo: passo 47.
+
+----------------------------------------------------------------------------------------------------
+PASSO 47 de 69 · Bloco 9 · Encaixe o ESP32 e cole
+----------------------------------------------------------------------------------------------------
+Imagem: docs/manual/robo-plat-esp.webp
+Lupa (detalhe ampliado, no canto da imagem): docs/manual/robo-plat-esp-lupa.webp
+Peças deste passo:
+  - 1× ESP32 DevKit V1 — 30 pinos, com a barra de pinos
+  - Cola quente
+O que fazer:
+  * USB para a esquerda do robô, virado para onde vai a ponte H. A fileira com EN e VIN fica na
+    frente, do lado do sonar.
+  * Um ponto de cola quente em cada ponta das duas barras pretas.
+ATENÇÃO: Antes de virar a plataforma, pinte com caneta, por baixo, a ponta do pino VIN e a do 3V3.
+    Por baixo não aparece nenhum nome.
+Quando terminar: passo 47 feito. Próximo: passo 48.
+
+----------------------------------------------------------------------------------------------------
+PASSO 48 de 69 · Bloco 9 · Ponte H: fios 28 a 31
+----------------------------------------------------------------------------------------------------
+Imagem: docs/manual/ponteh-g6.webp
+Lupa (detalhe ampliado, no canto da imagem): docs/manual/ponteh-g6-lupa.webp
+Na imagem: círculos com os números dos fios 28, 29, 30, 31.
+Peças deste passo:
+  - Fio 28 — marrom — 26 AWG — corte com 110 mm
+  - Fio 29 — azul — 26 AWG — corte com 100 mm
+  - Fio 30 — verde — 26 AWG — corte com 100 mm
+  - Fio 31 — roxo — 26 AWG — corte com 90 mm
+O que fazer:
+  * Com a placa na mão. Fileira de controle: 28 PWMA, 29 AIN2, 30 AIN1, 31 STBY.
+Ligações deste passo, fio a fio:
+  - Fio 28: (também aparece no passo 52: uma ponta é soldada aqui e a outra lá)
+      uma ponta: ponte H TB6612, furo PWMA (fileira de controle, a do PWMA; 1º furo)
+      outra ponta: ESP32, pino D25 (fileira da FRENTE, a do EN…VIN, lado do sonar; 8º pino contando
+        a partir da ponta do USB)
+      caminho: desce pelo rasgo R2 e sobe por baixo até a ponta do pino
+  - Fio 29: (também aparece no passo 52: uma ponta é soldada aqui e a outra lá)
+      uma ponta: ponte H TB6612, furo AIN2 (fileira de controle, a do PWMA; 2º furo)
+      outra ponta: ESP32, pino D27 (fileira da FRENTE, a do EN…VIN, lado do sonar; 6º pino contando
+        a partir da ponta do USB)
+      caminho: desce pelo rasgo R2 e sobe por baixo até a ponta do pino
+  - Fio 30: (também aparece no passo 52: uma ponta é soldada aqui e a outra lá)
+      uma ponta: ponte H TB6612, furo AIN1 (fileira de controle, a do PWMA; 3º furo)
+      outra ponta: ESP32, pino D26 (fileira da FRENTE, a do EN…VIN, lado do sonar; 7º pino contando
+        a partir da ponta do USB)
+      caminho: desce pelo rasgo R2 e sobe por baixo até a ponta do pino
+  - Fio 31: (também aparece no passo 52: uma ponta é soldada aqui e a outra lá)
+      uma ponta: ponte H TB6612, furo STBY (fileira de controle, a do PWMA; 4º furo)
+      outra ponta: ESP32, pino D13 (fileira da FRENTE, a do EN…VIN, lado do sonar; 3º pino contando
+        a partir da ponta do USB)
+      caminho: desce pelo rasgo R2 e sobe por baixo até a ponta do pino
+Quando terminar: passo 48 feito. Próximo: passo 49.
+
+----------------------------------------------------------------------------------------------------
+PASSO 49 de 69 · Bloco 9 · Ponte H: fios 32 a 34
+----------------------------------------------------------------------------------------------------
+Imagem: docs/manual/ponteh-g7.webp
+Lupa (detalhe ampliado, no canto da imagem): docs/manual/ponteh-g7-lupa.webp
+Na imagem: círculos com os números dos fios 32, 33, 34.
+Peças deste passo:
+  - Fio 32 — verde — 26 AWG — corte com 100 mm
+  - Fio 33 — azul — 26 AWG — corte com 100 mm
+  - Fio 34 — marrom — 26 AWG — corte com 80 mm
+O que fazer:
+  * 32 BIN1, 33 BIN2, 34 PWMB. O último GND fica vazio.
+Ligações deste passo, fio a fio:
+  - Fio 32: (também aparece no passo 52: uma ponta é soldada aqui e a outra lá)
+      uma ponta: ponte H TB6612, furo BIN1 (fileira de controle, a do PWMA; 5º furo)
+      outra ponta: ESP32, pino D32 (fileira da FRENTE, a do EN…VIN, lado do sonar; 10º pino contando
+        a partir da ponta do USB)
+      caminho: desce pelo rasgo R2 e sobe por baixo até a ponta do pino
+      observação: fita “B”
+  - Fio 33: (também aparece no passo 52: uma ponta é soldada aqui e a outra lá)
+      uma ponta: ponte H TB6612, furo BIN2 (fileira de controle, a do PWMA; 6º furo)
+      outra ponta: ESP32, pino D33 (fileira da FRENTE, a do EN…VIN, lado do sonar; 9º pino contando
+        a partir da ponta do USB)
+      caminho: desce pelo rasgo R2 e sobe por baixo até a ponta do pino
+      observação: fita “B”
+  - Fio 34: (também aparece no passo 52: uma ponta é soldada aqui e a outra lá)
+      uma ponta: ponte H TB6612, furo PWMB (fileira de controle, a do PWMA; 7º furo)
+      outra ponta: ESP32, pino D14 (fileira da FRENTE, a do EN…VIN, lado do sonar; 5º pino contando
+        a partir da ponta do USB)
+      caminho: desce pelo rasgo R2 e sobe por baixo até a ponta do pino
+      observação: fita “B”
+Quando terminar: passo 49 feito. Próximo: passo 50.
+
+----------------------------------------------------------------------------------------------------
+PASSO 50 de 69 · Bloco 9 · Cole a ponte H e desça os 7 fios
+----------------------------------------------------------------------------------------------------
+Imagem: docs/manual/robo-plat-tb.webp
+Lupa (detalhe ampliado, no canto da imagem): docs/manual/robo-plat-tb-lupa.webp
+Peças deste passo:
+  - Fita dupla-face
+O que fazer:
+  * Ao lado da ponta USB do ESP32, com a fileira de controle virada para ele. Passe os 7 fios juntos
+    pelo rasgo R2, o pequeno da frente, de cima para baixo.
+Quando terminar: passo 50 feito. Próximo: passo 51.
+
+----------------------------------------------------------------------------------------------------
+PASSO 51 de 69 · Bloco 9 · Como soldar na ponta do pino
+----------------------------------------------------------------------------------------------------
+Imagem: docs/manual/esp-pino.webp
+Lupa (detalhe ampliado, no canto da imagem): docs/manual/esp-pino-lupa.webp
+Na imagem: etiquetas “1”, “2”, “3”, “4”.
+Peças deste passo:
+  - Termorretrátil fino — 1,5 mm, um pedaço de 6 mm por pino
+O que fazer:
+  * Plataforma de cabeça para baixo: os pinos saem uns 3 mm pelo rasgo.
+  * 1 Desencape 3 mm, estanhe e passe o termorretrátil longe da ponta. 2 Encoste o fio em pé, colado
+    no pino. 3 Solde com 2 segundos de ferro. 4 Desça o tubo até a plataforma e aqueça.
+ATENÇÃO: Os pinos ficam a 2,54 mm um do outro. Sem termorretrátil, um fio encosta no vizinho.
+Quando terminar: passo 51 feito. Próximo: passo 52.
+
+----------------------------------------------------------------------------------------------------
+PASSO 52 de 69 · Bloco 9 · Fios 28 a 34 nos pinos, por baixo
+----------------------------------------------------------------------------------------------------
+Imagem: docs/manual/robo-plat-controle.webp
+Lupa (detalhe ampliado, no canto da imagem): docs/manual/robo-plat-controle-lupa.webp
+Na imagem: círculos com os números dos fios 28, 29, 30, 31, 32, 33, 34.
+Peças deste passo:
+  - Fio 28 — marrom — 26 AWG — corte com 110 mm
+  - Fio 29 — azul — 26 AWG — corte com 100 mm
+  - Fio 30 — verde — 26 AWG — corte com 100 mm
+  - Fio 31 — roxo — 26 AWG — corte com 90 mm
+  - Fio 32 — verde — 26 AWG — corte com 100 mm
+  - Fio 33 — azul — 26 AWG — corte com 100 mm
+  - Fio 34 — marrom — 26 AWG — corte com 80 mm
+  - Termorretrátil fino — 1,5 mm, um pedaço de 6 mm por pino
+O que fazer:
+  * Fileira da frente (a do VIN). Conte a partir do pino pintado.
+Tabela:
+    Pino, contando do USB | Nome na placa | Fio
+    ----------------------+---------------+------
+    3º                    | D13           | 31
+    4º                    | D12           | vazio
+    5º                    | D14           | 34
+    6º                    | D27           | 29
+    7º                    | D26           | 30
+    8º                    | D25           | 28
+    9º                    | D33           | 33
+    10º                   | D32           | 32
+Ligações deste passo, fio a fio:
+  - Fio 28: (também aparece no passo 48: uma ponta é soldada aqui e a outra lá)
+      uma ponta: ponte H TB6612, furo PWMA (fileira de controle, a do PWMA; 1º furo)
+      outra ponta: ESP32, pino D25 (fileira da FRENTE, a do EN…VIN, lado do sonar; 8º pino contando
+        a partir da ponta do USB)
+      caminho: desce pelo rasgo R2 e sobe por baixo até a ponta do pino
+  - Fio 29: (também aparece no passo 48: uma ponta é soldada aqui e a outra lá)
+      uma ponta: ponte H TB6612, furo AIN2 (fileira de controle, a do PWMA; 2º furo)
+      outra ponta: ESP32, pino D27 (fileira da FRENTE, a do EN…VIN, lado do sonar; 6º pino contando
+        a partir da ponta do USB)
+      caminho: desce pelo rasgo R2 e sobe por baixo até a ponta do pino
+  - Fio 30: (também aparece no passo 48: uma ponta é soldada aqui e a outra lá)
+      uma ponta: ponte H TB6612, furo AIN1 (fileira de controle, a do PWMA; 3º furo)
+      outra ponta: ESP32, pino D26 (fileira da FRENTE, a do EN…VIN, lado do sonar; 7º pino contando
+        a partir da ponta do USB)
+      caminho: desce pelo rasgo R2 e sobe por baixo até a ponta do pino
+  - Fio 31: (também aparece no passo 48: uma ponta é soldada aqui e a outra lá)
+      uma ponta: ponte H TB6612, furo STBY (fileira de controle, a do PWMA; 4º furo)
+      outra ponta: ESP32, pino D13 (fileira da FRENTE, a do EN…VIN, lado do sonar; 3º pino contando
+        a partir da ponta do USB)
+      caminho: desce pelo rasgo R2 e sobe por baixo até a ponta do pino
+  - Fio 32: (também aparece no passo 49: uma ponta é soldada aqui e a outra lá)
+      uma ponta: ponte H TB6612, furo BIN1 (fileira de controle, a do PWMA; 5º furo)
+      outra ponta: ESP32, pino D32 (fileira da FRENTE, a do EN…VIN, lado do sonar; 10º pino contando
+        a partir da ponta do USB)
+      caminho: desce pelo rasgo R2 e sobe por baixo até a ponta do pino
+      observação: fita “B”
+  - Fio 33: (também aparece no passo 49: uma ponta é soldada aqui e a outra lá)
+      uma ponta: ponte H TB6612, furo BIN2 (fileira de controle, a do PWMA; 6º furo)
+      outra ponta: ESP32, pino D33 (fileira da FRENTE, a do EN…VIN, lado do sonar; 9º pino contando
+        a partir da ponta do USB)
+      caminho: desce pelo rasgo R2 e sobe por baixo até a ponta do pino
+      observação: fita “B”
+  - Fio 34: (também aparece no passo 49: uma ponta é soldada aqui e a outra lá)
+      uma ponta: ponte H TB6612, furo PWMB (fileira de controle, a do PWMA; 7º furo)
+      outra ponta: ESP32, pino D14 (fileira da FRENTE, a do EN…VIN, lado do sonar; 5º pino contando
+        a partir da ponta do USB)
+      caminho: desce pelo rasgo R2 e sobe por baixo até a ponta do pino
+      observação: fita “B”
+CONFIRA: Bipe entre cada furo da ponte H e o pino dele no ESP32: tem que apitar. Bipe entre cada
+    pino soldado e o pino do lado: não pode apitar.
+Quando terminar: passo 52 feito. Próximo: passo 53.
+
+####################################################################################################
+BLOCO 10 · PLATAFORMA NO ROBÔ · passos 53 a 56
+####################################################################################################
+Os fios que vêm de baixo sobem direto até a ponta dos pinos do ESP32. Solde com a plataforma de
+cabeça para baixo, apoiada na frente do robô.
+Imagem de capa: docs/manual/robo-plataforma.webp
+
+----------------------------------------------------------------------------------------------------
+PASSO 53 de 69 · Bloco 10 · Espaçadores: 12 mm + 5 mm
+----------------------------------------------------------------------------------------------------
+Imagem: docs/manual/robo-espacadores.webp
+Peças deste passo:
+  - 4× Espaçador de 12 mm
+  - 4× Espaçador de 5 mm
+O que fazer:
+  * Em cada uma das 4 colunas do chassi: um espaçador de 12 mm e um de 5 mm por cima. A plataforma
+    sobe 17 mm.
+CONFIRA: Se, com a plataforma no lugar, algum fio encostar com força no LM2596, troque o de 5 mm por
+    um de 12 mm.
+Quando terminar: passo 53 feito. Próximo: passo 54.
+
+----------------------------------------------------------------------------------------------------
+PASSO 54 de 69 · Bloco 10 · Fileira da frente: 10, 11, 23 e 24
+----------------------------------------------------------------------------------------------------
+Imagem: docs/manual/robo-esp-frente.webp
+Lupa (detalhe ampliado, no canto da imagem): docs/manual/robo-esp-frente-lupa.webp
+Na imagem: círculos com os números dos fios 10, 11, 23, 24.
+Peças deste passo:
+  - Fio 10 — laranja — 26 AWG — corte com 130 mm
+  - Fio 11 — preto — 26 AWG — corte com 120 mm
+  - Fio 23 — branco — 26 AWG — corte com 150 mm
+  - Fio 24 — cinza — 26 AWG — corte com 110 mm
+  - Termorretrátil fino — 1,5 mm, um pedaço de 6 mm por pino
+O que fazer:
+  * A fileira do VIN, do lado do sonar. Cada fio sobe reto por baixo e é soldado na ponta do pino.
+Tabela:
+    Pino, contando do USB | Nome na placa | Fio
+    ----------------------+---------------+----
+    1º                    | VIN           | 10
+    2º                    | GND           | 11
+    11º                   | D35           | 24
+    12º                   | D34           | 23
+Ligações deste passo, fio a fio:
+  - Fio 10: (também aparece no passo 41: uma ponta é soldada aqui e a outra lá)
+      uma ponta: LM2596, furo OUT+
+      outra ponta: ESP32, pino VIN (fileira da FRENTE, a do EN…VIN, lado do sonar; 1º pino contando
+        a partir da ponta do USB)
+      caminho: sobe por baixo da plataforma até a ponta do pino
+      observação: divide o furo OUT+ com o fio 12
+  - Fio 11: (também aparece no passo 41: uma ponta é soldada aqui e a outra lá)
+      uma ponta: LM2596, furo OUT−
+      outra ponta: ESP32, pino GND (fileira da FRENTE, a do EN…VIN, lado do sonar; 2º pino contando
+        a partir da ponta do USB)
+      caminho: sobe por baixo da plataforma até a ponta do pino
+      observação: divide o furo OUT− com o fio 13
+  - Fio 23: (também aparece no passo 10: uma ponta é soldada aqui e a outra lá)
+      uma ponta: sensor esquerdo (TCRT5000), perna C
+      outra ponta: ESP32, pino D34 (fileira da FRENTE, a do EN…VIN, lado do sonar; 12º pino contando
+        a partir da ponta do USB)
+      caminho: sobe por baixo da plataforma até a ponta do pino
+      observação: junto com o 10 kΩ na perna C
+  - Fio 24: (também aparece no passo 13: uma ponta é soldada aqui e a outra lá)
+      uma ponta: sensor direito (TCRT5000), perna C
+      outra ponta: ESP32, pino D35 (fileira da FRENTE, a do EN…VIN, lado do sonar; 11º pino contando
+        a partir da ponta do USB)
+      caminho: sobe por baixo da plataforma até a ponta do pino
+      observação: junto com o 10 kΩ na perna C
+ATENÇÃO: VIN é o 1º da fileira da frente e 3V3 é o 1º da de trás. O fio 10 (5 V) no 3V3 queima o
+    ESP32 e todos os sensores.
+Quando terminar: passo 54 feito. Próximo: passo 55.
+
+----------------------------------------------------------------------------------------------------
+PASSO 55 de 69 · Bloco 10 · Fileira de trás: 14, 15, 25, 26B e 27
+----------------------------------------------------------------------------------------------------
+Imagem: docs/manual/robo-esp-tras.webp
+Lupa (detalhe ampliado, no canto da imagem): docs/manual/robo-esp-tras-lupa.webp
+Na imagem: círculos com os números dos fios 14, 15, 25, 26B, 27.
+Peças deste passo:
+  - Fio 14 — amarelo — 26 AWG — corte com 110 mm
+  - Fio 15 — preto — 26 AWG — corte com 110 mm
+  - Fio 25 — verde — 26 AWG — corte com 150 mm
+  - Fio 26B — azul — 26 AWG — corte com 110 mm
+  - Fio 27 — roxo — 26 AWG — corte com 130 mm
+  - Termorretrátil fino — 1,5 mm, um pedaço de 6 mm por pino
+O que fazer:
+  * A fileira do 3V3. Os fios passam por cima do LM2596 e sobem até o pino.
+Tabela:
+    Pino, contando do USB | Nome na placa | Fio
+    ----------------------+---------------+----
+    1º                    | 3V3           | 14
+    2º                    | GND           | 15
+    8º                    | D5            | 25
+    9º                    | D18           | 26B
+    10º                   | D19           | 27
+Ligações deste passo, fio a fio:
+  - Fio 14: (também aparece no passo 42: uma ponta é soldada aqui e a outra lá)
+      uma ponta: ESP32, pino 3V3 (fileira de TRÁS, a do D23…3V3; 1º pino contando a partir da ponta
+        do USB)
+      outra ponta: emenda 3V3 (5 fios torcidos e soldados juntos)
+      caminho: sobe por baixo da plataforma até a ponta do pino
+  - Fio 15: (também aparece no passo 43: uma ponta é soldada aqui e a outra lá)
+      uma ponta: ESP32, pino GND (fileira de TRÁS, a do D23…3V3; 2º pino contando a partir da ponta
+        do USB)
+      outra ponta: emenda GND (5 fios torcidos e soldados juntos)
+      caminho: sobe por baixo da plataforma até a ponta do pino
+  - Fio 25: (também aparece no passo 17: uma ponta é soldada aqui e a outra lá)
+      uma ponta: sonar HC-SR04, pino TRIG
+      outra ponta: ESP32, pino D5 (fileira de TRÁS, a do D23…3V3; 8º pino contando a partir da ponta
+        do USB)
+      caminho: sobe por baixo da plataforma até a ponta do pino
+  - Fio 26B: (também aparece no passo 19: uma ponta é soldada aqui e a outra lá)
+      uma ponta: nó do divisor do sonar (perna do 1 kΩ onde também estão o 2 kΩ e o fio 26B)
+      outra ponta: ESP32, pino D18 (fileira de TRÁS, a do D23…3V3; 9º pino contando a partir da
+        ponta do USB)
+      caminho: sobe por baixo da plataforma até a ponta do pino
+      observação: sai do nó do divisor (já 3,3 V)
+  - Fio 27: (também aparece no passo 24: uma ponta é soldada aqui e a outra lá)
+      uma ponta: receptor do juiz, perna OUT
+      outra ponta: ESP32, pino D19 (fileira de TRÁS, a do D23…3V3; 10º pino contando a partir da
+        ponta do USB)
+      caminho: sobe por baixo da plataforma até a ponta do pino
+CONFIRA: Bipe entre VIN e 3V3: não pode apitar. Bipe entre cada pino soldado e o pino do lado: não
+    pode apitar.
+Quando terminar: passo 55 feito. Próximo: passo 56.
+
+----------------------------------------------------------------------------------------------------
+PASSO 56 de 69 · Bloco 10 · Apoie a plataforma
+----------------------------------------------------------------------------------------------------
+Imagem: docs/manual/robo-plataforma.webp
+O que fazer:
+  * Vire a plataforma para cima, passe os fios da ponte H pelos rasgos de baixo para cima e apoie
+    nos espaçadores. Ainda sem parafuso.
+Tabela:
+    Rasgo                | Fios
+    ---------------------+------------------------------------
+    R2 · pequeno, frente | 19 sobe · 28 a 34 já descem por ele
+    R4 · pequeno, trás   | 3, 4, 6, 7, 8 e 9 sobem
+    R1 e R3 · grandes    | nenhum fio
+Quando terminar: passo 56 feito. Próximo: passo 57.
+
+####################################################################################################
+BLOCO 11 · PONTE H: ENERGIA E MOTORES · passos 57 a 62
+####################################################################################################
+A ponte H já está colada na plataforma. As imagens mostram a placa solta só para ler o nome de cada
+furo.
+Imagem de capa: docs/manual/robo-tb.webp
+
+----------------------------------------------------------------------------------------------------
+PASSO 57 de 69 · Bloco 11 · Fio 3 no VM
+----------------------------------------------------------------------------------------------------
+Imagem: docs/manual/ponteh-g1.webp
+Lupa (detalhe ampliado, no canto da imagem): docs/manual/ponteh-g1-lupa.webp
+Na imagem: círculo com o número do fio 3.
+Peças deste passo:
+  - Fio 3 — vermelho — 22 AWG — corte com 120 mm
+O que fazer:
+  * Fileira de energia, primeiro furo: VM, os 7,4 V dos motores.
+Ligações deste passo, fio a fio:
+  - Fio 3: (também aparece no passo 35: uma ponta é soldada aqui e a outra lá)
+      uma ponta: conector da bateria, fio + vermelho
+      outra ponta: ponte H TB6612, furo VM (fileira de energia, a do VM; 1º furo)
+      caminho: sobe pelo rasgo R4
+      observação: vermelho do conector da bateria, junto com o fio 1: os motores não passam pela
+        chave
+ATENÇÃO: O VM fica colado no VCC. 7,4 V no VCC queima a ponte H, o ESP32 e os sensores.
+Quando terminar: passo 57 feito. Próximo: passo 58.
+
+----------------------------------------------------------------------------------------------------
+PASSO 58 de 69 · Bloco 11 · Fio 19 no VCC
+----------------------------------------------------------------------------------------------------
+Imagem: docs/manual/ponteh-g2.webp
+Lupa (detalhe ampliado, no canto da imagem): docs/manual/ponteh-g2-lupa.webp
+Na imagem: círculo com o número do fio 19.
+Peças deste passo:
+  - Fio 19 — amarelo — 26 AWG — corte com 130 mm
+O que fazer:
+  * Segundo furo: VCC. O fio 19 vem da emenda 3V3 e sobe pelo rasgo R2.
+Ligações deste passo, fio a fio:
+  - Fio 19: (também aparece no passo 42: uma ponta é soldada aqui e a outra lá)
+      uma ponta: emenda 3V3 (5 fios torcidos e soldados juntos)
+      outra ponta: ponte H TB6612, furo VCC (fileira de energia, a do VM; 2º furo)
+      caminho: sobe pelo rasgo R2
+Quando terminar: passo 58 feito. Próximo: passo 59.
+
+----------------------------------------------------------------------------------------------------
+PASSO 59 de 69 · Bloco 11 · Fio 4 no GND
+----------------------------------------------------------------------------------------------------
+Imagem: docs/manual/ponteh-g3.webp
+Lupa (detalhe ampliado, no canto da imagem): docs/manual/ponteh-g3-lupa.webp
+Na imagem: círculo com o número do fio 4.
+Peças deste passo:
+  - Fio 4 — preto — 22 AWG — corte com 120 mm
+O que fazer:
+  * Terceiro furo: GND. O último GND da fileira fica vazio.
+Ligações deste passo, fio a fio:
+  - Fio 4: (também aparece no passo 36: uma ponta é soldada aqui e a outra lá)
+      uma ponta: conector da bateria, fio − preto
+      outra ponta: ponte H TB6612, furo GND (fileira de energia, a do VM; 3º furo)
+      caminho: sobe pelo rasgo R4
+      observação: preto do conector da bateria, junto com o fio 5
+Quando terminar: passo 59 feito. Próximo: passo 60.
+
+----------------------------------------------------------------------------------------------------
+PASSO 60 de 69 · Bloco 11 · Motor esquerdo: 6 e 7
+----------------------------------------------------------------------------------------------------
+Imagem: docs/manual/ponteh-g4.webp
+Lupa (detalhe ampliado, no canto da imagem): docs/manual/ponteh-g4-lupa.webp
+Na imagem: círculos com os números dos fios 6, 7.
+Peças deste passo:
+  - Fio 6 — cinza — 22 AWG — corte com 160 mm
+  - Fio 7 — cinza — 22 AWG — corte com 160 mm
+O que fazer:
+  * 6 no A01 e 7 no A02.
+Ligações deste passo, fio a fio:
+  - Fio 6: (também aparece no passo 26: uma ponta é soldada aqui e a outra lá)
+      uma ponta: motor esquerdo, um dos dois terminais
+      outra ponta: ponte H TB6612, furo A01 (fileira de energia, a do VM; 4º furo)
+      caminho: furo Ø6 da tampa e rasgo R4
+  - Fio 7: (também aparece no passo 26: uma ponta é soldada aqui e a outra lá)
+      uma ponta: motor esquerdo, um dos dois terminais
+      outra ponta: ponte H TB6612, furo A02 (fileira de energia, a do VM; 5º furo)
+      caminho: furo Ø6 da tampa e rasgo R4
+Quando terminar: passo 60 feito. Próximo: passo 61.
+
+----------------------------------------------------------------------------------------------------
+PASSO 61 de 69 · Bloco 11 · Motor direito: 9 e 8
+----------------------------------------------------------------------------------------------------
+Imagem: docs/manual/ponteh-g5.webp
+Lupa (detalhe ampliado, no canto da imagem): docs/manual/ponteh-g5-lupa.webp
+Na imagem: círculos com os números dos fios 9, 8.
+Peças deste passo:
+  - Fio 9 — branco — 22 AWG — corte com 160 mm
+  - Fio 8 — branco — 22 AWG — corte com 160 mm
+O que fazer:
+  * 9 no B02 e 8 no B01. Na placa o B02 vem antes.
+Ligações deste passo, fio a fio:
+  - Fio 9: (também aparece no passo 26: uma ponta é soldada aqui e a outra lá)
+      uma ponta: motor direito, um dos dois terminais
+      outra ponta: ponte H TB6612, furo B02 (fileira de energia, a do VM; 6º furo)
+      caminho: furo Ø6 da tampa e rasgo R4
+  - Fio 8: (também aparece no passo 26: uma ponta é soldada aqui e a outra lá)
+      uma ponta: motor direito, um dos dois terminais
+      outra ponta: ponte H TB6612, furo B01 (fileira de energia, a do VM; 7º furo)
+      caminho: furo Ø6 da tampa e rasgo R4
+CONFIRA: Bipe entre VM e VCC e entre VM e GND: não pode apitar.
+Quando terminar: passo 61 feito. Próximo: passo 62.
+
+----------------------------------------------------------------------------------------------------
+PASSO 62 de 69 · Bloco 11 · Confira a ponte H no robô
+----------------------------------------------------------------------------------------------------
+Imagem: docs/manual/robo-tb.webp
+Lupa (detalhe ampliado, no canto da imagem): docs/manual/robo-tb-lupa.webp
+O que fazer:
+  * Sete fios na fileira de energia e sete na de controle. Nenhum fio esticado: a plataforma ainda
+    vai receber o capô.
+Quando terminar: passo 62 feito. Próximo: passo 63.
+
+####################################################################################################
+BLOCO 12 · CONFERIR E FECHAR · passos 63 a 66
+####################################################################################################
+Dez minutos de multímetro evitam queimar a placa. Com o capô fechado não dá mais para consertar.
+Imagem de capa: docs/manual/robo-capo.webp
+
+----------------------------------------------------------------------------------------------------
+PASSO 63 de 69 · Bloco 12 · O que NÃO pode apitar
+----------------------------------------------------------------------------------------------------
+Imagem: nenhuma (passo só de texto)
+Peças deste passo:
+  - Multímetro — no bipe
+O que fazer:
+  * Bateria desconectada.
+Tabela:
+    Ponta vermelha             | Ponta preta    | Resultado
+    ---------------------------+----------------+----------------
+    + do conector              | − do conector  | não pode apitar
+    VM da ponte H              | VCC da ponte H | não pode apitar
+    VIN do ESP32               | 3V3 do ESP32   | não pode apitar
+    3V3 do ESP32               | GND do ESP32   | não pode apitar
+    cada pino soldado do ESP32 | o pino do lado | não pode apitar
+    IN+ do LM2596, chave LIGA  | IN− do LM2596  | não pode apitar
+ATENÇÃO: Se algum apitar, há curto. Não ligue a bateria.
+Quando terminar: passo 63 feito. Próximo: passo 64.
+
+----------------------------------------------------------------------------------------------------
+PASSO 64 de 69 · Bloco 12 · O que TEM que apitar
+----------------------------------------------------------------------------------------------------
+Imagem: nenhuma (passo só de texto)
+O que fazer:
+  * Ainda sem bateria.
+Tabela:
+    Ponta vermelha | Ponta preta    | Resultado
+    ---------------+----------------+---------------
+    − do conector  | GND do ESP32   | tem que apitar
+    − do conector  | GND da ponte H | tem que apitar
+    OUT+ do LM2596 | VIN do ESP32   | tem que apitar
+    + do conector  | VM da ponte H  | tem que apitar
+Quando terminar: passo 64 feito. Próximo: passo 65.
+
+----------------------------------------------------------------------------------------------------
+PASSO 65 de 69 · Bloco 12 · Primeira vez ligado
+----------------------------------------------------------------------------------------------------
+Imagem: nenhuma (passo só de texto)
+Peças deste passo:
+  - Multímetro — tensão DC
+O que fazer:
+  * Robô no ar, sem USB. Conecte a bateria, chave em LIGA e meça.
+Tabela:
+    Onde medir         | Tem que dar
+    -------------------+----------------------
+    OUT+ / OUT− LM2596 | 4,9 – 5,1 V
+    3V3 / GND ESP32    | 3,2 – 3,4 V
+    VM / GND ponte H   | 7,0 – 8,4 V (bateria)
+    VCC / GND ponte H  | 3,2 – 3,4 V
+    Vcc / Gnd sonar    | 4,9 – 5,1 V
+ATENÇÃO: Cheiro de queimado ou algo esquentando: desligue e desconecte a bateria na hora.
+Quando terminar: passo 65 feito. Próximo: passo 66.
+
+----------------------------------------------------------------------------------------------------
+PASSO 66 de 69 · Bloco 12 · Capô e parafusos
+----------------------------------------------------------------------------------------------------
+Imagem: docs/manual/robo-capo.webp
+Peças deste passo:
+  - 4× Parafuso M3 × 45
+O que fazer:
+  * Encaixe o capô e aperte os 4 parafusos atravessando capô, plataforma e os dois espaçadores até a
+    coluna.
+Quando terminar: passo 66 feito. Próximo: passo 67.
+
+####################################################################################################
+BLOCO 13 · PROGRAMAR E LUTAR · passos 67 a 69
+####################################################################################################
+Para regravar é preciso tirar o capô: o USB fica para dentro, do lado da ponte H.
+Imagem de capa: docs/manual/robo-pronto-topo.webp
+
+----------------------------------------------------------------------------------------------------
+PASSO 67 de 69 · Bloco 13 · Prepare a Arduino IDE
+----------------------------------------------------------------------------------------------------
+Imagem: nenhuma (passo só de texto)
+O que fazer:
+  * Placas: esp32 da Espressif. Bibliotecas: IRremote. Placa: DOIT ESP32 DEVKIT V1.
+  * No código, o número é o nome D impresso ao lado do pino: 26 é o D26.
+ATENÇÃO: Com o cabo USB ligado, a chave fica sempre em DESLIGA.
+Quando terminar: passo 67 feito. Próximo: passo 68.
+
+----------------------------------------------------------------------------------------------------
+PASSO 68 de 69 · Bloco 13 · Modo teste
+----------------------------------------------------------------------------------------------------
+Imagem: nenhuma (passo só de texto)
+O que fazer:
+  * Grave com MODO_TESTE = true e abra o Monitor Serial em 115200.
+  * Controle do juiz: aperte START e STOP e anote os códigos em IR_START e IR_STOP.
+  * Robô no preto e no branco: a leitura cai no branco. Mão na frente: a distância cai.
+  * Robô no ar, bateria conectada: digite e e d. Cada roda gira para a frente; se girar para trás,
+    troque os dois fios daquele motor na ponte H.
+Quando terminar: passo 68 feito. Próximo: passo 69.
+
+----------------------------------------------------------------------------------------------------
+PASSO 69 de 69 · Bloco 13 · Modo luta
+----------------------------------------------------------------------------------------------------
+Imagem: docs/manual/robo-pronto-topo.webp
+O que fazer:
+  * Grave com MODO_TESTE = false, feche o capô e tire o USB.
+  * Na arena: chave em LIGA, robô no preto. LED piscando devagar = esperando o juiz. No START ele
+    sai procurando; no STOP para.
+Quando terminar: passo 69 feito. Fim do manual.
+
+FIM DO MANUAL DESTA VERSÃO

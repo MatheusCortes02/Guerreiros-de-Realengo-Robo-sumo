@@ -1,0 +1,175 @@
+====================================================================================================
+LIGAÇÕES POR PEÇA · FURO POR FURO
+====================================================================================================
+Cada linha: furo ou pino da peça → número do fio → onde a outra ponta chega. Furo sem fio: “vazio”.
+
+CONECTOR DA BATERIA, LADO DO ROBÔ [CON]
+  + vermelho    : fio 1 → chave SS12D00, pino COM (o do meio); fio 3 → ponte H TB6612, furo VM
+        (fileira de energia, a do VM; 1º furo)
+  − preto       : fio 4 → ponte H TB6612, furo GND (fileira de energia, a do VM; 3º furo); fio 5 →
+        LM2596, furo IN−
+
+CHAVE DESLIZANTE SS12D00 [CH]
+  P1            : fio 2 → LM2596, furo IN+
+  COM           : fio 1 → conector da bateria, fio + vermelho
+  P2            : vazio
+
+PONTE H TB6612FNG [TB]
+  VM            : fio 3 → conector da bateria, fio + vermelho
+  VCC           : fio 19 → emenda 3V3 (5 fios torcidos e soldados juntos)
+  GND           : fio 4 → conector da bateria, fio − preto
+  A01           : fio 6 → motor esquerdo, um dos dois terminais
+  A02           : fio 7 → motor esquerdo, um dos dois terminais
+  B02           : fio 9 → motor direito, um dos dois terminais
+  B01           : fio 8 → motor direito, um dos dois terminais
+  GND           : vazio
+  PWMA          : fio 28 → ESP32, pino D25 (fileira da FRENTE, a do EN…VIN, lado do sonar; 8º pino
+        contando a partir da ponta do USB)
+  AIN2          : fio 29 → ESP32, pino D27 (fileira da FRENTE, a do EN…VIN, lado do sonar; 6º pino
+        contando a partir da ponta do USB)
+  AIN1          : fio 30 → ESP32, pino D26 (fileira da FRENTE, a do EN…VIN, lado do sonar; 7º pino
+        contando a partir da ponta do USB)
+  STBY          : fio 31 → ESP32, pino D13 (fileira da FRENTE, a do EN…VIN, lado do sonar; 3º pino
+        contando a partir da ponta do USB)
+  BIN1          : fio 32 → ESP32, pino D32 (fileira da FRENTE, a do EN…VIN, lado do sonar; 10º pino
+        contando a partir da ponta do USB)
+  BIN2          : fio 33 → ESP32, pino D33 (fileira da FRENTE, a do EN…VIN, lado do sonar; 9º pino
+        contando a partir da ponta do USB)
+  PWMB          : fio 34 → ESP32, pino D14 (fileira da FRENTE, a do EN…VIN, lado do sonar; 5º pino
+        contando a partir da ponta do USB)
+  GND           : vazio
+
+REGULADOR LM2596 [LM]
+  IN+           : fio 2 → chave SS12D00, pino P1 (o do lado que LIGA, achado com o multímetro)
+  IN−           : fio 5 → conector da bateria, fio − preto
+  OUT+          : fio 10 → ESP32, pino VIN (fileira da FRENTE, a do EN…VIN, lado do sonar; 1º pino
+        contando a partir da ponta do USB); fio 12 → sonar HC-SR04, pino VCC
+  OUT−          : fio 11 → ESP32, pino GND (fileira da FRENTE, a do EN…VIN, lado do sonar; 2º pino
+        contando a partir da ponta do USB); fio 13 → sonar HC-SR04, pino GND
+
+ESP32 DEVKIT V1 [ESP]
+    Por baixo da placa não aparece nome: conte a partir da ponta do USB. Todos os fios são soldados
+    na ponta do pino, por baixo da plataforma, com termorretrátil.
+  Fileira da FRENTE (EN…VIN, lado do sonar), do 1º (ponta do USB) ao 15º:
+     1º VIN  : fio 10 → LM2596, furo OUT+
+     2º GND  : fio 11 → LM2596, furo OUT−
+     3º D13  : fio 31 → ponte H TB6612, furo STBY (fileira de controle, a do PWMA; 4º furo)
+     4º D12  : vazio
+     5º D14  : fio 34 → ponte H TB6612, furo PWMB (fileira de controle, a do PWMA; 7º furo)
+     6º D27  : fio 29 → ponte H TB6612, furo AIN2 (fileira de controle, a do PWMA; 2º furo)
+     7º D26  : fio 30 → ponte H TB6612, furo AIN1 (fileira de controle, a do PWMA; 3º furo)
+     8º D25  : fio 28 → ponte H TB6612, furo PWMA (fileira de controle, a do PWMA; 1º furo)
+     9º D33  : fio 33 → ponte H TB6612, furo BIN2 (fileira de controle, a do PWMA; 6º furo)
+    10º D32  : fio 32 → ponte H TB6612, furo BIN1 (fileira de controle, a do PWMA; 5º furo)
+    11º D35  : fio 24 → sensor direito (TCRT5000), perna C
+    12º D34  : fio 23 → sensor esquerdo (TCRT5000), perna C
+    13º VN   : vazio
+    14º VP   : vazio
+    15º EN   : vazio
+  Fileira de TRÁS (D23…3V3), do 1º (ponta do USB) ao 15º:
+     1º 3V3  : fio 14 → emenda 3V3 (5 fios torcidos e soldados juntos)
+     2º GND  : fio 15 → emenda GND (5 fios torcidos e soldados juntos)
+     3º D15  : vazio
+     4º D2   : vazio
+     5º D4   : vazio
+     6º RX2  : vazio
+     7º TX2  : vazio
+     8º D5   : fio 25 → sonar HC-SR04, pino TRIG
+     9º D18  : fio 26B → nó do divisor do sonar (perna do 1 kΩ onde também estão o 2 kΩ e o fio 26B)
+    10º D19  : fio 27 → receptor do juiz, perna OUT
+    11º D21  : vazio
+    12º RX0  : vazio
+    13º TX0  : vazio
+    14º D22  : vazio
+    15º D23  : vazio
+
+HC-SR04 [HC]
+  VCC           : fio 12 → LM2596, furo OUT+
+  TRIG          : fio 25 → ESP32, pino D5 (fileira de TRÁS, a do D23…3V3; 8º pino contando a partir
+        da ponta do USB)
+  ECHO          : fio 26A → resistor 1 kΩ do divisor do sonar (perna emendada no fio 26A)
+  GND           : fio 13 → LM2596, furo OUT−
+
+TCRT5000 ESQUERDO [TE]
+  perna A       : vazio
+  perna K       : fio 20 → emenda GND (5 fios torcidos e soldados juntos)
+  perna C       : fio 23 → ESP32, pino D34 (fileira da FRENTE, a do EN…VIN, lado do sonar; 12º pino
+        contando a partir da ponta do USB)
+  perna E       : vazio
+
+TCRT5000 DIREITO [TD]
+  perna A       : vazio
+  perna K       : fio 21 → emenda GND (5 fios torcidos e soldados juntos)
+  perna C       : fio 24 → ESP32, pino D35 (fileira da FRENTE, a do EN…VIN, lado do sonar; 11º pino
+        contando a partir da ponta do USB)
+  perna E       : vazio
+
+RECEPTOR DO JUIZ [IR]
+  OUT           : fio 27 → ESP32, pino D19 (fileira de TRÁS, a do D23…3V3; 10º pino contando a
+        partir da ponta do USB)
+  GND           : fio 22 → emenda GND (5 fios torcidos e soldados juntos)
+  VCC           : fio 18 → emenda 3V3 (5 fios torcidos e soldados juntos)
+
+MOTOR ESQUERDO [ME]
+  terminal      : fio 6 → ponte H TB6612, furo A01 (fileira de energia, a do VM; 4º furo)
+  terminal      : fio 7 → ponte H TB6612, furo A02 (fileira de energia, a do VM; 5º furo)
+
+MOTOR DIREITO [MD]
+  terminal      : fio 8 → ponte H TB6612, furo B01 (fileira de energia, a do VM; 7º furo)
+  terminal      : fio 9 → ponte H TB6612, furo B02 (fileira de energia, a do VM; 6º furo)
+
+RESISTOR 100 Ω DO TCRT ESQUERDO [R100E]
+  resistores    : vazio
+  resistores    : fio 16 → emenda 3V3 (5 fios torcidos e soldados juntos)
+
+RESISTOR 10 KΩ DO TCRT ESQUERDO [R10kE]
+  1             : vazio
+  2             : vazio
+
+RESISTOR 100 Ω DO TCRT DIREITO [R100D]
+  resistores    : vazio
+  resistores    : fio 17 → emenda 3V3 (5 fios torcidos e soldados juntos)
+
+RESISTOR 10 KΩ DO TCRT DIREITO [R10kD]
+  1             : vazio
+  2             : vazio
+
+RESISTOR 1 KΩ DO ECHO [R1k]
+  1 kΩ          : fio 26A → sonar HC-SR04, pino ECHO
+  1 kΩ          : fio 26B → ESP32, pino D18 (fileira de TRÁS, a do D23…3V3; 9º pino contando a
+        partir da ponta do USB)
+
+RESISTOR 2 KΩ DO ECHO [R2k]
+  2 kΩ          : vazio
+  2 kΩ          : fio 26C → emenda GND (5 fios torcidos e soldados juntos)
+
+EMENDA 3V3 [S33]
+  emenda        : fio 14 → ESP32, pino 3V3 (fileira de TRÁS, a do D23…3V3; 1º pino contando a partir
+        da ponta do USB); fio 16 → ponta de cima dos dois resistores (100 Ω e 10 kΩ) do sensor
+        esquerdo, torcidas juntas; fio 17 → ponta de cima dos dois resistores (100 Ω e 10 kΩ) do
+        sensor direito, torcidas juntas; fio 18 → receptor do juiz, perna VCC; fio 19 → ponte H
+        TB6612, furo VCC (fileira de energia, a do VM; 2º furo)
+
+EMENDA GND [SGND]
+  emenda        : fio 15 → ESP32, pino GND (fileira de TRÁS, a do D23…3V3; 2º pino contando a partir
+        da ponta do USB); fio 20 → sensor esquerdo (TCRT5000), perna K; fio 21 → sensor direito
+        (TCRT5000), perna K; fio 22 → receptor do juiz, perna GND; fio 26C → resistor 2 kΩ do
+        divisor do sonar (perna livre, onde vai o fio 26C)
+
+SOLDAS DIRETAS SEM FIO NUMERADO
+  J1: 100 Ω soldado na perna A do TCRT esquerdo
+  J2: 10 kΩ soldado na perna C do TCRT esquerdo, junto com o fio 23
+  J3: ponte entre as pernas K e E do TCRT esquerdo (sobra de perna de resistor)
+  J4: pontas livres dos dois resistores do TCRT esquerdo torcidas juntas, com o fio 16
+  J5: 100 Ω soldado na perna A do TCRT direito
+  J6: 10 kΩ soldado na perna C do TCRT direito, junto com o fio 24
+  J7: ponte entre as pernas K e E do TCRT direito
+  J8: pontas livres dos dois resistores do TCRT direito torcidas juntas, com o fio 17
+  J9: nó do divisor: 1 kΩ, 2 kΩ e fio 26B soldados juntos
+
+LIGAÇÕES QUE JÁ EXISTEM DENTRO DAS PLACAS (cobre da placa)
+  - TB.GND_P3 = TB.GND_P8 = TB.GND_C8
+  - ESP.GND_F = ESP.GND_T
+  - LM.IN- = LM.OUT-
+  - BAT.+ = CON.+
+  - BAT.- = CON.-
