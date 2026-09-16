@@ -10,14 +10,14 @@ Robô **autônomo** de mini sumô (base de até 10 × 10 cm e até 500 g) do gru
 
 O site é um **manual no estilo LEGO**, feito para ser seguido na bancada pelo celular:
 
-- **66 passos em 13 blocos**, uma ação por passo;
+- **69 passos em 13 blocos**, uma ação por passo;
 - **blocos em cards**: entre num bloco e passe os passos um por tela, com botões grandes, deslizar para o lado e continuar de onde parou;
 - a primeira tela de cada bloco mostra **os fios que ele usa, já com o tamanho de corte**;
 - em cada passo, a **imagem do Blender** com a peça em tamanho real, o **número de cada fio** em cima dele e uma **lupa** com o detalhe;
 - avisos do que **queima** se ligar errado e o que **conferir com o multímetro** antes de seguir;
 - **vídeo da montagem** com capítulos por bloco, **lista de corte**, **ligações por peça** e **achar fio** pelo número da fita;
-- duas versões: a **do grupo** ([index.html](https://matheuscortes02.github.io/Guerreiros-de-Realengo-Robo-sumo/), só fio vermelho e preto, com sonar, receptor e motores já soldados) e a **completa** ([completo.html](https://matheuscortes02.github.io/Guerreiros-de-Realengo-Robo-sumo/completo.html), fios coloridos e tudo soldado do zero);
-- **português e inglês** ([en.html](https://matheuscortes02.github.io/Guerreiros-de-Realengo-Robo-sumo/en.html)) e **tema claro e escuro**.
+- duas versões: a **padrão**, com fios coloridos e tudo soldado do zero ([index.html](https://matheuscortes02.github.io/Guerreiros-de-Realengo-Robo-sumo/)), e a **do grupo**, só com fio vermelho e preto e com sonar, receptor e motores já soldados ([grupo.html](https://matheuscortes02.github.io/Guerreiros-de-Realengo-Robo-sumo/grupo.html));
+- **português e inglês** pelas bandeiras no topo ([en.html](https://matheuscortes02.github.io/Guerreiros-de-Realengo-Robo-sumo/en.html) · [grupo-en.html](https://matheuscortes02.github.io/Guerreiros-de-Realengo-Robo-sumo/grupo-en.html)) e **tema claro e escuro** pelo ícone de sol e lua.
 
 ## Equipe
 
