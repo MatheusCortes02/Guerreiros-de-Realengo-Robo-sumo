@@ -100,6 +100,11 @@ main{max-width:1200px;margin:0 auto;padding:0 12px 60px}
 .versao{margin-top:14px;font-size:14px;color:var(--tinta-2);background:var(--papel);border:1px solid var(--linha);border-radius:12px;padding:10px 12px}
 .versao a{font-weight:700;color:var(--acento);white-space:nowrap}
 .hero-img{border-radius:var(--raio);box-shadow:var(--sombra);background:var(--cena);width:100%}
+.hero-video{position:relative;display:block;border-radius:var(--raio);overflow:hidden;box-shadow:var(--sombra);background:var(--cena)}
+.hero-video video{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover}
+.hero-video-rot{position:absolute;left:12px;bottom:12px;font:700 12px/1 var(--f-disp);letter-spacing:.05em;text-transform:uppercase;
+  color:#fff;background:#000000a6;padding:8px 10px;border-radius:8px;transition:background .15s}
+.hero-video:hover .hero-video-rot,.hero-video:focus-visible .hero-video-rot{background:var(--acento)}
 .sec-h{font-size:28px;margin:30px 0 12px}
 .cards{display:grid;grid-template-columns:1fr;gap:12px}
 .card-bloco{position:relative;display:grid;grid-template-columns:112px 1fr;gap:12px;align-items:center;background:var(--papel);border:1px solid var(--linha);
@@ -378,7 +383,7 @@ pre{margin:0;padding:14px;overflow:auto;font:12.5px/1.6 var(--f-num);max-height:
       <div class="hero-prog"><span class="hp-barra"><i id="prog-barra"></i></span><small id="prog"></small></div>
       <p class="versao"><span>Versão com fios coloridos, soldando tudo do zero.</span> <a href="grupo.html">Ver versão do grupo (vermelho e preto)</a></p>
     </div>
-    <img class="hero-img" src="docs/manual/robo-aberto-mini.webp" alt="" width="900" height="675">
+    <a class="hero-video" href="#/video" aria-label="Vídeo da montagem"><video id="video-heroi" muted loop playsinline preload="metadata" poster="docs/grupo/montagem-poster.webp" width="1280" height="720"><source src="docs/grupo/montagem.mp4" type="video/mp4"></video><span class="hero-video-rot">Vídeo da montagem · 46 s, com capítulos por bloco</span></a>
   </div>
   <h2 class="sec-h">Blocos</h2>
   <div class="cards"><a class="card-bloco" href="#/bloco/1" data-ini="1" data-fim="4"><span class="cb-img"><img src="docs/manual/preparo-pecas-mini.webp" alt="" loading="lazy" width="640" height="480"></span><span class="cb-num">1</span><span class="cb-txt"><b>Antes de começar</b><small>4 passos · 1–4</small><span class="cb-prog"><i></i></span><small class="cb-estado"></small></span></a><a class="card-bloco" href="#/bloco/2" data-ini="5" data-fim="14"><span class="cb-img"><img src="docs/manual/tcrt-t8-mini.webp" alt="" loading="lazy" width="640" height="480"></span><span class="cb-num">2</span><span class="cb-txt"><b>Sensores de borda</b><small>10 passos · 5–14</small><span class="cb-prog"><i></i></span><small class="cb-estado"></small></span></a><a class="card-bloco" href="#/bloco/3" data-ini="15" data-fim="21"><span class="cb-img"><img src="docs/manual/sonar-h6-mini.webp" alt="" loading="lazy" width="640" height="480"></span><span class="cb-num">3</span><span class="cb-txt"><b>Sonar HC-SR04</b><small>7 passos · 15–21</small><span class="cb-prog"><i></i></span><small class="cb-estado"></small></span></a><a class="card-bloco" href="#/bloco/4" data-ini="22" data-fim="25"><span class="cb-img"><img src="docs/manual/receptor-i3-mini.webp" alt="" loading="lazy" width="640" height="480"></span><span class="cb-num">4</span><span class="cb-txt"><b>Receptor do juiz</b><small>4 passos · 22–25</small><span class="cb-prog"><i></i></span><small class="cb-estado"></small></span></a><a class="card-bloco" href="#/bloco/5" data-ini="26" data-fim="30"><span class="cb-img"><img src="docs/manual/robo-rodas-mini.webp" alt="" loading="lazy" width="640" height="480"></span><span class="cb-num">5</span><span class="cb-txt"><b>Motores e rodas</b><small>5 passos · 26–30</small><span class="cb-prog"><i></i></span><small class="cb-estado"></small></span></a><a class="card-bloco" href="#/bloco/6" data-ini="31" data-fim="37"><span class="cb-img"><img src="docs/manual/chave-c5-mini.webp" alt="" loading="lazy" width="640" height="480"></span><span class="cb-num">6</span><span class="cb-txt"><b>Bateria, conector e chave</b><small>7 passos · 31–37</small><span class="cb-prog"><i></i></span><small class="cb-estado"></small></span></a><a class="card-bloco" href="#/bloco/7" data-ini="38" data-fim="41"><span class="cb-img"><img src="docs/manual/robo-lm-hc-mini.webp" alt="" loading="lazy" width="640" height="480"></span><span class="cb-num">7</span><span class="cb-txt"><b>Regulador LM2596</b><small>4 passos · 38–41</small><span class="cb-prog"><i></i></span><small class="cb-estado"></small></span></a><a class="card-bloco" href="#/bloco/8" data-ini="42" data-fim="44"><span class="cb-img"><img src="docs/manual/robo-emendas-mini.webp" alt="" loading="lazy" width="640" height="480"></span><span class="cb-num">8</span><span class="cb-txt"><b>Emendas 3V3 e GND</b><small>3 passos · 42–44</small><span class="cb-prog"><i></i></span><small class="cb-estado"></small></span></a><a class="card-bloco" href="#/bloco/9" data-ini="45" data-fim="52"><span class="cb-img"><img src="docs/manual/robo-plat-tb-mini.webp" alt="" loading="lazy" width="640" height="480"></span><span class="cb-num">9</span><span class="cb-txt"><b>Plataforma: ESP32 e ponte H</b><small>8 passos · 45–52</small><span class="cb-prog"><i></i></span><small class="cb-estado"></small></span></a><a class="card-bloco" href="#/bloco/10" data-ini="53" data-fim="56"><span class="cb-img"><img src="docs/manual/robo-plataforma-mini.webp" alt="" loading="lazy" width="640" height="480"></span><span class="cb-num">10</span><span class="cb-txt"><b>Plataforma no robô</b><small>4 passos · 53–56</small><span class="cb-prog"><i></i></span><small class="cb-estado"></small></span></a><a class="card-bloco" href="#/bloco/11" data-ini="57" data-fim="62"><span class="cb-img"><img src="docs/manual/robo-tb-mini.webp" alt="" loading="lazy" width="640" height="480"></span><span class="cb-num">11</span><span class="cb-txt"><b>Ponte H: energia e motores</b><small>6 passos · 57–62</small><span class="cb-prog"><i></i></span><small class="cb-estado"></small></span></a><a class="card-bloco" href="#/bloco/12" data-ini="63" data-fim="66"><span class="cb-img"><img src="docs/manual/robo-capo-mini.webp" alt="" loading="lazy" width="640" height="480"></span><span class="cb-num">12</span><span class="cb-txt"><b>Conferir e fechar</b><small>4 passos · 63–66</small><span class="cb-prog"><i></i></span><small class="cb-estado"></small></span></a><a class="card-bloco" href="#/bloco/13" data-ini="67" data-fim="69"><span class="cb-img"><img src="docs/manual/robo-pronto-topo-mini.webp" alt="" loading="lazy" width="640" height="480"></span><span class="cb-num">13</span><span class="cb-txt"><b>Programar e lutar</b><small>3 passos · 67–69</small><span class="cb-prog"><i></i></span><small class="cb-estado"></small></span></a></div>
@@ -1630,6 +1635,12 @@ void loop() {
 
   /* ---------------------------------------------------------------- rotas */
   var vistas = $$('.vista'), vistaAtual = null, telaAtual = null;
+  var videoHeroi = $('#video-heroi');
+  function tocaHeroi(vista){
+    if (!videoHeroi) return;
+    if (vista && vista.classList.contains('vista-inicio') && !calmo) { var p = videoHeroi.play(); if (p && p.catch) p.catch(function(){}); }
+    else videoHeroi.pause();
+  }
   function mostraVista(nome){
     var achou = null;
     vistas.forEach(function(v){ var sim = v.getAttribute('data-vista') === nome; v.hidden = !sim; if (sim) achou = v; });
@@ -1637,6 +1648,7 @@ void loop() {
     if (vistaAtual !== achou) window.scrollTo(0, 0);
     vistaAtual = achou;
     document.body.setAttribute('data-rota', achou.getAttribute('data-vista').split('/')[0] || 'inicio');
+    tocaHeroi(achou);
     return achou;
   }
   function rota(){
