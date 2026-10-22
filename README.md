@@ -154,3 +154,9 @@ modelo-3d/robo-sumo.blend   cena do Blender com a disposição e os fios traçad
 ---
 
 Projeto acadêmico do grupo **Guerreiros de Realengo** para a InovaWeek da UVV. O chassi foi derivado de um modelo STL de terceiros (*Sarı Yazma Tasarım V2*), reescalado e adaptado; confira a licença do original antes de redistribuir fora do contexto acadêmico.
+
+## Licença
+
+O firmware, as páginas do manual, os textos, as imagens e os arquivos do Blender deste repositório estão sob a [licença MIT](LICENSE) — © 2026 Matheus Cortes.
+
+A licença MIT **não** cobre o chassi derivado do modelo STL de terceiros (*Sarı Yazma Tasarım V2*): os arquivos de impressão e a geometria do chassi continuam sujeitos à licença do autor original.
